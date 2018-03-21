@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqust.blog.dao.mappers.ProvinceMapper" >
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.Province" >
+    <constructor >
+      <idArg column="id" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="pname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_province
+    where id = #{id,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from tbl_province
+    where id = #{id,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.Province" >
+    insert into tbl_province (id, pname)
+    values (#{id,jdbcType=TINYINT}, #{pname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Province" >
+    insert into tbl_province
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=TINYINT},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.Province" >
+    update tbl_province
+    <set >
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.Province" >
+    update tbl_province
+    set pname = #{pname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+</mapper>

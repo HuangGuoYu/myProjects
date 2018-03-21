@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqust.blog.dao.mappers.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.User" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="blog_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cate_career" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pid" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="gender" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="age" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="reg_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="fans_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="attention_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="banlance" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, pwd, blog_name, email, cate_career, user_name, pid, gender, age, reg_time, 
+    fans_num, attention_num, state, banlance
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.User" >
+    insert into tbl_user (id, account, pwd, 
+      blog_name, email, cate_career, 
+      user_name, pid, gender, 
+      age, reg_time, fans_num, 
+      attention_num, state, banlance
+      )
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+      #{blogName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{cateCareer,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{pid,jdbcType=TINYINT}, #{gender,jdbcType=TINYINT}, 
+      #{age,jdbcType=TINYINT}, #{regTime,jdbcType=TIMESTAMP}, #{fansNum,jdbcType=INTEGER}, 
+      #{attentionNum,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, #{banlance,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.User" >
+    insert into tbl_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="blogName != null" >
+        blog_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="cateCareer != null" >
+        cate_career,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
+      <if test="fansNum != null" >
+        fans_num,
+      </if>
+      <if test="attentionNum != null" >
+        attention_num,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="banlance != null" >
+        banlance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="blogName != null" >
+        #{blogName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cateCareer != null" >
+        #{cateCareer,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=TINYINT},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fansNum != null" >
+        #{fansNum,jdbcType=INTEGER},
+      </if>
+      <if test="attentionNum != null" >
+        #{attentionNum,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="banlance != null" >
+        #{banlance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.User" >
+    update tbl_user
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="blogName != null" >
+        blog_name = #{blogName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="cateCareer != null" >
+        cate_career = #{cateCareer,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=TINYINT},
+      </if>
+      <if test="regTime != null" >
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fansNum != null" >
+        fans_num = #{fansNum,jdbcType=INTEGER},
+      </if>
+      <if test="attentionNum != null" >
+        attention_num = #{attentionNum,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="banlance != null" >
+        banlance = #{banlance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.User" >
+    update tbl_user
+    set account = #{account,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      blog_name = #{blogName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      cate_career = #{cateCareer,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=TINYINT},
+      gender = #{gender,jdbcType=TINYINT},
+      age = #{age,jdbcType=TINYINT},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      fans_num = #{fansNum,jdbcType=INTEGER},
+      attention_num = #{attentionNum,jdbcType=INTEGER},
+      state = #{state,jdbcType=TINYINT},
+      banlance = #{banlance,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

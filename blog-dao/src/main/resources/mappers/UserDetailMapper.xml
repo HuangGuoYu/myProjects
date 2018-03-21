@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqust.blog.dao.mappers.UserDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.UserDetail" >
+    <constructor >
+      <idArg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="expert_field" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="expert_tech" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="education" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qq" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="wx" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, expert_field, expert_tech, education, phone, qq, wx
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user_detail
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_user_detail
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.UserDetail" >
+    insert into tbl_user_detail (user_id, expert_field, expert_tech, 
+      education, phone, qq, 
+      wx)
+    values (#{userId,jdbcType=INTEGER}, #{expertField,jdbcType=VARCHAR}, #{expertTech,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{wx,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.UserDetail" >
+    insert into tbl_user_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="expertField != null" >
+        expert_field,
+      </if>
+      <if test="expertTech != null" >
+        expert_tech,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wx != null" >
+        wx,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="expertField != null" >
+        #{expertField,jdbcType=VARCHAR},
+      </if>
+      <if test="expertTech != null" >
+        #{expertTech,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null" >
+        #{wx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.UserDetail" >
+    update tbl_user_detail
+    <set >
+      <if test="expertField != null" >
+        expert_field = #{expertField,jdbcType=VARCHAR},
+      </if>
+      <if test="expertTech != null" >
+        expert_tech = #{expertTech,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null" >
+        wx = #{wx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.UserDetail" >
+    update tbl_user_detail
+    set expert_field = #{expertField,jdbcType=VARCHAR},
+      expert_tech = #{expertTech,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      wx = #{wx,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

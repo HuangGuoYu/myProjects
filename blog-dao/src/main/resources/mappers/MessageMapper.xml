@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqust.blog.dao.mappers.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.Message" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="from_user" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="to_user" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="send_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="from_ip" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_look" jdbcType="TINYINT" javaType="java.lang.Byte" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, from_user, to_user, send_time, from_ip, article_id, content, is_look
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.Message" >
+    insert into tbl_message (id, type, from_user, 
+      to_user, send_time, from_ip, 
+      article_id, content, is_look
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{fromUser,jdbcType=INTEGER}, 
+      #{toUser,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}, #{fromIp,jdbcType=VARCHAR}, 
+      #{articleId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{isLook,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Message" >
+    insert into tbl_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="fromUser != null" >
+        from_user,
+      </if>
+      <if test="toUser != null" >
+        to_user,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="fromIp != null" >
+        from_ip,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="isLook != null" >
+        is_look,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fromUser != null" >
+        #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromIp != null" >
+        #{fromIp,jdbcType=VARCHAR},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isLook != null" >
+        #{isLook,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.Message" >
+    update tbl_message
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fromUser != null" >
+        from_user = #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        to_user = #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromIp != null" >
+        from_ip = #{fromIp,jdbcType=VARCHAR},
+      </if>
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isLook != null" >
+        is_look = #{isLook,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.Message" >
+    update tbl_message
+    set type = #{type,jdbcType=TINYINT},
+      from_user = #{fromUser,jdbcType=INTEGER},
+      to_user = #{toUser,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      from_ip = #{fromIp,jdbcType=VARCHAR},
+      article_id = #{articleId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      is_look = #{isLook,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

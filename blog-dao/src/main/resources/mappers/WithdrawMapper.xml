@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqust.blog.dao.mappers.WithdrawMapper" >
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.Withdraw" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="apply_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="alipay_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="alipay_account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="money" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="TINYINT" javaType="java.lang.Byte" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, apply_time, user_id, alipay_name, alipay_account, money, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_withdraw
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_withdraw
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.Withdraw" >
+    insert into tbl_withdraw (id, apply_time, user_id, 
+      alipay_name, alipay_account, money, 
+      state)
+    values (#{id,jdbcType=INTEGER}, #{applyTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{alipayName,jdbcType=VARCHAR}, #{alipayAccount,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Withdraw" >
+    insert into tbl_withdraw
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="alipayName != null" >
+        alipay_name,
+      </if>
+      <if test="alipayAccount != null" >
+        alipay_account,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="alipayName != null" >
+        #{alipayName,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAccount != null" >
+        #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.Withdraw" >
+    update tbl_withdraw
+    <set >
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="alipayName != null" >
+        alipay_name = #{alipayName,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAccount != null" >
+        alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.Withdraw" >
+    update tbl_withdraw
+    set apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      alipay_name = #{alipayName,jdbcType=VARCHAR},
+      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      money = #{money,jdbcType=INTEGER},
+      state = #{state,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
