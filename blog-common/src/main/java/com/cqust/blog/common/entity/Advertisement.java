@@ -1,6 +1,11 @@
 package com.cqust.blog.common.entity;
 
-public class Advertisement {
+import java.io.Serializable;
+
+public class Advertisement implements Serializable {
+
+    private static final long serialVersionUID = 4007979002704067506L;
+
     private Integer id;
 
     private String url;

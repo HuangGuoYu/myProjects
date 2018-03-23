@@ -1,6 +1,10 @@
 package com.cqust.blog.common.entity;
 
+import java.io.Serializable;
+
 public class UserStatic extends UserStaticKey {
+
+    private static final long serialVersionUID = 4011554722881008626L;
     private Integer postNum;
 
     private Integer originalNum;

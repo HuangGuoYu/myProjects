@@ -1,6 +1,11 @@
 package com.cqust.blog.common.entity;
 
-public class UserDetail {
+import java.io.Serializable;
+
+public class UserDetail implements Serializable{
+
+
+    private static final long serialVersionUID = 5468176343033268059L;
     private Integer userId;
 
     private String expertField;

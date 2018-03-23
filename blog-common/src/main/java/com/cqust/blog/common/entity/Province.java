@@ -1,6 +1,11 @@
 package com.cqust.blog.common.entity;
 
-public class Province {
+import java.io.Serializable;
+
+public class Province implements Serializable{
+
+
+    private static final long serialVersionUID = 5731753263189963431L;
     private Byte id;
 
     private String pname;

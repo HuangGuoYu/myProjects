@@ -1,6 +1,10 @@
 package com.cqust.blog.common.entity;
 
-public class ArticleCategory {
+import java.io.Serializable;
+
+public class ArticleCategory implements Serializable{
+
+    private static final long serialVersionUID = -6308246825866190249L;
     private Integer id;
 
     private String name;

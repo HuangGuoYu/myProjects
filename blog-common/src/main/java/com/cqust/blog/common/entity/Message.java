@@ -1,8 +1,11 @@
 package com.cqust.blog.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Message {
+public class Message implements Serializable{
+
+    private static final long serialVersionUID = 7950224149912651538L;
     private Integer id;
 
     private Byte type;

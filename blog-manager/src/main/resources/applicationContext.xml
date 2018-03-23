@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.cqust.blog.manager" />
+    <context:component-scan base-package="com.cqust.blog.dao.manager" />
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <value>classpath:datasource.properties</value>
+        </property>
+    </bean>
+
+    <!-- 配置数据源1 -->
+    <import resource="applicationContext-datasoure.xml" />
+    <import resource="applicationContext-hibernate.xml" />
+
+
+    <!--<bean id="freemarkerConfiguration"
+          class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPaths">
+            <list>
+                <value>/WEB-INF/ftl</value>
+            </list>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">5</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">#############</prop>
+                <prop key="whitespace_stripping">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    &lt;!&ndash;<bean id="freeMarkerUtil" class="freemarker.util.FreeMarkerUtil"></bean>&ndash;&gt;
+
+    <bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="${jmail.username}" />
+        <property name="password" value="${jmail.password}" />
+        <property name="port" value="${jmail.port}" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="host" value="${jmail.host}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.debug">${jmail.mail.debug}</prop>
+                <prop key="mail.smtp.auth">${jmail.mail.smtp.auth}</prop>
+            </props>
+        </property>
+    </bean>-->
+</beans>

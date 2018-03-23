@@ -1,8 +1,11 @@
 package com.cqust.blog.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Withdraw {
+public class Withdraw implements Serializable{
+
+    private static final long serialVersionUID = -7775938402970588204L;
     private Integer id;
 
     private Date applyTime;

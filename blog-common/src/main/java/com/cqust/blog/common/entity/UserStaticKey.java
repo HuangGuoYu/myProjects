@@ -1,6 +1,10 @@
 package com.cqust.blog.common.entity;
 
-public class UserStaticKey {
+import java.io.Serializable;
+
+public class UserStaticKey implements Serializable{
+
+    private static final long serialVersionUID = 2420530994998066724L;
     private Integer userId;
 
     private String time;

@@ -1,6 +1,10 @@
 package com.cqust.blog.common.entity;
 
-public class ArticleUserRel {
+import java.io.Serializable;
+
+public class ArticleUserRel implements Serializable{
+
+    private static final long serialVersionUID = 7381401945879745539L;
     private Integer id;
 
     private Integer userId;
