@@ -4,8 +4,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:property-placeholder location="classpath*:jmail.properties"/>
+    <context:property-placeholder location="classpath*:datasource.properties"/>
     <!-- 扫描service包下所有使用注解的类型 -->
-    <context:component-scan base-package="com.cqust.blog.service.impl" />
+    <context:component-scan base-package="com.cqust.blog.service.impl.web" />
     <!-- 配置事务管理器 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -13,8 +15,36 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数 -->
+        <property name="corePoolSize" value="5" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="50" />
+        <!-- 队列最大长度 -->
+        <property name="queueCapacity" value="1000" />
+        <!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+        <property name="keepAliveSeconds" value="60" />
+    </bean>
+
+
     <!-- 配置基于注解的声明式事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+
     <import resource="spring-dao.xml"/>
+    <import resource="spring-redis.xml"/>
+
+    <bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl" name="javaMailSenderImpl">
+        <property name="username" value="${jmail.username}" />
+        <property name="password" value="${jmail.password}" />
+        <property name="port" value="${jmail.port}" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="host" value="${jmail.host}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.debug">${jmail.mail.debug}</prop>
+                <prop key="mail.smtp.auth">${jmail.mail.smtp.auth}</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

@@ -30,7 +30,7 @@ public class User {
     @Column(name = "user_name", length = 30, nullable = true)
     private String userName;
 
-    @Column(name = "pid", length = 4, nullable = false)
+    @Column(name = "pid", length = 4, nullable = true)
     private Byte pid;
 
     @Column(name = "gender", length = 4, nullable = true)

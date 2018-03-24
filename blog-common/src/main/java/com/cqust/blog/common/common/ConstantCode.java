@@ -9,5 +9,7 @@ public final class ConstantCode {
     public static final int DATA_NOT_FOUND = 404;
     public static final int SERVER_ERROR = 500;
 
+    public static final String MAIL_HOST = "huangguoyu1106@163.com";
+
 
 }

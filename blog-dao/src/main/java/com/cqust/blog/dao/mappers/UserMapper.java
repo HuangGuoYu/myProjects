@@ -1,7 +1,9 @@
 package com.cqust.blog.dao.mappers;
 
 import com.cqust.blog.common.entity.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User checkAcountIsExists(String account);
 }

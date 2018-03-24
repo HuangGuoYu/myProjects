@@ -5,11 +5,14 @@ import com.cqust.blog.common.resp.GeneralResult;
 
 import javax.persistence.Column;
 import java.lang.reflect.Field;
+import java.util.Random;
 
 /**
  * 数据服务工具类
  */
-public class DataUtils {
+public final class DataUtils {
+
+    private static final Random RANDOM = new Random();
 
     public static String test() {
         return "hello world";
@@ -71,5 +74,18 @@ public class DataUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 产生n为随机数
+     * @param n 位数
+     * @return 字符串
+     */
+    public static String genNnumber(int n) {
+        StringBuilder builder = new StringBuilder("");
+        for (int i = 0; i < n; i++) {
+            builder.append(RANDOM.nextInt(10));
+        }
+        return builder.toString();
     }
 }

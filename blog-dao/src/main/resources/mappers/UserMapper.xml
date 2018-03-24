@@ -30,6 +30,12 @@
     from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="checkAcountIsExists" resultType="com.cqust.blog.common.entity.User">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from tbl_user
+    WHERE account = #{account,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}

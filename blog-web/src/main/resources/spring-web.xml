@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <context:property-placeholder location="classpath*:jmail.properties"/>
+
+
     <!-- 配置SpringMVC -->
     <!-- 1.开启SpringMVC注解模式 -->
     <!-- 简化配置：
@@ -35,7 +36,7 @@
         <property name="exposeSpringMacroHelpers" value="true" />
         <property name="cache" value="false" />
         <!--<property name="prefix" value="/"/>-->
-        <property name="suffix" value=".html" />
+        <property name="suffix" value=".ftl" />
         <property name="order" value="0"/>
     </bean>
 
@@ -65,21 +66,7 @@
 
    <!--<bean id="freeMarkerUtil" class="freemarker.util.FreeMarkerUtil"></bean>-->
 
-   <bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-       <property name="username" value="${jmail.username}" />
-       <property name="password" value="${jmail.password}" />
-       <property name="port" value="${jmail.port}" />
-       <property name="defaultEncoding" value="UTF-8" />
-       <property name="host" value="${jmail.host}" />
-       <property name="javaMailProperties">
-           <props>
-               <prop key="mail.debug">${jmail.mail.debug}</prop>
-               <prop key="mail.smtp.auth">${jmail.mail.smtp.auth}</prop>
-           </props>
-       </property>
-   </bean>
-
-
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.cqust.blog.web.controller" />
+
 </beans>

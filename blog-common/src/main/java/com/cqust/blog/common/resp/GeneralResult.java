@@ -1,10 +1,14 @@
 package com.cqust.blog.common.resp;
 
 import com.cqust.blog.common.common.ConstantCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by Administrator on 2018/3/23.
  */
+@Getter
+@Setter
 public class GeneralResult<T> {
 
     private Integer code;
@@ -12,6 +16,8 @@ public class GeneralResult<T> {
     private String msg;
 
     private T data;
+
+    private String url;
 
     public GeneralResult() {
         this.code = ConstantCode.SUCCESS;
@@ -41,19 +47,4 @@ public class GeneralResult<T> {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }
