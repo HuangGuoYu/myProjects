@@ -24,4 +24,11 @@ public class ServletUtils {
         return user;
     }
 
+    public static User clearUserInfo(HttpServletRequest request)  {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(USER_INFO);
+        session.setAttribute(USER_INFO, null);
+        return user;
+    }
+
 }

@@ -18,6 +18,18 @@
     from tbl_article_category
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="checkIsExists" resultType="com.cqust.blog.common.entity.ArticleCategory">
+      SELECT
+      <include refid="Base_Column_List"/>
+      FROM  tbl_article_category
+      WHERE name = #{name, jdbcType=VARCHAR}
+    </select>
+  <select id="editCheckIsExists" resultType="com.cqust.blog.common.entity.ArticleCategory">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM tbl_article_category
+    WHERE id=#{cid} and user_id=#{uid}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_article_category
     where id = #{id,jdbcType=INTEGER}

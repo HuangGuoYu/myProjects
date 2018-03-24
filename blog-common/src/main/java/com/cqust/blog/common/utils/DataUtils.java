@@ -36,6 +36,8 @@ public final class DataUtils {
         for (Field item : declaredFields) {
             item.setAccessible(true);
             Column annotation = item.getAnnotation(Column.class);
+            if (annotation == null)
+                continue;
             Object fieldData = item.get(obj);
             if (!annotation.nullable()) {
                 if (fieldData == null) {

@@ -55,6 +55,15 @@ public class UserController extends BaseController{
         return result;
     }
 
+    @RequestMapping("/logout")
+    @ResponseBody
+    public GeneralResult<?> logout() {
+        GeneralResult<User> result = new GeneralResult<>();
+        User user = ServletUtils.clearUserInfo(request);
+        result.setData(user);
+        return result;
+    }
+
 
     @RequestMapping("/registerPage")
     public String registerPage() {
