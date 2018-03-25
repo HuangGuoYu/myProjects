@@ -1,11 +1,6 @@
 package com.cqust.blog.common.entity;
 
-import java.io.Serializable;
-
-public class Advertisement implements Serializable {
-
-    private static final long serialVersionUID = 4007979002704067506L;
-
+public class Advertisement {
     private Integer id;
 
     private String url;
@@ -14,11 +9,14 @@ public class Advertisement implements Serializable {
 
     private String content;
 
-    public Advertisement(Integer id, String url, String imageUrl, String content) {
+    private Byte state;
+
+    public Advertisement(Integer id, String url, String imageUrl, String content, Byte state) {
         this.id = id;
         this.url = url;
         this.imageUrl = imageUrl;
         this.content = content;
+        this.state = state;
     }
 
     public Advertisement() {
@@ -55,5 +53,13 @@ public class Advertisement implements Serializable {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Byte getState() {
+        return state;
+    }
+
+    public void setState(Byte state) {
+        this.state = state;
     }
 }

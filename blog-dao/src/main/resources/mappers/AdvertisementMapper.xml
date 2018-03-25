@@ -7,10 +7,11 @@
       <arg column="url" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="image_url" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="state" jdbcType="TINYINT" javaType="java.lang.Byte" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, url, image_url, content
+    id, url, image_url, content, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,9 +25,9 @@
   </delete>
   <insert id="insert" parameterType="com.cqust.blog.common.entity.Advertisement" >
     insert into tbl_ad (id, url, image_url, 
-      content)
+      content, state)
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR})
+      #{content,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Advertisement" >
     insert into tbl_ad
@@ -43,6 +44,9 @@
       <if test="content != null" >
         content,
       </if>
+      <if test="state != null" >
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -56,6 +60,9 @@
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -71,6 +78,9 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -78,7 +88,8 @@
     update tbl_ad
     set url = #{url,jdbcType=VARCHAR},
       image_url = #{imageUrl,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR}
+      content = #{content,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
