@@ -47,4 +47,20 @@ public class GeneralResult<T> {
         this.code = code;
     }
 
+    public GeneralResult<?> error(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+        return this;
+    }
+
+    public GeneralResult<?> ok(Integer code, T data) {
+        this.code = code;
+        this.data = data;
+        return this;
+    }
+
+    public GeneralResult<?> ok(T data) {
+        this.data = data;
+        return this;
+    }
 }

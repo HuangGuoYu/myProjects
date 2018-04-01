@@ -1,5 +1,6 @@
 package com.cqust.blog.web.controller;
 
+import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.resp.GeneralResult;
@@ -56,6 +57,78 @@ public class ArticleController extends BaseController {
         return articleService.delCategory(category, userInfo);
     }
 
+    /**
+     * 添加文章
+     * @param article 文章实体
+     * @return 处理结果
+     */
+    @RequestMapping("/addArticle")
+    @ResponseBody
+    public GeneralResult<?> addArticle(Article article) {
+        User sessionUser = getSessionUser();
+        return articleService.addArticle(article, sessionUser);
+    }
 
+    /**
+     * 修改文章
+     * @param article 文章实体
+     * @return 处理结果
+     */
+    @RequestMapping("/editArticle")
+    @ResponseBody
+    public GeneralResult<?> editArticle(Article article) {
+        User sessionUser = getSessionUser();
+        return articleService.editArticle(article, sessionUser);
+    }
+
+    /**
+     * 修改文章页面
+     * @param id id
+     * @return 视图名称
+     */
+    @RequestMapping("/editArticlePage")
+    @ResponseBody
+    public String editArticlePage(Integer id) {
+        User sessionUser = getSessionUser();
+        GeneralResult result = articleService.findArticlecDataById(id, sessionUser.getId());
+        request.setAttribute("data", result.getData());
+        return "editArticlePage";
+    }
+
+    /**
+     * 文章状态删除
+     * @param id id
+     * @return 处理结果
+     */
+    @RequestMapping("/delArticle")
+    @ResponseBody
+    public GeneralResult delArticle(Integer id) {
+        User sessionUser = getSessionUser();
+        return articleService.delArticle(id, sessionUser.getId());
+    }
+
+    /**
+     * 文章删除
+     * @param id id
+     * @return 处理结果
+     */
+    @RequestMapping("/delArticleFromDB")
+    @ResponseBody
+    public GeneralResult delArticleFromDB(Integer id) {
+        User sessionUser = getSessionUser();
+        return articleService.delArticleFromDB(id, sessionUser.getId());
+    }
+
+    /**
+     * 将文章重回收站中恢复
+     * @param id id
+     * @return 处理结果
+     */
+    @RequestMapping("/renewArticle")
+    @ResponseBody
+    public GeneralResult renewArticle(Integer id) {
+        User sessionUser = getSessionUser();
+        return articleService.renewArticle(id, sessionUser.getId());
+    }
 
 }

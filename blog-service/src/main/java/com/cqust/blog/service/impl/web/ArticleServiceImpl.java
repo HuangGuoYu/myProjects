@@ -1,13 +1,17 @@
 package com.cqust.blog.service.impl.web;
 
+import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
+import com.cqust.blog.dao.mappers.ArticleMapper;
 import com.cqust.blog.service_api.web.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -16,6 +20,8 @@ import org.springframework.stereotype.Service;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired private ArticleCategoryMapper articleCategoryMapper;
+
+    @Autowired private ArticleMapper articleMapper;
 
     @Override
     public GeneralResult<Boolean> addCategory(ArticleCategory category, User userInfo) {
@@ -97,5 +103,107 @@ public class ArticleServiceImpl implements ArticleService {
         return result;
     }
 
+    @Override
+    public GeneralResult<?> addArticle(Article article, User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        //用户信息初始化
+        if (article == null) {
+            return result.error(201, "参数不可为空");
+        }
+        article.setUserId(sessionUser.getId());
 
+        try {
+            //数据校验
+            GeneralResult<Boolean> dataCheck = DataUtils.checkFieldByAnnotaion(article);
+            if (dataCheck.getData()) {
+                return dataCheck;
+            }
+            //初始化相关数据
+            article.setPostTime(new Date());
+            article.setState((byte) 0);
+            //执行保存
+            articleMapper.insertSelective(article);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return result.error(500, "服务器内部错误");
+        }
+        return result.ok("操作成功");
+    }
+
+    @Override
+    public GeneralResult<?> editArticle(Article article, User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        if (article.getId() == null) {
+            return result.error(201, "参数错误");
+        }
+        //判断当前修改文章是否是属于当前用户以及文章更是否存在
+        Article dbData = articleMapper.selectByUserIdAndArticleId(article.getId(), sessionUser.getId());
+        if (dbData == null) {
+            return result.error(404, "当前修改文章不存在");
+        }
+        //设置当前的修改
+        dbData.setTitle(article.getTitle());
+        dbData.setContent(article.getContent());
+        dbData.setCateId(article.getCateId());
+        int i = articleMapper.updateByPrimaryKey(dbData);
+        return result.ok("操作成功");
+    }
+
+    @Override
+    public GeneralResult findArticlecDataById(Integer aid, Integer uid) {
+        GeneralResult result = new GeneralResult();
+        if (aid == null) {
+            return result.error(201, "参数错误");
+        }
+        Article article = articleMapper.selectByUserIdAndArticleId(aid, uid);
+        if (article == null) {
+            result.error(404, "没有找到对应的数据");
+        }
+        result.setData(article);
+        return result;
+    }
+
+    @Override
+    public GeneralResult delArticle(Integer aid, Integer uid) {
+        GeneralResult result = new GeneralResult();
+        if (aid == null) {
+            return result.error(201, "参数错误");
+        }
+        Article article = articleMapper.selectByUserIdAndArticleId(aid, uid);
+        if (article == null) {
+            result.error(404, "没有找到对应的数据");
+        }
+        article.setIsDelete((byte) 1);
+        articleMapper.updateByPrimaryKey(article);
+        return result.ok("删除成功，当前保存在回收站");
+    }
+
+    @Override
+    public GeneralResult delArticleFromDB(Integer aid, Integer uid) {
+        GeneralResult result = new GeneralResult();
+        if (aid == null) {
+            return result.error(201, "参数错误");
+        }
+        Article article = articleMapper.selectByUserIdAndArticleId(aid, uid);
+        if (article == null) {
+            result.error(404, "没有找到对应的数据");
+        }
+        articleMapper.deleteByPrimaryKey(aid);
+        return result.ok("删除成功");
+    }
+
+    @Override
+    public GeneralResult renewArticle(Integer aid, Integer uid) {
+        GeneralResult result = new GeneralResult();
+        if (aid == null) {
+            return result.error(201, "参数错误");
+        }
+        Article article = articleMapper.selectByUserIdAndArticleId(aid, uid);
+        if (article == null) {
+            result.error(404, "没有找到对应的数据");
+        }
+        article.setIsDelete((byte) 0);
+        articleMapper.updateByPrimaryKey(article);
+        return result.ok("成功回收文章");
+    }
 }

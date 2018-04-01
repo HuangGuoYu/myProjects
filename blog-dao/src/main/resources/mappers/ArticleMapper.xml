@@ -49,7 +49,12 @@
     from tbl_article
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByUserIdAndArticleId" resultType="com.cqust.blog.common.entity.Article">
+      SELECT <include refid="Base_Column_List"/>
+      FROM tbl_article
+      where id = #{aid} and user_id = #{uid}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
