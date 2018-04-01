@@ -1,7 +1,11 @@
 package com.cqust.blog.common.dto;
 
+import com.cqust.blog.common.common.TestFile;
 import lombok.Getter;
 import lombok.Setter;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 
 import javax.persistence.Column;
 import java.math.BigDecimal;
@@ -67,5 +71,4 @@ public class RegisterUserDTO {
 
     @Column(name = "sessionId", nullable = true )
     private String sessionId;
-
 }

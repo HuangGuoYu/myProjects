@@ -1,35 +1,69 @@
 package com.cqust.blog.common.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
+@Entity
+@Table(name = "tbl_article")
 public class Article implements Serializable{
 
     private static final long serialVersionUID = -5920246555245672297L;
+    @Id
+    @Column(name = "id", length = 11, nullable = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "user_id", length = 11, nullable = false)
     private Integer userId;
 
+    @Column(name = "title", length = 50, nullable = false)
     private String title;
 
+    @Column(name = "post_time")
     private Date postTime;
 
+    @Column(name = "cert_time")
     private Date certTime;
 
+    @Column(name = "browse_num")
     private Integer browseNum;
 
+    @Column(name = "comment_num")
     private Integer commentNum;
 
+    @Column(name = "like_num")
     private Integer likeNum;
 
+    @Column(name = "cate_id", nullable = false, length = 11)
     private Integer cateId;
-
+    /**
+     * 是否原创 0 不是  1 是的
+     */
+    @Column(name = "is_original", nullable = false, length = 4)
     private Byte isOriginal;
 
+    /**
+     * 是否删除 0 未删除  1 删除
+     */
+    @Column(name = "is_delete")
     private Byte isDelete;
 
+    /**
+     *  审核状态0 审核中 1 审核通过
+     */
+    @Column(name = "state")
     private Byte state;
 
+    /**
+     * 博客内容
+     */
+    @Column(name = "content", nullable = false, length = 5000)
     private String content;
 
     public Article(Integer id, Integer userId, String title, Date postTime, Date certTime, Integer browseNum, Integer commentNum, Integer likeNum, Integer cateId, Byte isOriginal, Byte isDelete, Byte state, String content) {
@@ -52,107 +86,5 @@ public class Article implements Serializable{
         super();
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public Date getPostTime() {
-        return postTime;
-    }
-
-    public void setPostTime(Date postTime) {
-        this.postTime = postTime;
-    }
-
-    public Date getCertTime() {
-        return certTime;
-    }
-
-    public void setCertTime(Date certTime) {
-        this.certTime = certTime;
-    }
-
-    public Integer getBrowseNum() {
-        return browseNum;
-    }
-
-    public void setBrowseNum(Integer browseNum) {
-        this.browseNum = browseNum;
-    }
-
-    public Integer getCommentNum() {
-        return commentNum;
-    }
-
-    public void setCommentNum(Integer commentNum) {
-        this.commentNum = commentNum;
-    }
-
-    public Integer getLikeNum() {
-        return likeNum;
-    }
-
-    public void setLikeNum(Integer likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    public Integer getCateId() {
-        return cateId;
-    }
-
-    public void setCateId(Integer cateId) {
-        this.cateId = cateId;
-    }
-
-    public Byte getIsOriginal() {
-        return isOriginal;
-    }
-
-    public void setIsOriginal(Byte isOriginal) {
-        this.isOriginal = isOriginal;
-    }
-
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Byte getState() {
-        return state;
-    }
-
-    public void setState(Byte state) {
-        this.state = state;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
 }

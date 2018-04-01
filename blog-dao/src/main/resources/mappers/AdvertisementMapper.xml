@@ -1,95 +1,112 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cqust.blog.dao.mappers.AdvertisementMapper" >
-  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.Advertisement" >
-    <constructor >
-      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="url" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="image_url" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="state" jdbcType="TINYINT" javaType="java.lang.Byte" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqust.blog.dao.mappers.AdvertisementMapper">
+  <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.Advertisement">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="image_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="ord" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, url, image_url, content, state
+  <sql id="Base_Column_List">
+    id, url, image_url, content, state, ord
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from tbl_ad
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <select id="selectByOrd" resultType="com.cqust.blog.common.entity.Advertisement">
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_ad
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cqust.blog.common.entity.Advertisement" >
+  <insert id="insert" parameterType="com.cqust.blog.common.entity.Advertisement">
     insert into tbl_ad (id, url, image_url, 
-      content, state)
+      content, state, ord
+      )
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT})
+      #{content,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{ord,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Advertisement" >
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Advertisement">
     insert into tbl_ad
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="url != null" >
+      <if test="url != null">
         url,
       </if>
-      <if test="imageUrl != null" >
+      <if test="imageUrl != null">
         image_url,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         state,
       </if>
+      <if test="ord != null">
+        ord,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
+      <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null" >
+      <if test="imageUrl != null">
         #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         #{state,jdbcType=TINYINT},
+      </if>
+      <if test="ord != null">
+        #{ord,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.Advertisement" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqust.blog.common.entity.Advertisement">
     update tbl_ad
-    <set >
-      <if test="url != null" >
+    <set>
+      <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null" >
+      <if test="imageUrl != null">
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="ord != null">
+        ord = #{ord,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.Advertisement" >
+  <update id="updateByPrimaryKey" parameterType="com.cqust.blog.common.entity.Advertisement">
     update tbl_ad
     set url = #{url,jdbcType=VARCHAR},
       image_url = #{imageUrl,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      state = #{state,jdbcType=TINYINT}
+      state = #{state,jdbcType=TINYINT},
+      ord = #{ord,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

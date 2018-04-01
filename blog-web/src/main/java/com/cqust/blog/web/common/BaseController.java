@@ -1,6 +1,8 @@
 package com.cqust.blog.web.common;
 
+import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.utils.DataUtils;
+import com.cqust.blog.common.utils.ServletUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,15 @@ public class BaseController {
         } else {
             return request.getRemoteAddr();
         }
+    }
+
+
+    /**
+     * 获得当前的用户
+     * @return 用户实体
+     */
+    public User getSessionUser() {
+        return ServletUtils.getUserInfo(request);
     }
 
 }

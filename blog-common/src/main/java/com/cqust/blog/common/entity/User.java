@@ -1,11 +1,16 @@
 package com.cqust.blog.common.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "tbl_user")
+@Getter
+@Setter
 public class User {
     @Id
     @Column(name = "id", length = 11, nullable = true)
@@ -76,123 +81,4 @@ public class User {
         super();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
-    }
-
-    public String getBlogName() {
-        return blogName;
-    }
-
-    public void setBlogName(String blogName) {
-        this.blogName = blogName == null ? null : blogName.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public String getCateCareer() {
-        return cateCareer;
-    }
-
-    public void setCateCareer(String cateCareer) {
-        this.cateCareer = cateCareer == null ? null : cateCareer.trim();
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public Byte getPid() {
-        return pid;
-    }
-
-    public void setPid(Byte pid) {
-        this.pid = pid;
-    }
-
-    public Byte getGender() {
-        return gender;
-    }
-
-    public void setGender(Byte gender) {
-        this.gender = gender;
-    }
-
-    public Byte getAge() {
-        return age;
-    }
-
-    public void setAge(Byte age) {
-        this.age = age;
-    }
-
-    public Date getRegTime() {
-        return regTime;
-    }
-
-    public void setRegTime(Date regTime) {
-        this.regTime = regTime;
-    }
-
-    public Integer getFansNum() {
-        return fansNum;
-    }
-
-    public void setFansNum(Integer fansNum) {
-        this.fansNum = fansNum;
-    }
-
-    public Integer getAttentionNum() {
-        return attentionNum;
-    }
-
-    public void setAttentionNum(Integer attentionNum) {
-        this.attentionNum = attentionNum;
-    }
-
-    public Byte getState() {
-        return state;
-    }
-
-    public void setState(Byte state) {
-        this.state = state;
-    }
-
-    public BigDecimal getBanlance() {
-        return banlance;
-    }
-
-    public void setBanlance(BigDecimal banlance) {
-        this.banlance = banlance;
-    }
 }

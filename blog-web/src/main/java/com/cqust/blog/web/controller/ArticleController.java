@@ -20,6 +20,11 @@ public class ArticleController extends BaseController {
 
     @Autowired private ArticleService articleService;
 
+    /**
+     * 文章分类添加
+     * @param category 分类实体
+     * @return 处理结果
+     */
     @RequestMapping("/addCategory")
     @ResponseBody
     public GeneralResult<Boolean> addCategory(ArticleCategory category) {
@@ -27,6 +32,11 @@ public class ArticleController extends BaseController {
         return articleService.addCategory(category, userInfo);
     }
 
+    /**
+     * 编辑分类
+     * @param category 分类实体
+     * @return 处理结果
+     */
     @RequestMapping("/editCategory")
     @ResponseBody
     public GeneralResult<?> editCategory(ArticleCategory category) {
@@ -34,10 +44,18 @@ public class ArticleController extends BaseController {
         return articleService.editCategory(category, userInfo);
     }
 
+    /**
+     * 删除分类
+     * @param category 分类
+     * @return 处理结果
+     */
     @RequestMapping("/delCategory")
     @ResponseBody
     public GeneralResult<?> delCategory(ArticleCategory category) {
         User userInfo = ServletUtils.getUserInfo(request);
         return articleService.delCategory(category, userInfo);
     }
+
+
+
 }
