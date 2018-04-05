@@ -64,6 +64,7 @@
        $("input").val("");
     });
     var data = {}
+    //用户登录
     $("#submit").on("click", function () {
         $("input").each(function () {
             data[$(this).attr('name')] = $(this).val();
@@ -76,7 +77,7 @@
                     ,closeBtn: 0
                 })
             } else {
-                layer.alert(res.data)
+                window.location.href = res.url;
             }
         })
     });

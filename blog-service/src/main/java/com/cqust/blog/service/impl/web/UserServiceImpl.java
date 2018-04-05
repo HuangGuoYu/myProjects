@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
             result.setMsg("用户不存在或密码错误");
             return result;
         }
-        result.setUrl("url");
+        result.setUrl("/user/userIndex");
         result.setData(user);
         return result;
     }

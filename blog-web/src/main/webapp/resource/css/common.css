@@ -1,0 +1,18 @@
+.public-container {
+    position: relative;
+    margin: 0 auto;
+    width: 1350px;
+}
+body {
+    background: url("/resource/imgs/body-back.png") repeat;
+}
+
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+

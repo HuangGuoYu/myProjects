@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <link rel="stylesheet" type="text/css" href="css/pageNav.css" />
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="js/pageNav.js"></script>
+    </head>
+    <body>
+        <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId"></nav>
+
+        <script type="text/javascript">
+            var pageNavObj = null;//用于储存分页对象
+            pageNavObj = new PageNavCreate("PageNavId",{
+                 pageCount:30, 
+                 currentPage:1, 
+                 perPageNum:5, 
+            });
+            pageNavObj.afterClick(pageNavCallBack);
+
+            function pageNavCallBack(clickPage){
+                pageNavObj = new PageNavCreate("PageNavId",{
+                     pageCount:30, 
+                     currentPage:clickPage, 
+                     perPageNum:5, 
+                });
+                pageNavObj.afterClick(pageNavCallBack);
+            }
+        </script>
+    </body>
+</html>

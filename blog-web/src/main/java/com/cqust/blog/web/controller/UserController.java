@@ -74,4 +74,9 @@ public class UserController extends BaseController{
     public String loginPage() {
         return "login";
     }
+
+    @RequestMapping("/userIndex")
+    public String index() {
+        return "index";
+    }
 }
