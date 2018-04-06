@@ -2,13 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cqust.blog.dao.mappers.ArticleCategoryMapper" >
   <resultMap id="BaseResultMap" type="com.cqust.blog.common.entity.ArticleCategory" >
+  <constructor >
+    <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="ord" jdbcType="INTEGER" javaType="java.lang.Integer" />
+  </constructor>
+</resultMap>
+
+  <resultMap id="categoryMap" type="com.cqust.blog.common.dto.ArticleCategoryDTO" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="ord" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="articleNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, name, user_id, ord
   </sql>
@@ -29,6 +40,17 @@
     <include refid="Base_Column_List"/>
     FROM tbl_article_category
     WHERE id=#{cid} and user_id=#{uid}
+  </select>
+    <select id="queryCateByUserId" resultType="com.cqust.blog.common.entity.ArticleCategory">
+      SELECT <include refid="Base_Column_List"/>
+      FROM tbl_article_category
+      WHERE user_id = #{uid}
+    </select>
+  <select id="queryCateByUserIdFroDTO" resultType="com.cqust.blog.common.dto.ArticleCategoryDTO">
+    SELECT a.id,a.name,a.user_id userId,a.ord,if(b.title is not NULL, count(a.name), 0) articleNum from tbl_article_category a
+    LEFT JOIN tbl_article b ON b.cate_id = a.id
+    where a.user_id = #{uid}
+    GROUP BY a.name
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_article_category

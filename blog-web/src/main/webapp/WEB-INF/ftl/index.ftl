@@ -22,7 +22,7 @@
 <body>
     <div class="index-header public-container">
         <div class="blog-name">
-            <a href="#">张三的博客</a>
+            <a href="#">${data.blogName}的博客</a>
         </div>
     </div>
     <!-- 菜单 -->
@@ -33,7 +33,7 @@
             <li>收益管理</li>
             <li>我的博客</li>
             <li>账号管理</li>
-            <li><a>写博客</a></li>
+            <li><a href="/article/writeArticle">写博客</a></li>
         </ul>
     </div>
 
@@ -46,7 +46,7 @@
                 <div class="user_info">
                     <div class="info_bar">
                         <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
-                        <span class="blog-name" style="">博客名字</span>
+                        <span class="blog-name" style="">${data.blogName}的博客</span>
                     </div>
                     <div class="info_num_box clearfloat">
                         <dl title="26">

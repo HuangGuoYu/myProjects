@@ -58,7 +58,10 @@
     delete from tbl_article
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cqust.blog.common.entity.Article" >
+    <update id="delArticleToDelStateAndCateTo0">
+      UPDATE tbl_article set is_delete = 1, cate_id = 0 where user_id=#{uid} and cate_id = #{cid}
+    </update>
+    <insert id="insert" parameterType="com.cqust.blog.common.entity.Article" >
     insert into tbl_article (id, user_id, title, 
       post_time, cert_time, browse_num, 
       comment_num, like_num, cate_id, 

@@ -1,5 +1,6 @@
 package com.cqust.blog.service.impl.web;
 
+import com.cqust.blog.common.dto.ArticleCategoryDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -98,6 +100,8 @@ public class ArticleServiceImpl implements ArticleService {
             result.setMsg("不存在当前分类信息");
             return result;
         }
+        //删除分类下的所有文章
+        articleMapper.delArticleToDelStateAndCateTo0(userInfo.getId(), dbEntity.getId());
         articleCategoryMapper.deleteByPrimaryKey(category.getId());
         result.setMsg("操作成功");
         return result;
@@ -206,4 +210,20 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.updateByPrimaryKey(article);
         return result.ok("成功回收文章");
     }
+
+    @Override
+    public GeneralResult<List<ArticleCategoryDTO>> queryAllCategoryByUser(User sessionUser) {
+        List<ArticleCategoryDTO> datas = articleCategoryMapper.queryCateByUserIdFroDTO(sessionUser.getId());
+        GeneralResult result = new GeneralResult();
+        result.ok(datas);
+        return result;
+    }
+
+    @Override
+    public List<ArticleCategory> queryCateByUserId(User sessionUser) {
+        List<ArticleCategory> datas = articleCategoryMapper.queryCateByUserId(sessionUser.getId());
+        return datas;
+    }
+
+
 }

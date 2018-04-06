@@ -1,0 +1,26 @@
+.edit {
+    display: inline-block;
+    margin-right: 6px;
+    padding-right: 6px;
+    border-right: 1px solid rosybrown;
+    color: #1780bf;
+    cursor: pointer;
+}
+
+.del {
+    color: red;
+    cursor: pointer;
+}
+
+.txt-box input {
+    width: 360px;
+    margin-right: 16px;
+    height: 30px;
+    border-radius: 1em;
+    background-color: floralwhite;
+    padding: 0 20px;
+}
+
+.add-categorie-box {
+    margin: 15px 10px 50px 10px;
+}

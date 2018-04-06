@@ -5,6 +5,8 @@
 }
 body {
     background: url("/resource/imgs/body-back.png") repeat;
+    color: #212529;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 

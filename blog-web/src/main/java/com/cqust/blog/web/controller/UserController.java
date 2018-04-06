@@ -3,6 +3,7 @@ package com.cqust.blog.web.controller;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.ServletUtils;
+import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
 import com.cqust.blog.service_api.web.UserService;
 import com.cqust.blog.web.common.BaseController;
 import com.cqust.blog.common.dto.RegisterUserDTO;
@@ -77,6 +78,10 @@ public class UserController extends BaseController{
 
     @RequestMapping("/userIndex")
     public String index() {
+        System.out.println(ServletUtils.getUserInfo(request));
+        request.setAttribute("data", ServletUtils.getUserInfo(request));
         return "index";
     }
+
+
 }

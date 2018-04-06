@@ -1,5 +1,6 @@
 package com.cqust.blog.web.controller;
 
+import com.cqust.blog.common.dto.ArticleCategoryDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -55,6 +58,16 @@ public class ArticleController extends BaseController {
     public GeneralResult<?> delCategory(ArticleCategory category) {
         User userInfo = ServletUtils.getUserInfo(request);
         return articleService.delCategory(category, userInfo);
+    }
+
+    /**
+     * 根据用户查询所有的分类
+     * @return 分类集合数据
+     */
+    @RequestMapping("/allCate")
+    @ResponseBody
+    public GeneralResult<List<ArticleCategoryDTO>> queryAllCategoryByUser() {
+        return articleService.queryAllCategoryByUser(getSessionUser());
     }
 
     /**
@@ -131,4 +144,22 @@ public class ArticleController extends BaseController {
         return articleService.renewArticle(id, sessionUser.getId());
     }
 
+    @RequestMapping("/writeArticle")
+    public String index() {
+        User sessionUser = getSessionUser();
+        List<ArticleCategory> cates = articleService.queryCateByUserId(sessionUser);
+        request.setAttribute("cates", cates);
+        request.setAttribute("data", ServletUtils.getUserInfo(request));
+        return "writeArticle";
+    }
+
+
+    @RequestMapping("/cateManager")
+    public String cateManager() {
+        User sessionUser = getSessionUser();
+        List<ArticleCategory> cates = articleService.queryCateByUserId(sessionUser);
+        request.setAttribute("cates", cates);
+        request.setAttribute("data", ServletUtils.getUserInfo(request));
+        return "cateManager";
+    }
 }

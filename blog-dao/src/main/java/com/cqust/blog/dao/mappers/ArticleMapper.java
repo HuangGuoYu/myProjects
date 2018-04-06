@@ -27,4 +27,6 @@ public interface ArticleMapper {
      * @return 文章实体
      */
     Article selectByUserIdAndArticleId(@Param("aid") Integer articleId, @Param("uid") Integer uId);
+
+    int delArticleToDelStateAndCateTo0(@Param("uid") Integer uid,@Param("cid") Integer cid);
 }

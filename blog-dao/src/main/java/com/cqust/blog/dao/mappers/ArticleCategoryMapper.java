@@ -1,8 +1,11 @@
 package com.cqust.blog.dao.mappers;
 
+import com.cqust.blog.common.dto.ArticleCategoryDTO;
 import com.cqust.blog.common.entity.ArticleCategory;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ArticleCategoryMapper {
@@ -21,4 +24,8 @@ public interface ArticleCategoryMapper {
     ArticleCategory checkIsExists(String name);
 
     ArticleCategory editCheckIsExists(@Param("cid")Integer categoryId, @Param("uid") Integer userInfoId);
+
+    List<ArticleCategory> queryCateByUserId(@Param("uid") Integer id);
+
+    List<ArticleCategoryDTO> queryCateByUserIdFroDTO(@Param("uid") Integer uid);
 }

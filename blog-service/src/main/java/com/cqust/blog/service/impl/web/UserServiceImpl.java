@@ -6,6 +6,7 @@ import com.cqust.blog.common.dto.RegisterUserDTO;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
+import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
 import com.cqust.blog.dao.mappers.UserMapper;
 import com.cqust.blog.service_api.web.UserService;
 import org.springframework.beans.BeanUtils;

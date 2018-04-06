@@ -1,9 +1,12 @@
 package com.cqust.blog.service_api.web;
 
+import com.cqust.blog.common.dto.ArticleCategoryDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.resp.GeneralResult;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -80,4 +83,17 @@ public interface ArticleService {
      * @return 处理结果
      */
     GeneralResult renewArticle(Integer aid, Integer uid);
+
+    /**
+     *
+     * @param sessionUser
+     */
+    List<ArticleCategory> queryCateByUserId(User sessionUser);
+
+    /**
+     * 获得所有分类
+     * @param sessionUser 当前用户信息
+     * @return 处理结果
+     */
+    GeneralResult<List<ArticleCategoryDTO>> queryAllCategoryByUser(User sessionUser);
 }
