@@ -38,13 +38,13 @@
            <div class="layui-form-item" style="margin-top: 30px">
                <label class="layui-form-label">邮箱</label>
                <div class="layui-input-block">
-                   <input id="account" type="text" name="account" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                   <input id="account" type="text" name="account" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input" value="838937070@qq.com">
                </div>
            </div>
            <div class="layui-form-item">
                <label class="layui-form-label">密码</label>
                <div class="layui-input-block">
-                   <input id="pwd" type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                   <input id="pwd" type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" value="hgy+1996">
                </div>
            </div>
            <div class="layui-form-item" style="margin-top: 50px;">

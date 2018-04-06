@@ -162,4 +162,10 @@ public class ArticleController extends BaseController {
         request.setAttribute("data", ServletUtils.getUserInfo(request));
         return "cateManager";
     }
+
+    @RequestMapping("/articleManager")
+    public String articleManager() {
+        request.setAttribute("data", ServletUtils.getUserInfo(request));
+        return "articleManager";
+    }
 }
