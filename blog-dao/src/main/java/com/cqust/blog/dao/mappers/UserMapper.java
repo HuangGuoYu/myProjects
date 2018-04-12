@@ -1,7 +1,10 @@
 package com.cqust.blog.dao.mappers;
 
 import com.cqust.blog.common.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
 
 @Repository
 public interface UserMapper {
@@ -18,4 +21,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User checkAcountIsExists(String account);
+
+    Map<String, Object> selectByPrimaryKeyForArticleDetail(@Param("uid") Integer userId);
 }

@@ -1,6 +1,7 @@
 package com.cqust.blog.service.impl.web;
 
 import com.cqust.blog.common.dto.ArticleCategoryDTO;
+import com.cqust.blog.common.dto.PageEntityDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
@@ -8,12 +9,23 @@ import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
 import com.cqust.blog.dao.mappers.ArticleMapper;
+import com.cqust.blog.dao.mappers.UserMapper;
 import com.cqust.blog.service_api.web.ArticleService;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -24,6 +36,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired private ArticleCategoryMapper articleCategoryMapper;
 
     @Autowired private ArticleMapper articleMapper;
+
+    @Autowired private UserMapper userMapper;
+
+    @Autowired
+    @Qualifier("stringRedisTemplate")
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public GeneralResult<Boolean> addCategory(ArticleCategory category, User userInfo) {
@@ -115,7 +133,10 @@ public class ArticleServiceImpl implements ArticleService {
             return result.error(201, "参数不可为空");
         }
         article.setUserId(sessionUser.getId());
-
+        User user = userMapper.selectByPrimaryKey(sessionUser.getId());
+        if (user == null || user.getState() != 2) {
+            return result.error(404, "当前用户不存在");
+        }
         try {
             //数据校验
             GeneralResult<Boolean> dataCheck = DataUtils.checkFieldByAnnotaion(article);
@@ -209,6 +230,81 @@ public class ArticleServiceImpl implements ArticleService {
         article.setIsDelete((byte) 0);
         articleMapper.updateByPrimaryKey(article);
         return result.ok("成功回收文章");
+    }
+
+    @Override
+    public GeneralResult likeArticle(Integer aid, User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        String key = "likeArticle" + ":" + sessionUser.getId() + ":" + aid;
+        String check = redisTemplate.opsForValue().get(key);
+        if (!DataUtils.strIsNullOrEmpty(check)) {
+            return result.error(401, "每天只能点赞一次，24小时后可再次点赞！");
+        }
+        //执行数据库数据修改
+        Article article = articleMapper.selectByPrimaryKey(aid);
+        if (article == null) {
+            return result.error(404, "没有当前的文章存在");
+        }
+        article.setLikeNum(article.getLikeNum() + 1);
+        articleMapper.updateByPrimaryKey(article);
+        //写入缓存
+        redisTemplate.opsForValue().set(key, "yes", 1, TimeUnit.DAYS);
+        result.setMsg("操作成功");
+        return result;
+    }
+
+    @Override
+    public GeneralResult queryArticleData(Integer id) {
+        GeneralResult result = new GeneralResult();
+        if (id == null) {
+            result.error(201, "参数错误");
+            return result;
+        }
+        Article article = articleMapper.selectByPrimaryKey(id);
+        if (article == null || article.getState() == 0 || article.getIsDelete() ==1) {
+            return result.error(404, "未找到相关文章");
+        }
+        Map<String, Object> user = userMapper.selectByPrimaryKeyForArticleDetail(article.getUserId());
+        Map<String, Object> datas = new HashMap<>();
+
+        datas.put("article", article);
+        datas.put("user", user);
+        result.setData(datas);
+        return result;
+    }
+
+    @Override
+    public GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage) {
+        GeneralResult result = new GeneralResult();
+        byte articleState = 0, delState = 0;
+        if (state == null || curPage == null) {
+            state = 1;
+            curPage = 1;
+        }
+
+        switch (state) {
+            case 0: //审核中，状态未删除
+                articleState = 0;
+                delState = 0;
+                break;
+            case 1: //已发表，未删除
+                articleState = 1;
+                delState = 0;
+                break;
+            case 2: //回收站，已删除
+                articleState = 1;
+                delState = 1;
+                break;
+        }
+        //查询总数
+        List<Article> counts = articleMapper.queryListByStateForCount(articleState, delState);
+        //查询实体数据
+        List<Article> datas = articleMapper.queryListByState(articleState, delState, (curPage - 1) * 10);
+        PageEntityDTO<Article> pageEntityDTO = new PageEntityDTO<>(datas);
+        pageEntityDTO.setCurPage(curPage);
+        pageEntityDTO.setPageCount(Math.ceil(counts.size() * 1.0 / 10));
+        result.setData(pageEntityDTO);
+        return result;
     }
 
     @Override

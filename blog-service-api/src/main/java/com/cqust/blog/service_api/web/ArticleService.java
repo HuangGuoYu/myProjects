@@ -1,6 +1,7 @@
 package com.cqust.blog.service_api.web;
 
 import com.cqust.blog.common.dto.ArticleCategoryDTO;
+import com.cqust.blog.common.dto.PageEntityDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
@@ -96,4 +97,27 @@ public interface ArticleService {
      * @return 处理结果
      */
     GeneralResult<List<ArticleCategoryDTO>> queryAllCategoryByUser(User sessionUser);
+
+    /**
+     * 根据状态和当前页查询文章
+     * @param state 状态 0=》审核中，状态未删除  1=》已发表，未删除 2=》回收站，已删除
+     * @param curPage 当前页 默认每页10
+     * @return 数据集
+     */
+    GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage);
+
+    /**
+     * 查询文章信息
+     * @param id 文章ID
+     * @return 处理结果
+     */
+    GeneralResult queryArticleData(Integer id);
+
+    /**
+     * 文章点赞
+     * @param aid 文章id
+     * @param sessionUser 操作用户
+     * @return 处理结果
+     */
+    GeneralResult likeArticle(Integer aid, User sessionUser);
 }

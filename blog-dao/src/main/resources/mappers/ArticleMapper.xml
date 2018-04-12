@@ -54,6 +54,22 @@
       FROM tbl_article
       where id = #{aid} and user_id = #{uid}
     </select>
+    <select id="queryListByState" resultType="com.cqust.blog.common.entity.Article">
+      SELECT <include refid="Base_Column_List"/>
+      FROM tbl_article
+      where state = #{astate} and is_delete = #{dstate}
+      limit #{start},10
+    </select>
+  <select id="queryListByStateForCount" resultType="com.cqust.blog.common.entity.Article">
+    SELECT <include refid="Base_Column_List"/>
+    FROM tbl_article
+    where state = #{astate} and is_delete = #{dstate}
+  </select>
+    <select id="checkArticleByState" resultType="com.cqust.blog.common.entity.Article">
+      SELECT <include refid="Base_Column_List"/>
+      FROM tbl_article
+      WHERE id = #{aid} and is_delete = 0 and state = 1
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_article
     where id = #{id,jdbcType=INTEGER}

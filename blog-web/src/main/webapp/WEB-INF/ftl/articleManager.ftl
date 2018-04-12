@@ -34,7 +34,7 @@
 
 <div class="content clearfloat">
 
-    <div class="public-container">
+    <div class="public-container clearfloat" style="background-color: #fff">
         <div class="nav_menu left">
             <div class="list-group-item list-group-title">内容</div>
             <div class="list-group">
@@ -49,98 +49,13 @@
             <div class="main-crumbs">文章管理</div>
             <div class="main_tab_nav clearfloat">
                 <ul class="clearfloat">
-                    <li><a class="nav-link active" onclick="switchTab(1)">已发表文章</a></li>
-                    <li><a class="nav-link" onclick="switchTab(0)">审核中</a></li>
-                    <li><a class="nav-link" onclick="switchTab(3)">回收站</a></li>
+                    <li><a class="nav-link active" onclick="switchTab(this,1)">已发表文章</a></li>
+                    <li><a class="nav-link" onclick="switchTab(this,0)">审核中</a></li>
+                    <li><a class="nav-link" onclick="switchTab(this,2)">回收站</a></li>
                 </ul>
 
                 <div class="article_list">
-                    <div class="group-list">
-                        <div class="list-item">
-                            <div class="item-header">
-                                <h1>this is my blog name</h1>
-                            </div>
-                            <div class="item-foot clearfloat">
-                                <div class="item-foot-left left">
-                                    <span>原创</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;2017-02-08</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数</span>
-                                </div>
-                                <div class="item-foot-right right">
-                                    <span><a>查看</a></span>
-                                    <span><a>删除</a></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="item-header">
-                                <h1>this is my blog name</h1>
-                            </div>
-                            <div class="item-foot clearfloat">
-                                <div class="item-foot-left left">
-                                    <span>原创</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;2017-02-08</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数</span>
-                                </div>
-                                <div class="item-foot-right right">
-                                    <span><a>查看</a></span>
-                                    <span><a>删除</a></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="item-header">
-                                <h1>this is my blog name</h1>
-                            </div>
-                            <div class="item-foot clearfloat">
-                                <div class="item-foot-left left">
-                                    <span>原创</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;2017-02-08</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数</span>
-                                </div>
-                                <div class="item-foot-right right">
-                                    <span><a>查看</a></span>
-                                    <span><a>删除</a></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="item-header">
-                                <h1>this is my blog name</h1>
-                            </div>
-                            <div class="item-foot clearfloat">
-                                <div class="item-foot-left left">
-                                    <span>原创</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;2017-02-08</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数</span>
-                                </div>
-                                <div class="item-foot-right right">
-                                    <span><a>查看</a></span>
-                                    <span><a>删除</a></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-item">
-                            <div class="item-header">
-                                <h1>this is my blog name</h1>
-                            </div>
-                            <div class="item-foot clearfloat">
-                                <div class="item-foot-left left">
-                                    <span>原创</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;2017-02-08</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量</span>
-                                    <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数</span>
-                                </div>
-                                <div class="item-foot-right right">
-                                    <span><a>查看</a></span>
-                                    <span><a>删除</a></span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="group-list" id="group-list">
                         <div class="list-item">
                             <div class="item-header">
                                 <h1>this is my blog name</h1>
@@ -170,11 +85,69 @@
 
 
 </body>
-<script type="text/html" id="test">
-    {{each list as item}}
-        <div>{{item}}</div>
+<script type="text/html" id="article-item">
+    {{each datas as item}}
+    <div class="list-item">
+        <div class="item-header">
+            <h1>{{item.title}}</h1>
+        </div>
+        <div class="item-foot clearfloat">
+            <div class="item-foot-left left">
+                <span>{{item.isOriginal == 0 ? '转载': '原创'}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;{{item.strTime}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量({{item.browseNum}})</span>
+                <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数({{item.commentNum}})</span>
+            </div>
+            <div class="item-foot-right right">
+                <span><a href="/article/articleManager">查看</a></span>
+                <span><a href="/article/delArticle?id={{item.id}}">删除</a></span>
+            </div>
+        </div>
+    </div>
     {{/each}}
 </script>
+
+<script type="text/html" id="article-item-cert">
+    {{each datas as item}}
+    <div class="list-item">
+        <div class="item-header">
+            <h1>{{item.title}}</h1>
+        </div>
+        <div class="item-foot clearfloat">
+            <div class="item-foot-left left">
+                <span>{{item.isOriginal == 0 ? '转载': '原创'}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;{{item.strTime}}</span>
+            </div>
+            <div class="item-foot-right right">
+                <span><a href="/article/articleManager">查看</a></span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/html" id="article-item-back">
+    {{each datas as item}}
+    <div class="list-item">
+        <div class="item-header">
+            <h1>{{item.title}}</h1>
+        </div>
+        <div class="item-foot clearfloat">
+            <div class="item-foot-left left">
+                <span>{{item.isOriginal == 0 ? '转载': '原创'}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;{{item.strTime}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量({{item.browseNum}})</span>
+                <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数({{item.commentNum}})</span>
+            </div>
+            <div class="item-foot-right right">
+                <span><a href="/article/articleManager">查看</a></span>
+                <span><a href="/article/delArticle?id={{item.id}}">恢复</a></span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
 <script src="/resource/editor/wangEditor.min.js"></script>
 <script src="/resource/js/template.js"></script>
 <script type="text/javascript">
@@ -182,39 +155,76 @@
     layui.use('layer', function(){
         layer = layui.layer;
     });
-
-    function switchTab(state) {
+    var curTab;
+    var curState;
+    switchTab($(".nav-link.active"), 1, 1);
+    function switchTab(obj, state, curPage = 1) {
+        //切换样式状态
+        curState = state;
+        curTab = obj;
+        $(".nav-link.active").removeClass("active");
+        $(obj).addClass("active");
         switch (state) {
             case 0: //审核中，状态未删除
-
+                ajax4List(state, curPage)
                 break;
             case 1: //已发表，未删除
-
+                ajax4List(state, curPage)
                 break;
             case 2: //回收站，已删除
-
+                ajax4List(state, curPage)
                 break;
         }
     }
 
-
-
-    function initPageNav(pageCount, currentPage, perPageNum) {
-        var pageNavObj = null;//用于储存分页对象
-        pageNavObj = new PageNavCreate("PageNavId",{
-            pageCount:30,
-            currentPage:1,
-            perPageNum:5,
+    function ajax4List(state, curPage) {
+        $.ajax({
+            url:"/article/queryArticleByState",
+            type:"post",
+            data:{state:state, curPage:curPage},
+            success:function (res) {
+                initPageNav(res.data)
+            },
+            dataType:"json"
         });
-        pageNavObj.afterClick(pageNavCallBack);
     }
-    function pageNavCallBack(clickPage){
+
+
+
+    function initPageNav(res) {
+        var templateName = "article-item-cert";
+        if (curState == 0) {
+            templateName = "article-item-cert"
+        } else if (curState == 1) {
+            templateName = "article-item";
+        } else {
+            templateName = "article-item-back";
+        }
+        for(item in res.datas) {
+//            console.log(new Date(res.datas[item].postTime).toLocaleString())
+            res.datas[item].strTime = new Date(res.datas[item].postTime).toLocaleString();
+        }
+        var pageNavObj = null;//用于储存分页对象
+        console.log(res)
         pageNavObj = new PageNavCreate("PageNavId",{
-            pageCount:30,
-            currentPage:clickPage,
-            perPageNum:5,
+            pageCount:res.pageCount,
+            currentPage:res.curPage,
+            perPageNum:res.perCount,
         });
         pageNavObj.afterClick(pageNavCallBack);
+        var html = template(templateName, res);
+        $("#group-list").empty();
+        $("#group-list").html(html);
+    }
+
+    function pageNavCallBack(clickPage){
+//        pageNavObj = new PageNavCreate("PageNavId",{
+//            pageCount:30,
+//            currentPage:clickPage,
+//            perPageNum:5,
+//        });
+//        pageNavObj.afterClick(pageNavCallBack);
+            switchTab(curTab, curState, clickPage);
     }
 </script>
 </html>

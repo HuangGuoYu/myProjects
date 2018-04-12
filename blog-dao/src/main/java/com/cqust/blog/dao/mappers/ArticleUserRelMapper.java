@@ -1,6 +1,7 @@
 package com.cqust.blog.dao.mappers;
 
 import com.cqust.blog.common.entity.ArticleUserRel;
+import org.apache.ibatis.annotations.Param;
 
 public interface ArticleUserRelMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,6 @@ public interface ArticleUserRelMapper {
     int updateByPrimaryKeySelective(ArticleUserRel record);
 
     int updateByPrimaryKey(ArticleUserRel record);
+
+    ArticleUserRel queryByUidAndAid(@Param("uid") Integer uid,@Param("aid") Integer aid);
 }

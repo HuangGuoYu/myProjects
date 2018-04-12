@@ -36,7 +36,17 @@
     from tbl_user
     WHERE account = #{account,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKeyForArticleDetail" resultType="java.util.Map">
+      SELECT a.*,count(0) originalNum from (
+    SELECT a.id,a.blog_name,a.attention_num,count(0) comment_num
+    from tbl_user a
+    LEFT JOIN tbl_article_comment b on a.id = b.cuser_id
+    where a.id = #{uid}
+    GROUP BY a.id) a
+    LEFT JOIN tbl_article b on a.id = b.user_id
+    where b.is_original = 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </delete>

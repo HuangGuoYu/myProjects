@@ -4,6 +4,8 @@ import com.cqust.blog.common.entity.Article;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -29,4 +31,10 @@ public interface ArticleMapper {
     Article selectByUserIdAndArticleId(@Param("aid") Integer articleId, @Param("uid") Integer uId);
 
     int delArticleToDelStateAndCateTo0(@Param("uid") Integer uid,@Param("cid") Integer cid);
+
+    List<Article> queryListByState(@Param("astate") byte articleState,@Param("dstate") byte delState,@Param("start") Integer start);
+
+    List<Article> queryListByStateForCount(@Param("astate") byte articleState,@Param("dstate") byte delState);
+
+    Article checkArticleByState(@Param("aid") Integer aid);
 }

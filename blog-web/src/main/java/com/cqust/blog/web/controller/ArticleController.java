@@ -1,6 +1,7 @@
 package com.cqust.blog.web.controller;
 
 import com.cqust.blog.common.dto.ArticleCategoryDTO;
+import com.cqust.blog.common.dto.PageEntityDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
@@ -9,6 +10,8 @@ import com.cqust.blog.common.utils.ServletUtils;
 import com.cqust.blog.service_api.web.ArticleService;
 import com.cqust.blog.web.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +26,10 @@ import java.util.List;
 public class ArticleController extends BaseController {
 
     @Autowired private ArticleService articleService;
+
+    @Autowired
+    @Qualifier("stringRedisTemplate")
+    private StringRedisTemplate redisTemplate;
 
     /**
      * 文章分类添加
@@ -120,6 +127,13 @@ public class ArticleController extends BaseController {
         return articleService.delArticle(id, sessionUser.getId());
     }
 
+    @RequestMapping("/queryArticleByState")
+    @ResponseBody
+    public GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage) {
+        return articleService.queryArticleByState(state, curPage);
+    }
+
+
     /**
      * 文章删除
      * @param id id
@@ -167,5 +181,59 @@ public class ArticleController extends BaseController {
     public String articleManager() {
         request.setAttribute("data", ServletUtils.getUserInfo(request));
         return "articleManager";
+    }
+
+    /**
+     * 同步返回到文章详情页
+     * @param id 文章id
+     * @return 处理结果
+     */
+    @RequestMapping("/articleDetail")
+    public String articleDetail(Integer id) {
+        GeneralResult result = articleService.queryArticleData(id);
+        if (result.getCode() != 200) {
+            return "_404";
+        }
+        User user = getSessionUser();
+        //是否登录状态
+        request.setAttribute("isLogin", user == null ? 0 : 1);
+        //数据
+        request.setAttribute("data", result.getData());
+        //是否点赞
+        if (user == null) {
+            request.setAttribute("likeState", 0);
+        } else {
+            String key = "likeArticle:" + user.getId() + ":" + id;
+            String state = redisTemplate.opsForValue().get("likeArticle:7:2");
+            if (state == null) {
+                request.setAttribute("likeState", 0);
+            } else {
+                request.setAttribute("likeState", 1);
+            }
+        }
+
+        return "articleDetail";
+    }
+
+    /**
+     * 根据文章id 查询相关数据
+     * @param id 文章id
+     * @return 数据集
+     */
+    @RequestMapping("/articleData")
+    @ResponseBody
+    public GeneralResult articleData(Integer id) {
+        return articleService.queryArticleData(id);
+    }
+
+    /**
+     * 文章点赞每天一次
+     * @param aid 文章id
+     * @return 处理结果
+     */
+    @RequestMapping("/likeArticle")
+    @ResponseBody
+    public GeneralResult likeArticle(Integer aid) {
+        return articleService.likeArticle(aid, getSessionUser());
     }
 }
