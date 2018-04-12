@@ -67,6 +67,6 @@
    <!--<bean id="freeMarkerUtil" class="freemarker.util.FreeMarkerUtil"></bean>-->
 
     <!-- 4.扫描web相关的bean -->
-    <context:component-scan base-package="com.cqust.blog.web.controller" />
+    <context:component-scan base-package="com.cqust.blog.web.controller,com.cqust.blog.web.websocket" />
 
 </beans>

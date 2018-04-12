@@ -81,4 +81,18 @@ public class User {
         super();
     }
 
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        User user = (User) obj;
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        return true;
+    }
 }
