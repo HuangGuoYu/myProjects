@@ -26,7 +26,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor{
             HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
             User userInfo = ServletUtils.getUserInfo(servletRequest);
             if (userInfo != null) {
-                map.put("user", userInfo);
+                map.put("user", userInfo.getId());
             }
         }
         return true;

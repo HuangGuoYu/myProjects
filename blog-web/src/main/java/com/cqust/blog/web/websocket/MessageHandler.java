@@ -20,7 +20,7 @@ import java.util.Set;
 public class MessageHandler extends TextWebSocketHandler {
 
         //在线用户列表
-        private static final Map<User, WebSocketSession> users;
+        private static final Map<Integer, WebSocketSession> users;
         //用户标识
         private static final String CLIENT_ID = "user";
 
@@ -31,12 +31,12 @@ public class MessageHandler extends TextWebSocketHandler {
         @Override
         public void afterConnectionEstablished(WebSocketSession session) throws Exception {
             System.out.println("成功建立连接");
-            User userInfo = getClientId(session);
+            Integer userInfo = getClientId(session);
             System.out.println(userInfo);
             if (userInfo != null) {
                 users.put(userInfo, session);
                 session.sendMessage(new TextMessage("成功建立socket连接"));
-                System.out.println(userInfo.getId());
+                System.out.println(userInfo);
                 System.out.println(session);
             }
         }
@@ -81,9 +81,9 @@ public class MessageHandler extends TextWebSocketHandler {
          */
         public boolean sendMessageToAllUsers(TextMessage message) {
             boolean allSendSuccess = true;
-            Set<User> clientIds = users.keySet();
+            Set<Integer> clientIds = users.keySet();
             WebSocketSession session = null;
-            for (User clientId : clientIds) {
+            for (Integer clientId : clientIds) {
                 try {
                     session = users.get(clientId);
                     if (session.isOpen()) {
@@ -124,9 +124,9 @@ public class MessageHandler extends TextWebSocketHandler {
          * @param session
          * @return
          */
-        private User getClientId(WebSocketSession session) {
+        private Integer getClientId(WebSocketSession session) {
             try {
-                User clientId = (User) session.getHandshakeAttributes().get(CLIENT_ID);
+                Integer clientId = (Integer) session.getHandshakeAttributes().get(CLIENT_ID);
                 return clientId;
             } catch (Exception e) {
                 return null;
