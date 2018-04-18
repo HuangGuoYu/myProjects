@@ -23,6 +23,19 @@
     from tbl_message
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="findIsExists" resultType="com.cqust.blog.common.entity.Message">
+      select
+      <include refid="Base_Column_List" />
+      from tbl_message
+      where from_user = #{fromId} and to_user = #{toId}
+    </select>
+  <select id="findFriendList" resultType="java.util.Map">
+    SELECT b.blog_name username,b.id,c.head_icon avatar from tbl_message a
+    LEFT JOIN tbl_user b on a.to_user = b.id
+    LEFT JOIN tbl_user_detail c on a.to_user = c.user_id
+    where from_user = #{uid}
+    ORDER BY send_time DESC
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_message
     where id = #{id,jdbcType=INTEGER}

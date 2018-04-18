@@ -20,7 +20,7 @@ import java.util.Set;
 public class MessageHandler extends TextWebSocketHandler {
 
         //在线用户列表
-        private static final Map<Integer, WebSocketSession> users;
+        public static final Map<Integer, WebSocketSession> users;
         //用户标识
         private static final String CLIENT_ID = "user";
 

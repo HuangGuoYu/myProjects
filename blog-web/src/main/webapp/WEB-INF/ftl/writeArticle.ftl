@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/writeAricle.css">
-    <script type=text/javascript src="/resource/js/jquery-3.1.1.min.js"></script>
-    <script src="/resource/layui/layui.all.js" type="text/javascript"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <script src="/resource/layui/layui.js" type="text/javascript"></script>
 </head>
 
 <body style="background-color: #f4f4f4">

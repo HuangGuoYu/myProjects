@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
-    404
+<body style="background: url('/resource/imgs/404.jpg') no-repeat">
 </body>
 </html>

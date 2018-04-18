@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>注册</title>
     <link rel="stylesheet" href="/resource/layui/css/layui.css">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <script src="/resource/layui/layui.js" type="text/javascript"></script>
     <style type="text/css">
         body{
             background: url("/resource/imgs/reg_backgroud.png") no-repeat;
@@ -55,7 +56,6 @@
            </div>
        </div>
 </body>
-<script src="/resource/layui/layui.all.js" type="text/javascript"></script>
 <script>
     !function(){
         var layer = layui.layer,form = layui.form;

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/resource/layui/css/layui.css">
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
-    <script src="https://cdn.bootcss.com/jquery/1.9.0/jquery.js"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js"></script>
     <script src="/resource/layui/layui.js" type="text/javascript"></script>
 
     <script src="/resource/pageNavigator/js/pageNav.js" type="text/javascript"></script>
@@ -24,182 +24,45 @@
 </head>
 
 <body style="background: url('/resource/imgs/chat_body_bg.jpg')">
-
-    <div class="qqBox">
-        <div class="BoxHead">
-            <div class="headImg">
-                <img src="/resource/imgs/headimg.jpg">
-            </div>
-            <div class="internetName">90后大叔</div>
-        </div>
-
-        <div class="context clearfloat">
-            <div class="conLeft">
-                <ul>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li  class="selectBg">
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="liLeft"><img src="/resource/imgs/headimg.jpg"></div>
-                        <div class="liRight">
-                            <span class="intername">前端交流群</span>
-                            <span class="infor">厉害了</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="conRight">
-                <div class="RightHead clearfloat">
-                    <div class="headName left">赵鹏</div>
-                </div>
-                <div class="RightCont">
-                    <div class="ChatRecord">查看更多消息</div>
-                    <ul class="newsList">
-                        <li>
-                            <div class="answerHead"><img src="/resource/imgs/headimg.jpg"></div>
-                            <div class="answers">
-                                    <img src="/resource/imgs/headimg.jpg">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="inputBox clearfloat" style="border-top: 1px solid #ccc;">
-                    <textarea id="dope" style="width: 99%;height: 75px; border: none;outline: none;" name="" rows="" cols=""></textarea>
-                    <button class="btn layui-btn-danger right">发送(s)</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </body>
 <script src="/resource/js/template.js"></script>
 <script>
-    var data= {
-        "code": 0 //0表示成功，其它表示失败
-        ,"msg": "" //失败信息
-        ,"data": {
-            //我的信息
-            "mine": {
-                "username": "纸飞机" //我的昵称
-                ,"id": "100000" //我的ID
-                ,"status": "online" //在线状态 online：在线、hide：隐身
-                ,"sign": "在深邃的编码世界，做一枚轻盈的纸飞机" //我的签名
-                ,"avatar": "/resource/imgs/headimg.jpg" //我的头像
-            }
-            //好友列表
-            ,"friend": [{
-                "groupname": "前端码屌" //好友分组名
-                ,"id": 1 //分组ID
-                ,"list": [{ //分组下的好友列表
-                    "username": "贤心" //好友昵称
-                    ,"id": "100001" //好友ID
-                    ,"avatar": "/resource/imgs/headimg.jpg" //好友头像
-                    ,"sign": "这些都是测试数据，实际使用请严格按照该格式返回" //好友签名
-                    ,"status": "online" //若值为offline代表离线，online或者不填为在线
-                }]
-            }]
 
-    //群组列表
-    ,"group": [{
-        "groupname": "前端群" //群组名
-        ,"id": "101" //群组ID
-        ,"avatar": "/resource/imgs/headimg.jpg" //群组头像
-    }]
-    }
-    };
     layui.use('layim', function(layim){
+
+        var socket = new WebSocket('ws://localhost:8080/myHandler');
+
+        //连接成功时触发
+        socket.onopen = function(){
+            socket.send('XXX连接成功');
+        };
+
+        //发送消息
+        layim.on('sendMessage', function(res){
+            var mine = res.mine;
+            var to = res.to;
+            $.post("/chat/sendMessage", {content:mine.content, fromUser:mine.id, toUser:to.id}, function (res) {
+
+            });
+        });
+
+
+        //监听收到的消息
+        socket.onmessage = function(res){
+            //res为接受到的值，如 {"emit": "messageName", "data": {}}
+            //emit即为发出的事件名，用于区分不同的消息
+            console.log(res, "receive");
+            data = JSON.parse(res.data);
+            console.log(data)
+            layim.getMessage(data);
+        };
         //基础配置
         layim.config({
-            init: {
-                //我的信息
-                "mine": {
-                    "username": "纸飞机" //我的昵称
-                    ,"id": "100000" //我的ID
-                    ,"status": "online" //在线状态 online：在线、hide：隐身
-                    ,"sign": "在深邃的编码世界，做一枚轻盈的纸飞机" //我的签名
-                    ,"avatar": "/resource/imgs/headimg.jpg" //我的头像
-                }
-                //好友列表
-                ,"friend": [{
-                    "groupname": "前端码屌" //好友分组名
-                    ,"id": 1 //分组ID
-                    ,"list": [{ //分组下的好友列表
-                        "username": "贤心" //好友昵称
-                        ,"id": "100001" //好友ID
-                        ,"avatar": "/resource/imgs/headimg.jpg" //好友头像
-                        ,"sign": "这些都是测试数据，实际使用请严格按照该格式返回" //好友签名
-                        ,"status": "online" //若值为offline代表离线，online或者不填为在线
-                    }]
-                }]
-
-                //群组列表
-                ,"group": [{
-                    "groupname": "前端群" //群组名
-                    ,"id": "101" //群组ID
-                    ,"avatar": "/resource/imgs/headimg.jpg" //群组头像
-                }]}//获取主面板列表信息，下文会做进一步介绍
+            init: {//获取主面板列表信息，下文会做进一步介绍
+                url: '/chat/friendList' //接口地址（返回的数据格式见下文）
+                ,type: 'get' //默认get，一般可不填
+                ,data: {} //额外参数
+            }
             //获取群员接口（返回的数据格式见下文）
             ,members: {
                 url: '' //接口地址（返回的数据格式见下文）

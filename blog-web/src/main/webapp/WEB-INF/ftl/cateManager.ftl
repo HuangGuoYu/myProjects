@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/writeAricle.css">
     <link rel="stylesheet" href="/resource/css/cateManager.css">
-    <script type=text/javascript src="/resource/js/jquery-3.1.1.min.js"></script>
-    <script src="/resource/layui/layui.all.js" type="text/javascript"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <script src="/resource/layui/layui.js" type="text/javascript"></script>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="/resource/DataTables-1.10.15/media/css/jquery.dataTables.css">

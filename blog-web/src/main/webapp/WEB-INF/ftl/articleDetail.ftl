@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/articleDetail.css"/>
-    <script type=text/javascript src="/resource/js/jquery-3.1.1.min.js"></script>
-    <script src="/resource/layui/layui.all.js" type="text/javascript"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <script src="/resource/layui/layui.js" type="text/javascript"></script>
 
     <script src="/resource/pageNavigator/js/pageNav.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/resource/pageNavigator/css/pageNav.css" />
@@ -23,8 +23,8 @@
 <body>
     <div class="left-fixed">
         <ul class="fixed-icon">
-            <li title="点赞" onclick="likeFun(this)" class="<#if likeState == 0>none<#else>fixed-icon-active</#if>"><i class="layui-icon">&#xe6c6;</i></li>
-            <li title="聊天"><i class="layui-icon">&#xe611;</i></li>
+            <li title="点赞" onclick="likeFun(this)" class="<#if likeState == 0>none<#else>fixed-icon-active</#if>"><i class="layui-icon">&#xe6af;</i></li>
+            <li title="聊天" onclick="chat('${data.user.id}')"><i class="layui-icon">&#xe611;</i></li>
             <li title="收藏" onclick="collectionArticle()"><i class="layui-icon">&#xe600;</i> </li>
         </ul>
     </div>
@@ -231,6 +231,10 @@
         $.post("/userRel/add", {toUser:uid}, function (res) {
             layer.alert(res.msg)
         })
+    }
+
+    function chat(id) {
+        window.location.href = "/chat/page?id=" + id;
     }
 
 </script>

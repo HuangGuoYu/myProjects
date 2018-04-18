@@ -5,7 +5,8 @@
 
 
     <LINK rel=stylesheet type=text/css href="/resource/img_turn/css/css.css">
-    <script type=text/javascript src="/resource/js/jquery-3.1.1.min.js"></script>
+    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <script src="/resource/layui/layui.js" type="text/javascript"></script>
     <script type=text/javascript src="/resource/img_turn/js/js.js"></script>
     <!-- 轮播插件 -->
     <script src="/resource/pageNavigator/js/pageNav.js" type="text/javascript"></script>

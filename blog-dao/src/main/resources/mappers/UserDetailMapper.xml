@@ -10,10 +10,11 @@
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="qq" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="wx" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="head_icon" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    user_id, expert_field, expert_tech, education, phone, qq, wx
+    user_id, expert_field, expert_tech, education, phone, qq, wx, head_icon
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,10 +29,10 @@
   <insert id="insert" parameterType="com.cqust.blog.common.entity.UserDetail" >
     insert into tbl_user_detail (user_id, expert_field, expert_tech, 
       education, phone, qq, 
-      wx)
+      wx, head_icon)
     values (#{userId,jdbcType=INTEGER}, #{expertField,jdbcType=VARCHAR}, #{expertTech,jdbcType=VARCHAR}, 
       #{education,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{wx,jdbcType=VARCHAR})
+      #{wx,jdbcType=VARCHAR}, #{headIcon,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.UserDetail" >
     insert into tbl_user_detail
@@ -57,6 +58,9 @@
       <if test="wx != null" >
         wx,
       </if>
+      <if test="headIcon != null" >
+        head_icon,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -79,6 +83,9 @@
       </if>
       <if test="wx != null" >
         #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="headIcon != null" >
+        #{headIcon,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -103,6 +110,9 @@
       <if test="wx != null" >
         wx = #{wx,jdbcType=VARCHAR},
       </if>
+      <if test="headIcon != null" >
+        head_icon = #{headIcon,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -113,7 +123,8 @@
       education = #{education,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      wx = #{wx,jdbcType=VARCHAR}
+      wx = #{wx,jdbcType=VARCHAR},
+      head_icon = #{headIcon,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>
