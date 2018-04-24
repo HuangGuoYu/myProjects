@@ -46,7 +46,18 @@
     LEFT JOIN tbl_article b on a.id = b.user_id
     where b.is_original = 1
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="queryUserAttention" resultType="java.util.Map">
+      SELECT to_user_id,blog_name,head_icon from tbl_user_rel a
+      LEFT JOIN tbl_user b on a.to_user_id = b.id and b.state = 2
+      LEFT JOIN tbl_user_detail c on a.to_user_id = c.user_id
+      where a.user_id = #{uid}
+    </select>
+  <select id="queryUserLikeArticle" resultType="java.util.Map">
+    SELECT a.id,a.user_id,b.id articleId,b.title from tbl_article_user_rel a
+    LEFT JOIN tbl_article b on a.article_id = b.id and b.is_delete = 0 and b.state = 1
+    where a.user_id = #{uid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -64,7 +75,7 @@
       #{attentionNum,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, #{banlance,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.User" >
+  <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.User" useGeneratedKeys="true" >
     insert into tbl_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

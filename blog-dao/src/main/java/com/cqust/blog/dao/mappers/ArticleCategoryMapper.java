@@ -21,7 +21,7 @@ public interface ArticleCategoryMapper {
 
     int updateByPrimaryKey(ArticleCategory record);
 
-    ArticleCategory checkIsExists(String name);
+    ArticleCategory checkIsExists(@Param("name") String name,@Param("uid") Integer uid);
 
     ArticleCategory editCheckIsExists(@Param("cid")Integer categoryId, @Param("uid") Integer userInfoId);
 

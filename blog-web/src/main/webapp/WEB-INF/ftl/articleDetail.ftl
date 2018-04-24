@@ -18,6 +18,14 @@
     <script type="text/javascript" charset="utf8" src="/resource/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
     <!-- 轮播插件 -->
     <script type=text/javascript src="/resource/img_turn/js/js.js"></script>
+    <style type="text/css" >
+        .left-fixed {
+            position: fixed;
+            top: 45%;
+            left: 80px;
+            overflow: visible;
+        }
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -218,22 +226,34 @@
      * 文章收藏
      */
     function collectionArticle() {
+        if (isLogin == 0) {
+            window.location.href = "/user/loginPage";
+        }
         $.post("/collect/add",{aid:aid},function (res) {
+            console.log(res);
             layer.alert(res.msg);
         })
     }
 
+
+    var isLogin = ${isLogin};
     /**
      * 关注
      * @param uid
      */
     function attention(uid) {
+        if (isLogin == 0) {
+            window.location.href = "/user/loginPage";
+        }
         $.post("/userRel/add", {toUser:uid}, function (res) {
             layer.alert(res.msg)
         })
     }
 
     function chat(id) {
+        if (isLogin == 0) {
+            window.location.href = "/user/loginPage";
+        }
         window.location.href = "/chat/page?id=" + id;
     }
 

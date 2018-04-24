@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * Created by Administrator on 2018/3/24.
@@ -60,6 +62,44 @@ public class BaseController {
         }
     }
 
+    /**
+     * 获得客户端地址
+     * @param request
+     * @return
+     */
+    public static String getClientIpAddr(HttpServletRequest request) {
+        String ipAddress = null;
+        ipAddress = request.getHeader("X-forwarded-for");
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+            if (ipAddress.equals("127.0.0.1")) {
+                // 根据网卡取本机配置的IP
+                InetAddress inet = null;
+                try {
+                    inet = InetAddress.getLocalHost();
+                    ipAddress = inet.getHostAddress();
+                } catch (UnknownHostException e) {
+                    System.out.println("获取IP地址发生异常");
+                }
+            }
+
+        }
+
+        // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()
+            if (ipAddress.contains(",")) {
+                ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
+            }
+        }
+
+        return ipAddress;
+    }
 
     /**
      * 获得当前的用户

@@ -27,6 +27,20 @@ public class ChatServiceImpl implements ChatService {
     @Autowired private UserMapper userMapper;
 
     @Override
+    public GeneralResult saveMessage(User sessionUser, Message message) {
+        message.setSendTime(new Date());
+        message.setType((byte) 1);
+        messageMapper.insert(message);
+        return new GeneralResult().ok(200);
+    }
+
+    @Override
+    public void execMarckMsgToRead(Message message) {
+        message.setIsLook((byte) 1);
+        messageMapper.updateByPrimaryKey(message);
+    }
+
+    @Override
     public GeneralResult findFriendList(User sessionUser) {
         GeneralResult result = new GeneralResult();
         Map<String, Object> resData = new HashMap<>();

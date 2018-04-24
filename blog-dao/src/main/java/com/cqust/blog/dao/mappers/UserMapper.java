@@ -4,6 +4,7 @@ import com.cqust.blog.common.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -23,4 +24,18 @@ public interface UserMapper {
     User checkAcountIsExists(String account);
 
     Map<String, Object> selectByPrimaryKeyForArticleDetail(@Param("uid") Integer userId);
+
+    /**
+     * 查询用户关注的人
+     * @param uid
+     * @return
+     */
+    List<Map<String,Object>> queryUserAttention(@Param("uid") Integer uid);
+
+    /**
+     * 查询用户收藏的文章
+     * @param uid 当前用户
+     * @return 数据
+     */
+    List<Map<String,Object>> queryUserLikeArticle(@Param("uid") Integer uid);
 }

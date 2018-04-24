@@ -27,6 +27,7 @@ public class ArticleController extends BaseController {
 
     @Autowired private ArticleService articleService;
 
+
     @Autowired
     @Qualifier("stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
@@ -194,6 +195,8 @@ public class ArticleController extends BaseController {
         if (result.getCode() != 200) {
             return "_404";
         }
+        //判断是否增加浏览量
+        articleService.execBrowseNum(getSessionUser(), getClientIpAddr(request), id);
         User user = getSessionUser();
         //是否登录状态
         request.setAttribute("isLogin", user == null ? 0 : 1);

@@ -39,7 +39,7 @@
                 <a href="/article/writeArticle" class="list-group-item" data-title="article" target="_self">发布文章</a>
                 <a href="/article/cateManager"  class="list-group-item none active" target="_self">分类管理</a>
                 <a href="/article/articleManager" class="list-group-item none" data-title="comment" target="_self">文章管理</a>
-                <a href="https://mp.csdn.net/category/list" class="list-group-item none">个人分类管理</a>
+                <a href="/user/userCenter" class="list-group-item none">个人中心</a>
             </div>
         </div>
 

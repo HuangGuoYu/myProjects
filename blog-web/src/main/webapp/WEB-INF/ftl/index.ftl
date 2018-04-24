@@ -6,6 +6,7 @@
 
     <LINK rel=stylesheet type=text/css href="/resource/img_turn/css/css.css">
     <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/resource/layui-1/css/layui.css">
     <script src="/resource/layui/layui.js" type="text/javascript"></script>
     <script type=text/javascript src="/resource/img_turn/js/js.js"></script>
     <!-- 轮播插件 -->
@@ -17,7 +18,11 @@
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/index.css"/>
-
+    <style type="text/css">
+        .red{
+            color: red;
+        }
+    </style>
     <title>张三的博客</title>
 </head>
 <body>
@@ -29,10 +34,10 @@
     <!-- 菜单 -->
     <div class="index-menu-nav public-container clearfloat">
         <ul>
-            <li>个人中心</li>
-            <li>我的消息</li>
+            <li><a href="/user/userCenter">个人中心</a></li>
+            <li><i class="layui-icon <#if isExistsMsg == 1>red</#if>">&#xe756;</i><a href="/chat/page">&nbsp;我的消息</a></li>
             <li>收益管理</li>
-            <li>我的博客</li>
+            <li><a href="#">我的博客</a></li>
             <li>账号管理</li>
             <li><a href="/article/writeArticle">写博客</a></li>
         </ul>

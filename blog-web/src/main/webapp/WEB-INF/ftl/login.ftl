@@ -45,7 +45,7 @@
            <div class="layui-form-item">
                <label class="layui-form-label">密码</label>
                <div class="layui-input-block">
-                   <input id="pwd" type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" value="hgy+1996">
+                   <input id="pwd" type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" value="123456">
                </div>
            </div>
            <div class="layui-form-item" style="margin-top: 50px;">
@@ -57,9 +57,10 @@
        </div>
 </body>
 <script>
-    !function(){
-        var layer = layui.layer,form = layui.form;
-    }();
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
     $("#reset").on("click",function () {
        $("input").val("");
     });
@@ -69,6 +70,7 @@
         $("input").each(function () {
             data[$(this).attr('name')] = $(this).val();
         });
+        data["callBack"] = '${callBack}';
         $.post("/user/login", data, function (res) {
             console.log(res);
             if (res.code != 200) {

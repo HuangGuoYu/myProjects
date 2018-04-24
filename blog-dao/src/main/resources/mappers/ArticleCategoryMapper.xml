@@ -33,7 +33,7 @@
       SELECT
       <include refid="Base_Column_List"/>
       FROM  tbl_article_category
-      WHERE name = #{name, jdbcType=VARCHAR}
+      WHERE name = #{name, jdbcType=VARCHAR} and user_id = #{uid}
     </select>
   <select id="editCheckIsExists" resultType="com.cqust.blog.common.entity.ArticleCategory">
     SELECT

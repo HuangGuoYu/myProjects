@@ -3,14 +3,20 @@ package com.cqust.blog.service.impl.web;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleUserRel;
 import com.cqust.blog.common.entity.User;
+import com.cqust.blog.common.entity.UserStatic;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.dao.mappers.ArticleMapper;
 import com.cqust.blog.dao.mappers.ArticleUserRelMapper;
+import com.cqust.blog.dao.mappers.UserStaticMapper;
 import com.cqust.blog.service_api.web.CollectionArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -22,7 +28,10 @@ public class CollectionArticleServiceImpl implements CollectionArticleService {
 
     @Autowired private ArticleMapper articleMapper;
 
+    @Autowired private UserStaticMapper userStaticMapper;
+
     @Override
+    @Transactional
     public GeneralResult addCollection(User sessionUser, Integer aid) {
         GeneralResult result = new GeneralResult();
         if (aid == null) {
@@ -41,7 +50,32 @@ public class CollectionArticleServiceImpl implements CollectionArticleService {
         articleUserRel.setArticleId(aid);
         articleUserRel.setUserId(sessionUser.getId());
         articleUserRelMapper.insert(articleUserRel);
+        execStaticData(aid, article.getUserId());
         result.setMsg("收藏成功，到个人中心查看");
         return result;
+    }
+
+
+    /**
+     * 为被收藏文章的用户添加统计数据
+     */
+    private void execStaticData(Integer aid, Integer auser) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = simpleDateFormat.format(new Date());
+        UserStatic userStatic = userStaticMapper.findStaticByAidAndDate(aid, dateStr);
+        if (userStatic == null) {
+            userStatic = new UserStatic();
+            userStatic.setLikeNum(1);
+            userStatic.setUserId(auser);
+            userStatic.setTime(dateStr);
+            userStaticMapper.insert(userStatic);
+        } else {
+            if (userStatic.getLikeNum() == null) {
+                userStatic.setLikeNum(1);
+            } else {
+                userStatic.setBrowseNum(userStatic.getLikeNum() + 1);
+            }
+            userStaticMapper.updateByPrimaryKey(userStatic);
+        }
     }
 }

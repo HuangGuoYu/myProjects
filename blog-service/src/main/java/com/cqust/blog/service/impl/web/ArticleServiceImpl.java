@@ -5,11 +5,13 @@ import com.cqust.blog.common.dto.PageEntityDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
+import com.cqust.blog.common.entity.UserStatic;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
 import com.cqust.blog.dao.mappers.ArticleMapper;
 import com.cqust.blog.dao.mappers.UserMapper;
+import com.cqust.blog.dao.mappers.UserStaticMapper;
 import com.cqust.blog.service_api.web.ArticleService;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -39,6 +41,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired private UserMapper userMapper;
 
+    @Autowired private UserStaticMapper userStaticMapper;
+
     @Autowired
     @Qualifier("stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
@@ -54,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
                 return result;
             }
             //分类是否存在
-            ArticleCategory dbEntity = articleCategoryMapper.checkIsExists(category.getName());
+            ArticleCategory dbEntity = articleCategoryMapper.checkIsExists(category.getName(), userInfo.getId());
             if (dbEntity != null) {
                 result.setCode(401);
                 result.setMsg("该分类已存在");
@@ -91,7 +95,7 @@ public class ArticleServiceImpl implements ArticleService {
             return result;
         }
         //检测修改后的名称是否存在
-        dbEntity = articleCategoryMapper.checkIsExists(category.getName());
+        dbEntity = articleCategoryMapper.checkIsExists(category.getName(), userInfo.getId());
         if (dbEntity != null) {
             result.setMsg("当前名称分类已存在，不可修改");
             result.setCode(401);
@@ -251,6 +255,35 @@ public class ArticleServiceImpl implements ArticleService {
         redisTemplate.opsForValue().set(key, "yes", 1, TimeUnit.DAYS);
         result.setMsg("操作成功");
         return result;
+    }
+
+    @Override
+    public void execBrowseNum(User sessionUser, String clientIpAddr, Integer aid) {
+        String key = String.format("article:%s:%d", clientIpAddr, aid);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = simpleDateFormat.format(new Date());
+        String str = redisTemplate.opsForValue().get(key);
+        if (str == null) {
+            redisTemplate.opsForValue().set(key, clientIpAddr,6, TimeUnit.HOURS);
+            Article article = articleMapper.checkArticleByState(aid);
+            if (article != null) {
+                UserStatic userStatic = userStaticMapper.findStaticByAidAndDate(aid, dateStr);
+                if (userStatic == null) {
+                    userStatic = new UserStatic();
+                    userStatic.setUserId(article.getUserId());
+                    userStatic.setTime(dateStr);
+                    userStatic.setBrowseNum(1);
+                    userStaticMapper.insert(userStatic);
+                } else {
+                    if (userStatic.getBrowseNum() == null) {
+                        userStatic.setBrowseNum(1);
+                    } else {
+                        userStatic.setBrowseNum(userStatic.getBrowseNum() + 1);
+                    }
+                    userStaticMapper.updateByPrimaryKeySelective(userStatic);
+                }
+            }
+        }
     }
 
     @Override

@@ -69,4 +69,29 @@
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.cqust.blog.web.controller,com.cqust.blog.web.websocket" />
 
+
+    <!-- 拦截器配置 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.cqust.blog.web.intercepter.UserAuthIntecepter">
+
+                <!--定义拦截后重定向到默认的登录处理页面 -->
+                <property name="defultLogin" value="/user/loginPage" />
+
+                <!-- 排除URL -->
+                <property name="exceptUrls">
+                    <list>
+                        <value>/user/register</value>
+                        <value>/user/checkAcountIsExists</value>
+                        <value>/user/sendVerifyCode</value>
+                        <value>/user/login</value>
+                        <value>/user/registerPage</value>
+                        <value>/user/loginPage</value>
+                        <value>/article/articleDetail</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

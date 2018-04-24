@@ -3,10 +3,14 @@ package com.cqust.blog.service.impl.web;
 import com.cqust.blog.common.common.ConstantCode;
 import com.cqust.blog.common.common.RegexConstant;
 import com.cqust.blog.common.dto.RegisterUserDTO;
+import com.cqust.blog.common.entity.Message;
 import com.cqust.blog.common.entity.User;
+import com.cqust.blog.common.entity.UserDetail;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
+import com.cqust.blog.dao.mappers.MessageMapper;
+import com.cqust.blog.dao.mappers.UserDetailMapper;
 import com.cqust.blog.dao.mappers.UserMapper;
 import com.cqust.blog.service_api.web.UserService;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,6 +35,11 @@ import java.util.concurrent.TimeUnit;
 public class UserServiceImpl implements UserService {
 
     @Autowired private UserMapper userDao;
+
+    @Autowired private UserDetailMapper userDetailMapper;
+
+    @Autowired private MessageMapper messageMapper;
+
 
     @Autowired
     @Qualifier("stringRedisTemplate")
@@ -74,12 +85,19 @@ public class UserServiceImpl implements UserService {
             //判断用户是否存在
             GeneralResult<Boolean> isExists = checkAcountIsExists(user.getAccount());
             if (isExists.getData()) {
+                isExists.setCode(401);
                 isExists.setMsg("账号已存在，不可重复注册");
                 return isExists;
             }
             User userEntity = new User();
             BeanUtils.copyProperties(user, userEntity, "verifyCode", "ackPwd", "sessionId");
             userDao.insertSelective(userEntity);
+            //添加用户详情基本信息
+            User checkUser = userDao.checkAcountIsExists(userEntity.getAccount());
+            UserDetail userDetail = new UserDetail();
+            userDetail.setUserId(checkUser.getId());
+            userDetail.setHeadIcon("/resource/imgs/headimg.jpg");
+            userDetailMapper.insert(userDetail);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -134,6 +152,63 @@ public class UserServiceImpl implements UserService {
         });
         result.setMsg("发送成功");
         return result;
+    }
+
+    @Override
+    public GeneralResult findIsExistsUnReadMessage(User sessionUser) {
+        List<Message> messages = messageMapper.findIsExistsUnReadMessage(sessionUser.getId());
+        GeneralResult result = new GeneralResult();
+        result.setData(messages);
+        return result;
+    }
+
+    @Override
+    public User findUserById(Integer fromUser) {
+        return userDao.selectByPrimaryKey(fromUser);
+    }
+
+    @Override
+    public GeneralResult queryUserAttention(User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        List<Map<String, Object>> datas = userDao.queryUserAttention(sessionUser.getId());
+        result.setData(datas);
+        return result.ok(datas);
+    }
+
+    @Override
+    public GeneralResult queryUserLikeArticle(User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        List<Map<String, Object>> datas = userDao.queryUserLikeArticle(sessionUser.getId());
+        return result.ok(datas);
+    }
+
+    @Override
+    public UserDetail findUserDetailInfo(User sessionUser) {
+        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(sessionUser.getId());
+        return userDetail;
+    }
+
+    @Override
+    public GeneralResult saveUserDetail(UserDetail detail) {
+        GeneralResult res = new GeneralResult();
+        try {
+            //参数校验
+            GeneralResult<Boolean> result = DataUtils.checkFieldByAnnotaion(detail);
+            if (result.getData()) {
+                return result;
+            }
+            //判断是否存在记录
+            UserDetail dbDetail = userDetailMapper.selectByPrimaryKey(detail.getUserId());
+            if (dbDetail == null) {
+                userDetailMapper.insert(detail);
+            } else {
+                BeanUtils.copyProperties(detail, dbDetail);
+                userDetailMapper.updateByPrimaryKeySelective(dbDetail);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return res.ok(200, "操作成功");
     }
 
     @Override

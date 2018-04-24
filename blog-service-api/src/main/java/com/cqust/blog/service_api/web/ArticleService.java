@@ -120,4 +120,12 @@ public interface ArticleService {
      * @return 处理结果
      */
     GeneralResult likeArticle(Integer aid, User sessionUser);
+
+    /**
+     * 执行是增加浏览数
+     * @param sessionUser 当前用户
+     * @param clientIpAddr 请求地址
+     * @param aid 文章id
+     */
+    void execBrowseNum(User sessionUser, String clientIpAddr, Integer aid);
 }

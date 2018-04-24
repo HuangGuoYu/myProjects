@@ -24,4 +24,6 @@ public interface MessageMapper {
     Message findIsExists(@Param("fromId") Integer fromId, @Param("toId") Integer toId);
 
     List<Map<String,Object>> findFriendList(@Param("uid") Integer id);
+
+    List<Message> findIsExistsUnReadMessage(@Param("uid") Integer id);
 }

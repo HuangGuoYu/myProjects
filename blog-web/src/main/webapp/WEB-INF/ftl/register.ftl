@@ -76,9 +76,11 @@
        </div>
 </body>
 <script>
-    !function(){
-        var layer = layui.layer,form = layui.form;
-    }();
+    var layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+
     $("#reset").on("click",function () {
        $("input").val("");
     });
