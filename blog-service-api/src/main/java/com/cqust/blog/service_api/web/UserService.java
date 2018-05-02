@@ -83,4 +83,11 @@ public interface UserService {
      * @return 处理结果
      */
     GeneralResult saveUserDetail(UserDetail detail);
+
+    /**
+     * 获得用户详细信息
+     * @param id id
+     * @return 结果
+     */
+    UserDetail queryUserDetail(Integer id);
 }

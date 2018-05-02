@@ -51,25 +51,17 @@
             <div class="info">
                 <div class="user_info">
                     <div class="info_bar">
-                        <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
+                        <a href="#"><img src="${userDetail.headIcon}" rel="wu"></a>
                         <span class="blog-name" style="">${data.blogName}的博客</span>
                     </div>
                     <div class="info_num_box clearfloat">
                         <dl title="26">
                             <dt>原创</dt>
-                            <dd>26</dd>
+                            <dd>${data.fansNum}</dd>
                         </dl>
                         <dl title="1">
                             <dt>粉丝</dt>
-                            <dd id="fan">1</dd>
-                        </dl>
-                        <dl title="3">
-                            <dt>喜欢</dt>
-                            <dd>3</dd>
-                        </dl>
-                        <dl title="23">
-                            <dt>评论</dt>
-                            <dd>23</dd>
+                            <dd id="fan">${data.attentionNum}</dd>
                         </dl>
                     </div>
                 </div>

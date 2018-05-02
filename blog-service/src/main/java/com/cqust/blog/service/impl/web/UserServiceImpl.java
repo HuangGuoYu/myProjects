@@ -229,4 +229,10 @@ public class UserServiceImpl implements UserService {
         result.setData(user);
         return result;
     }
+
+    @Override
+    public UserDetail queryUserDetail(Integer id) {
+        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(id);
+        return userDetail;
+    }
 }

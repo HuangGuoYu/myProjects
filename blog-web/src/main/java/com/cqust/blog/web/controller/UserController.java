@@ -98,11 +98,15 @@ public class UserController extends BaseController{
     public String index() {
         System.out.println(ServletUtils.getUserInfo(request));
         //判断当前是否存在未读消息
-        List<Message> messages = (List<Message>) userService.findIsExistsUnReadMessage(getSessionUser()).getData();
+        User sessionUser = getSessionUser();
+        List<Message> messages = (List<Message>) userService.findIsExistsUnReadMessage(sessionUser).getData();
         request.setAttribute("isExistsMsg", 0);
         if (messages.size() != 0) {
             request.setAttribute("isExistsMsg", 1);
         }
+        //获得用户的详细信息
+        UserDetail detail = userService.queryUserDetail(sessionUser.getId());
+        request.setAttribute("userDetail", detail);
         request.setAttribute("data", ServletUtils.getUserInfo(request));
         return "index";
     }
