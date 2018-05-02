@@ -3,9 +3,7 @@ package com.cqust.blog.common.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -13,6 +11,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 public class Advertisement {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", length = 11)
     private Integer id;
 
@@ -28,7 +28,7 @@ public class Advertisement {
     @Column(name = "state", length = 4)
     private Byte state;
 
-    @Column(name = "ord", length = 11, nullable = false)
+    @Column(name = "ord", length = 11)
     private Integer ord;
 
     public Advertisement(Integer id, String url, String imageUrl, String content, Byte state, Integer ord) {

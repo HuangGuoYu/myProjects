@@ -25,7 +25,8 @@ public class UserAuthIntecepter extends HandlerInterceptorAdapter {
         //如果是排除url直接跳过
         String requestURI = request.getRequestURI();
         String params = "";
-        if (exceptUrls.contains(requestURI)) {
+        //放开静态资源
+        if (exceptUrls.contains(requestURI) || requestURI.contains("resource")) {
             return true;
         }
         StringBuffer requestURL = request.getRequestURL();

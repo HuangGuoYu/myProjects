@@ -5,6 +5,11 @@ import com.cqust.blog.common.resp.GeneralResult;
 
 import javax.persistence.Column;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -89,5 +94,25 @@ public final class DataUtils {
             builder.append(RANDOM.nextInt(10));
         }
         return builder.toString();
+    }
+
+    public static <T> Map<String, T> convertListToMap(List<Map<String, Object>> datas, String key, String val) {
+        Map<String, T> res = new HashMap<>();
+        if (datas != null) {
+            for (Map<String, Object> item : datas) {
+                res.put(item.get(key).toString(), (T) Integer.valueOf(((BigInteger) item.get(val)).intValue()));
+            }
+        }
+        return res;
+    }
+
+    public static Map<String, Integer> convertListToMapDecmail(List<Map<String, Object>> datas, String key, String val) {
+        Map<String, Integer> res = new HashMap<>();
+        if (datas != null) {
+            for (Map<String, Object> item : datas) {
+                res.put(item.get(key).toString(), ((BigDecimal) item.get(val)).intValueExact());
+            }
+        }
+        return res;
     }
 }

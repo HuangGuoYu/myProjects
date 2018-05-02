@@ -1,0 +1,140 @@
+
+body{
+    background: url("");
+}
+.qqBox {
+    width: 798px;
+    height: 600px;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.BoxHead {
+    width: 100%;
+    height: 52px;
+    background: url(/resource/imgs/chat_head_back.jpg) no-repeat;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+
+.headImg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.internetName {
+    width: auto;
+    height: 52px;
+    line-height: 52px;
+    color: white;
+}
+
+.context {
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+.conLeft {
+    width: 200px;
+    overflow: auto;
+    background: #fafafa;
+}
+
+.conLeft ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.conLeft li .liLeft {
+    width: 30%;
+    height: 100%;
+}
+.liLeft img {
+    margin: 10px;
+}
+.liRight span {
+    display: block;
+    font-size: 16px;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.liRight span:last-child {
+    font-size: 14px;
+    color: #767676;
+    line-height: 15px;
+    overflow: hidden;
+}
+.conLeft li {
+    width: 100%;
+    height: 62px;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+
+.selectBg {
+    background: #ebebec;
+}
+
+.conRight {
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.Righthead {
+    width: 100%;
+    height: 42px;
+    border-bottom: 1px solid #ccc;
+}
+.headName {
+    width: auto;
+    height: 100%;
+    line-height: 42px;
+    margin-left: 20px;
+    font-family: "微软雅黑";
+    font-size: 18px;
+    float: left;
+}
+.RightCont {
+    -webkit-box-flex: 1;
+    overflow-y: scroll;
+}
+.RightCont ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.ChatRecord {
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: deepskyblue;
+    cursor: pointer;
+    display: none;
+}
+
+element.style {
+    width: 99%;
+    height: 75px;
+    border: none;
+    outline: none;
+}
+
+.RightCont li {
+    width: 100%;
+    height: 50px;
+    /* display: -webkit-box; */
+    /* -webkit-box-orient: horizontal; */
+    margin-top: 20px;
+}

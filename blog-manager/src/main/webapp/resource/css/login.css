@@ -1,0 +1,19 @@
+body {padding:0; margin:0; font-size:13px; background-color:white; }
+form,img {padding:0; margin:0; border:0px; }
+table {margin:0; padding:0; width:100%; }
+.banner { width:100%; height:122px; background:#5eddb0 url('/resource/imgs/bg.png') center center no-repeat; margin:0; padding:106px 0; }
+.banner .inner { width:707px; height:122px; background:url('/resource/imgs/logo.png') center no-repeat; background-size:100%; margin:0 auto; }
+.banner .inner img { display:inline-block; margin:0 auto; }
+.input-box { width:370px; margin:0 auto; }
+.input-box, .input-box * { box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; }
+.input-box input { display:block; width:100%; height:60px; line-height:60px; padding:0 12px; font-size:13px; font-family:'Microsoft YaHei UI'; background-color:none; border:none; border-radius:4px; margin-top:35px; }
+.input-box input.uname { border:solid 2px #e0e0e0; font-size:16px; }
+.input-box .input-f { position:relative; }
+.input-box .input-f span { position:absolute; right:12px; top:17px; width:29px; height:26px; background:center center no-repeat; background-size:100% 100%; }
+.input-box .input-f span.n { background-image:url('/resource/imgs/icon_n.png'); }
+.input-box .input-f span.p { background-image:url('/resource/imgs/icon_p.png'); }
+.input-box input.btn { color:white; background-color:#5eddb0; font-size:15px; margin-top:55px; }
+.input-box input.btn.disabled { opacity:.7; pointer-events:none; font-size:12px; }
+.input-box input[type='password'] { margin:0; }
+.input-box #idResult { display:block; margin:11px 0; height:13px; line-height:13px; width:100%; }
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill { -webkit-box-shadow:0 0 0 1000px white inset; }

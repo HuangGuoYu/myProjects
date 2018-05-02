@@ -35,14 +35,14 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, title, post_time, cert_time, browse_num, comment_num, like_num, cate_id, 
+    id, user_id, title, post_time, cert_time, browse_num, comment_num, like_num, cate_id,
     is_original, is_delete, state
   </sql>
   <sql id="Blob_Column_List" >
     content
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -78,15 +78,15 @@
       UPDATE tbl_article set is_delete = 1, cate_id = 0 where user_id=#{uid} and cate_id = #{cid}
     </update>
     <insert id="insert" parameterType="com.cqust.blog.common.entity.Article" >
-    insert into tbl_article (id, user_id, title, 
-      post_time, cert_time, browse_num, 
-      comment_num, like_num, cate_id, 
-      is_original, is_delete, state, 
+    insert into tbl_article (id, user_id, title,
+      post_time, cert_time, browse_num,
+      comment_num, like_num, cate_id,
+      is_original, is_delete, state,
       content)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{postTime,jdbcType=TIMESTAMP}, #{certTime,jdbcType=TIMESTAMP}, #{browseNum,jdbcType=INTEGER}, 
-      #{commentNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, #{cateId,jdbcType=INTEGER}, 
-      #{isOriginal,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, #{state,jdbcType=TINYINT}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+      #{postTime,jdbcType=TIMESTAMP}, #{certTime,jdbcType=TIMESTAMP}, #{browseNum,jdbcType=INTEGER},
+      #{commentNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, #{cateId,jdbcType=INTEGER},
+      #{isOriginal,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, #{state,jdbcType=TINYINT},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cqust.blog.common.entity.Article" >

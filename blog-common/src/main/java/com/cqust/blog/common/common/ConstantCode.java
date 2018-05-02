@@ -10,6 +10,10 @@ public final class ConstantCode {
     public static final int SERVER_ERROR = 500;
 
     public static final String MAIL_HOST = "huangguoyu1106@163.com";
+    public static final String IMG_PATH = "D://imgs";
+    public static final String PREFFIX = "/nginx/";
+
+
 
 
 }

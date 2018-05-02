@@ -33,4 +33,22 @@ public class UserStaticKey implements Serializable{
     public void setTime(String time) {
         this.time = time == null ? null : time.trim();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserStaticKey that = (UserStaticKey) o;
+
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        return time != null ? time.equals(that.time) : that.time == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId != null ? userId.hashCode() : 0;
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        return result;
+    }
 }

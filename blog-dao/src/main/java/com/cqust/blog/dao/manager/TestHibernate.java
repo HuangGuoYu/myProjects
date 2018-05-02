@@ -15,7 +15,7 @@ public class TestHibernate {
     SessionFactory factory;
 
     public User getUser() {
-        return (User) factory.openSession().get(User.class, 1);
+        return (User) factory.openSession().get(User.class, 7);
     }
 
 }

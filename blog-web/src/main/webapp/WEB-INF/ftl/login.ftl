@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>注册</title>
     <link rel="stylesheet" href="/resource/layui/css/layui.css">
-    <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
-    <script src="/resource/layui/layui.js" type="text/javascript"></script>
-    <style type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <title>注册</title>
+    <style rel="stylesheet" type="text/css">
         body{
             background: url("/resource/imgs/reg_backgroud.png") no-repeat;
             background-size:100% 100%;
@@ -56,13 +54,15 @@
            </div>
        </div>
 </body>
-<script>
+<script src="/resource/layui-nim/layui.all.js"></script>
+<script type="text/javascript">
+    console.log(layui)
     var layer;
-    layui.use('layer', function(){
+    layui.use(['layer'], function(){
         layer = layui.layer;
     });
     $("#reset").on("click",function () {
-       $("input").val("");
+        $("input").val("");
     });
     var data = {}
     //用户登录

@@ -1,0 +1,154 @@
+.index-header {
+    margin-top: 20px;
+    background: url("/resource/imgs/header-back.png") no-repeat right bottom;
+    color: #fff;
+    height: 150px;
+}
+
+.index-header a {
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: bold;
+    font-stretch: normal;
+    font-size: 40px;
+    line-height: 40px;
+    display: inline-block;
+    margin-top: 26px;
+    margin-left: 20px;
+    color: #454545;
+}
+
+.index-menu-nav {
+    height: 48px;
+    background-color: #454545;
+}
+.index-menu-nav ul {
+    float: right;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+}
+.index-menu-nav li {
+    float: left;
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 26px;
+    margin-left: 10px;
+    line-height: 26px;
+    font-size: 12px;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+}
+
+
+
+.left-content-personal-info .title{
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    padding-left: 12px;
+}
+
+.left-content .info{
+    padding: 20px;
+}
+
+.left-content .info .user_info {
+    vertical-align: middle;
+}
+
+.user_info .info_bar img{
+    border-radius: 50%;
+    display: inline-block;
+    height: 70px; width: 70px;
+}
+
+.user_info .info_bar .blog-name{
+    vertical-align: 25px; font-weight: bold; margin-left: 40px;font-size: 20px;
+}
+.info .info_num_box {
+    margin-top: 15px;
+    text-align: center;
+    text-align: center;
+    /*border-bottom: 1px solid #e6e6e6;*/
+    border-top: 1px solid #e6e6e6;
+    padding: 16px 0px;
+}
+.info .info_num_box dl{
+    float: left;
+    margin: 0px;
+    display: inline-block;
+    text-align: center;
+    width: 25%;
+}
+
+.info .info_num_box dl dt{
+    font-size: 14px;
+    line-height: 24px;
+    color: #788087;
+}
+
+.info .info_num_box dl dd{
+    color: #4f4f4f;
+    overflow: hidden;
+    margin: 0;
+    line-height: 24px;
+}
+
+.article_title .ico_type_Original {
+    background: url("/resource/imgs/skin-type-icon.png") no-repeat 0px 0px;
+}
+
+.article_title .ico {
+    display: inline-block;
+    vertical-align: top;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+
+.list_item {
+    border-bottom: 1px dashed #ddd;
+    margin: 0 10px;
+    padding: 20px 0 15px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.list_item h1 {
+    display: inline-block;
+    font-weight: normal;
+    margin-bottom: 21px;
+    width: 94%;
+}
+
+.article_manage {
+    text-align: right;
+    color: #999;
+    margin: 20px;
+}
+.article_manage span {
+    margin-right: 16px;
+}
+
+.list_item .article_description {
+    font: 14px/24px 'microsoft yahei';
+    margin: -10px 0 10px 0;
+    color: #666;
+    padding-left: 40px;
+}
+
+.area{
+    width: 450px;
+}
+
+.area img {
+    width: 450px;
+    height: 450px;
+}

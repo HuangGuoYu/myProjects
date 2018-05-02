@@ -1,0 +1,131 @@
+.header{
+    background: #ffffff;
+    margin: 10px 0;
+}
+
+.info_bar img {
+    border-radius: 50%;
+    display: inline-block;
+}
+.info_bar .blog-name {
+    vertical-align: -8px;
+    font-weight: bold;
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+.exit{
+    padding: 30px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.nav_menu {
+    width: 200px;
+    height: 600px;
+    border-right: 1px solid #e9e9e9;
+    background: #fff;
+    min-height: 1040px;
+}
+
+.menu_content {
+    width: 1108px;
+    background-color: #fff;
+    min-height: 1002px;
+}
+
+.menu_content {
+    padding: 20px;
+}
+
+.list-group-title {
+    text-align: center;
+    padding: 12px 24px;
+    font-weight: bold;
+    color: #bbb;
+}
+
+.list-group a {
+    display: block;
+    padding: 12px 32px;
+    color: #212529;
+    font-size: 20px;
+}
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #C92027;
+    border-color: #C92027;
+}
+
+.list-group a:hover {
+    color: #fff;
+    background-color: #C92027;
+    border-color: #C92027;
+}
+
+div.dro-box {
+    position: relative;
+    display: inline-block;
+}
+
+#selType {
+    width: 90px;
+    height: 40px;
+    margin-right: 8px;
+    background-color: #efefef;
+    border: none;
+    color: #4f4f4f;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 8px 0 8px 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+#articleCate {
+    width: 90px;
+    height: 40px;
+    margin-right: 8px;
+    background-color: #efefef;
+    border: none;
+    color: #4f4f4f;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 8px 0 8px 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+#txtTitle {
+    display: inline-block;
+    width: 85%;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: none;
+    background-color: #efefef;
+    color: #4f4f4f;
+}
+.title-box {
+    margin-bottom: 20px;
+}
+.w-e-text-container{
+    height: 600px;
+}
+
+.personal_cate {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -1,23 +1,40 @@
 package com.cqust.blog.common.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+@Entity
+@Table(name = "tbl_withdraw")
+@Getter
+@Setter
 public class Withdraw implements Serializable{
 
     private static final long serialVersionUID = -7775938402970588204L;
+
+    @Id
+    @Column(name = "id", length = 11)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "apply_time")
     private Date applyTime;
 
+    @Column(name = "user_id")
     private Integer userId;
 
+    @Column(name = "alipay_name")
     private String alipayName;
 
+    @Column(name = "alipay_account")
     private String alipayAccount;
 
+    @Column(name = "money")
     private Integer money;
 
+    @Column(name = "state")
     private Byte state;
 
     public Withdraw(Integer id, Date applyTime, Integer userId, String alipayName, String alipayAccount, Integer money, Byte state) {
@@ -34,59 +51,4 @@ public class Withdraw implements Serializable{
         super();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getApplyTime() {
-        return applyTime;
-    }
-
-    public void setApplyTime(Date applyTime) {
-        this.applyTime = applyTime;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getAlipayName() {
-        return alipayName;
-    }
-
-    public void setAlipayName(String alipayName) {
-        this.alipayName = alipayName == null ? null : alipayName.trim();
-    }
-
-    public String getAlipayAccount() {
-        return alipayAccount;
-    }
-
-    public void setAlipayAccount(String alipayAccount) {
-        this.alipayAccount = alipayAccount == null ? null : alipayAccount.trim();
-    }
-
-    public Integer getMoney() {
-        return money;
-    }
-
-    public void setMoney(Integer money) {
-        this.money = money;
-    }
-
-    public Byte getState() {
-        return state;
-    }
-
-    public void setState(Byte state) {
-        this.state = state;
-    }
 }

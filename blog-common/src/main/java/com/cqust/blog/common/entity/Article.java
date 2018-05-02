@@ -55,7 +55,7 @@ public class Article implements Serializable{
     private Byte isDelete;
 
     /**
-     *  审核状态0 审核中 1 审核通过
+     *  审核状态0 审核中 1 审核通过 2 未通过
      */
     @Column(name = "state")
     private Byte state;
