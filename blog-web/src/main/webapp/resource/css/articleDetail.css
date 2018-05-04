@@ -90,13 +90,13 @@ body{
 .article-content {
     padding-top: 20px;
     background-color: #fff;
-    width: 920px;
+    width: 700px;
     margin-right: 30px;
 }
 
 .author-info {
     background-color: #fff;
-    width: 400px;
+    width: 300px;
 }
 
 .article-content h1 {
@@ -169,15 +169,15 @@ div.info_bar{
     margin-left: 116px;
 }
 .area img{
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
 }
 .area {
-    width: 400px;
+    width: 300px;
 }
 .box01 {
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
 }
 
 .jsNav {

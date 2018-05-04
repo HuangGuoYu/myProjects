@@ -44,7 +44,7 @@
     </div>
 
     <div class="index-content public-container clearfloat">
-        <div class="left-content left" style="width: 450px;margin-bottom: 9px;background: #fff;">
+        <div class="left-content left" style="width: 250px;margin-bottom: 9px;background: #fff;">
             <div class="left-content-personal-info">
                 <div class="title">个人信息</div>
             </div>
@@ -92,7 +92,7 @@
         </div>
 
 
-        <div class="right-content right" style="width: 880px;background: #fff;">
+        <div class="right-content right" style="width: 780px;background: #fff;">
 
             <div class="list_item clearfloat article_item">
                 <div class="article_title">
