@@ -90,4 +90,23 @@ public interface UserService {
      * @return 结果
      */
     UserDetail queryUserDetail(Integer id);
+
+    /**
+     * 查找用户收入排行
+     * @return 数据
+     */
+    GeneralResult findIncomeRank();
+
+    /**
+     * 查找个人分类信息
+     * @param sessionUser 当前用户
+     * @return 处理结果
+     */
+    GeneralResult findPersonalCate(User sessionUser);
+
+    /**
+     * 保存用户头像
+     * @param headerIcon
+     */
+    void execSaveUrl(String headerIcon, User user);
 }

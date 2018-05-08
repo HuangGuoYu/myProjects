@@ -7,7 +7,7 @@
     <LINK rel=stylesheet type=text/css href="/resource/img_turn/css/css.css">
     <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/resource/layui-1/css/layui.css">
-    <script src="/resource/layui/layui.js" type="text/javascript"></script>
+    <script src="/resource/layui-1/layui.js" type="text/javascript"></script>
     <script type=text/javascript src="/resource/img_turn/js/js.js"></script>
     <!-- 轮播插件 -->
     <script src="/resource/pageNavigator/js/pageNav.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@
             color: red;
         }
     </style>
-    <title>张三的博客</title>
+    <title>${data.blogName}的博客</title>
 </head>
 <body>
     <div class="index-header public-container">
@@ -67,139 +67,156 @@
                 </div>
             </div>
 
-            <!-- 广告 -->
-            <div class="area">
-                <a id=prev class="prevBtn qq" href="javascript:void(0)"></a>
-                <a id=next class="nextBtn qq" href="javascript:void(0)"></a>
-                <div id=js class="js">
-                    <div class="box01">
-                        <img onClick="location.href='http://www.jq22.com/'"  src="/resource/img_turn/images/01.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'"  style="DISPLAY: none" src="/resource/img_turn/images/02.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none"  src="/resource/img_turn/images/03.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none"  src="/resource/img_turn/images/04.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none" src="/resource/img_turn/images/05.jpg">
-                    </div>
-                    <div class="bg"></div>
-                    <div id=jsNav class=jsNav>
-                        <a class="trigger imgSelected" href="javascript:void(0)">1</a>
-                        <a class="trigger" href="javascript:void(0)">2</a>
-                        <a class="trigger" href="javascript:void(0)">3</a>
-                        <a class="trigger" href="javascript:void(0)">4</a>
-                        <a class="trigger" href="javascript:void(0)">5</a>
-                    </div>
+            <div class="layui-carousel" id="test1">
+                <div carousel-item>
+                    <div><img src="${userDetail.headIcon}"></div>
+                    <div><img src="${userDetail.headIcon}"></div>
+                    <div><img src="${userDetail.headIcon}"></div>
+                    <div><img src="${userDetail.headIcon}"></div>
+                    <div><img src="${userDetail.headIcon}"></div>
                 </div>
             </div>
+
+            <div class="income-info" style="margin-top: 20px;">
+                <h3 style="border-left: 3px solid red; padding: 5px;margin-bottom: 15px;"><strong>收入排行</strong></h3>
+                <ul id="income_rank">
+                </ul>
+            </div>
+
+            <div class="personal-cate" style="margin-top: 20px;">
+                <h3 style="border-left: 3px solid red; padding: 5px;margin-bottom: 15px;"><strong>个人分类</strong></h3>
+                <ul id="personal-cate">
+                </ul>
+            </div>
+
         </div>
 
 
-        <div class="right-content right" style="width: 780px;background: #fff;">
 
-            <div class="list_item clearfloat article_item">
-                <div class="article_title">
-                    <span class="ico ico_type_Original"></span>
-                    <h1>
-                        <span class="link_title">
-                           <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706">spring+springmvc+mybatis(下)</a>
-                        </span>
-                    </h1>
-                    <div class="article_description">spring+Mybatis+springMVC的第二部分</div>
-                </div>
-                <div class="article_manage">
-                    <span class="link_postdate">2017-05-09 09:28:13</span>
-                    <span class="link_view" title="阅读次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706" title="阅读次数">阅读</a>(744)
-                     </span>
-                    <span class="link_comments" title="评论次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706#comments" title="评论次数" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)
-                    </span>
-                    <span class="link_edit"><a href="https://mp.csdn.net/postedit/71438706" title="编辑">编辑</a></span>
-                    <span class="link_edit"><a href="javascript:void(0);" onclick="javascript:topArticle(71438706);return false;" title="置顶">置顶</a></span>
-                    <span class="link_delete"><a href="javascript:void(0);" onclick="javascript:deleteArticle(71438706);return false;" title="删除">删除</a></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="list_item clearfloat article_item">
-                <div class="article_title">
-                    <span class="ico ico_type_Original"></span>
-                    <h1>
-                        <span class="link_title">
-                           <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706">spring+springmvc+mybatis(下)</a>
-                        </span>
-                    </h1>
-                    <div class="article_description">spring+Mybatis+springMVC的第二部分</div>
-                </div>
-                <div class="article_manage">
-                    <span class="link_postdate">2017-05-09 09:28:13</span>
-                    <span class="link_view" title="阅读次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706" title="阅读次数">阅读</a>(744)
-                     </span>
-                    <span class="link_comments" title="评论次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706#comments" title="评论次数" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)
-                    </span>
-                    <span class="link_edit"><a href="https://mp.csdn.net/postedit/71438706" title="编辑">编辑</a></span>
-                    <span class="link_edit"><a href="javascript:void(0);" onclick="javascript:topArticle(71438706);return false;" title="置顶">置顶</a></span>
-                    <span class="link_delete"><a href="javascript:void(0);" onclick="javascript:deleteArticle(71438706);return false;" title="删除">删除</a></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="list_item clearfloat article_item">
-                <div class="article_title">
-                    <span class="ico ico_type_Original"></span>
-                    <h1>
-                        <span class="link_title">
-                           <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706">spring+springmvc+mybatis(下)</a>
-                        </span>
-                    </h1>
-                    <div class="article_description">spring+Mybatis+springMVC的第二部分</div>
-                </div>
-                <div class="article_manage">
-                    <span class="link_postdate">2017-05-09 09:28:13</span>
-                    <span class="link_view" title="阅读次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706" title="阅读次数">阅读</a>(744)
-                     </span>
-                    <span class="link_comments" title="评论次数">
-                        <a href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706#comments" title="评论次数" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)
-                    </span>
-                    <span class="link_edit"><a href="https://mp.csdn.net/postedit/71438706" title="编辑">编辑</a></span>
-                    <span class="link_edit"><a href="javascript:void(0);" onclick="javascript:topArticle(71438706);return false;" title="置顶">置顶</a></span>
-                    <span class="link_delete"><a href="javascript:void(0);" onclick="javascript:deleteArticle(71438706);return false;" title="删除">删除</a></span>
-                </div>
-                <div class="clear"></div>
-            </div>
 
-            <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId"></nav>
+        <div class="right-content right" id="group-list" style="width: 780px;background: #fff;">
         </div>
+        <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId"></nav>
     </div>
 </body>
+<script src="/resource/js/template.js"></script>
+
+<script type="text/html" id="article-item">
+    {{each datas as item}}
+        <div class="list_item clearfloat article_item">
+            <div class="article_title">
+                <span class="ico ico_type_Original"></span>
+                <h1>
+                    <span class="link_title">
+                       <a href="/article/articleDetail?id={{item.id}}">{{item.title}}</a>
+                    </span>
+                </h1>
+                <div class="article_description">{{item.title}}...</div>
+            </div>
+            <div class="article_manage">
+                <span class="link_postdate">{{item.strTime}}</span>
+                <span class="link_view" title="阅读次数">
+                    <span href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706" title="阅读次数">阅读</span>({{item.browseNum}})
+                </span>
+                <span class="link_comments" title="评论次数">
+                    <span href="https://blog.csdn.net/sui_feng_piao_guo/article/details/71438706#comments" title="评论次数" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</span>({{item.commentNum}})
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    {{/each}}
+</script>
 
 <script type="text/javascript">
 //    <!-- 启动轮播 -->
+
     $(document).ready(function(){
-        $(".area").hover(function(){
-                    $(this).find(".qq").show(100);}
-                ,function(){
-                    $(this).find(".qq").hide(100);
-                });
-
-
-        var pageNavObj = null;//用于储存分页对象
-        pageNavObj = new PageNavCreate("PageNavId",{
-            pageCount:30,
-            currentPage:1,
-            perPageNum:5,
+        layui.use('carousel', function(){
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#test1'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' //始终显示箭头
+                //,anim: 'updown' //切换动画方式
+            });
         });
-        pageNavObj.afterClick(pageNavCallBack);
 
-        function pageNavCallBack(clickPage){
+        function ajax4List(state, curPage) {
+            $.ajax({
+                url:"/article/queryArticleByState",
+                type:"post",
+                data:{state:state, curPage:curPage},
+                success:function (res) {
+                    initPageNav(res.data)
+                },
+                dataType:"json"
+            });
+        }
+
+
+        function initPageNav(res) {
+            var templateName = "article-item";
+            for(item in res.datas) {
+                res.datas[item].strTime = new Date(res.datas[item].postTime).toLocaleString();
+            }
+            var pageNavObj = null;//用于储存分页对象
+            console.log(res)
             pageNavObj = new PageNavCreate("PageNavId",{
-                pageCount:30,
-                currentPage:clickPage,
-                perPageNum:5,
+                pageCount:res.pageCount,
+                currentPage:res.curPage,
+                perPageNum:res.perCount,
             });
             pageNavObj.afterClick(pageNavCallBack);
+            var html = template(templateName, res);
+            $("#group-list").empty();
+            $("#group-list").html(html);
+        }
+        function pageNavCallBack(clickPage){
+            //实现也面跳转
+            ajax4List(1, clickPage);
+        }
+        //初始化第一页
+        ajax4List(1, 1);
+    });
+
+    $.get("/user/incomeRank",function (res) {
+        var html = "";
+        if (res.code == 200) {
+            html = template("income_rank_temp", res)
+            $("#income_rank").empty();
+            $("#income_rank").html(html);
         }
     });
 
+    $.get("/user/personalCate", function (res) {
+        var html1 = "";
+        if (res.code == 200) {
+            html1 = template("personal_cate_temp", res);
+            $("#personal-cate").empty();
+            $("#personal-cate").html(html1);
+        }
+    })
 
+</script>
+
+<script type="text/html" id="income_rank_temp">
+    {{each data as item i}}
+        <li style="padding: 15px;" class="clearfloat">
+            <span style="font-size: 20px;">第{{i + 1}}名</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong style="font-size: 20px;">{{item.blog_name}}</strong>
+            <span class="right" style="color: red;font-size: 20px;">{{item.income}}元</span>
+        </li>
+    {{/each}}
+</script>
+
+<script type="text/html" id="personal_cate_temp">
+    {{each data as item i}}
+    <li style="padding: 10px;" class="clearfloat">
+        <#--<span style="font-size: 10px;">第{{i + 1}}</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <strong style="font-size: 10px;">{{item.name}}</strong>
+        <span class="right" style="font-size: 10px;">{{item.count}}</span>
+    </li>
+    {{/each}}
 </script>
 </html>

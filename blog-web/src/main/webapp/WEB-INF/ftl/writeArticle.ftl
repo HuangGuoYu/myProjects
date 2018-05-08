@@ -110,6 +110,7 @@
 
         $.ajax({
             url:"/article/addArticle",
+            type:"post",
             data:data,
             success:function (res) {
                 if (res.code == 200) {

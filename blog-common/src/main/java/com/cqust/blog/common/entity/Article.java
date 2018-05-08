@@ -63,7 +63,7 @@ public class Article implements Serializable{
     /**
      * 博客内容
      */
-    @Column(name = "content", nullable = false, length = 5000)
+    @Column(name = "content", nullable = false, length = 100000)
     private String content;
 
     public Article(Integer id, Integer userId, String title, Date postTime, Date certTime, Integer browseNum, Integer commentNum, Integer likeNum, Integer cateId, Byte isOriginal, Byte isDelete, Byte state, String content) {

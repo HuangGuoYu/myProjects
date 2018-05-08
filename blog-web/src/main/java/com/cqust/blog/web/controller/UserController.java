@@ -1,5 +1,6 @@
 package com.cqust.blog.web.controller;
 
+import com.cqust.blog.common.common.ConstantCode;
 import com.cqust.blog.common.entity.Message;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.entity.UserDetail;
@@ -12,8 +13,13 @@ import com.cqust.blog.common.dto.RegisterUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -156,5 +162,51 @@ public class UserController extends BaseController{
         detail.setUserId(getSessionUser().getId());
         GeneralResult result = userService.saveUserDetail(detail);
         return result;
+    }
+
+    /**
+     * 用户收入排行
+     * @return 数据
+     */
+    @RequestMapping("/incomeRank")
+    @ResponseBody
+    public GeneralResult incomeRanke() {
+        return userService.findIncomeRank();
+    }
+
+    /**
+     * 个人分类
+     * @return 数据
+     */
+    @RequestMapping("/personalCate")
+    @ResponseBody
+    public GeneralResult personalCate() {
+        User sessionUser = getSessionUser();
+        return userService.findPersonalCate(sessionUser);
+    }
+
+    /**
+     * 图片上传
+     * @return
+     */
+    @RequestMapping("/uploadImage")
+    @ResponseBody
+    public GeneralResult uploadImage(@RequestParam("file") MultipartFile file) {
+        GeneralResult result = new GeneralResult();
+        String originalFilename = file.getOriginalFilename();
+        String[] split = originalFilename.split("\\.");
+        String suffix = split[split.length - 1];
+        String imgUrl = System.currentTimeMillis() + "." + suffix;
+        if (!file.isEmpty()) {
+            try {
+                file.transferTo(new File(ConstantCode.IMG_PATH + File.separator  + imgUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return result.error(500, "上传失败");
+            }
+        }
+        String headerIcon = ConstantCode.PREFFIX + imgUrl;
+        userService.execSaveUrl(headerIcon, getSessionUser());
+        return new GeneralResult().ok(ConstantCode.PREFFIX + imgUrl);
     }
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/resource/css/writeAricle.css">
     <link rel="stylesheet" href="/resource/css/articleManager.css">
     <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
-    <script src="/resource/layui/layui.js" type="text/javascript"></script>
+    <script src="/resource/layui-1/layui.js" type="text/javascript"></script>
 
     <script src="/resource/pageNavigator/js/pageNav.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/resource/pageNavigator/css/pageNav.css" />
@@ -19,6 +19,11 @@
     <style type="text/css">
         input{
             width: 100%;
+        }
+        img{
+            border-radius: 50%;
+            display: inline-block;
+            height: 71px; width: 71px;
         }
     </style>
 </head>
@@ -97,9 +102,20 @@
                                 <td>学历</td>
                                 <td><input class="input" type="text" value="${uinfo.education!}" name="education"></td>
                             </tr>
+                            <tr>
+                                <td>头像</td>
+                                <td>
+                                    <img src="${uinfo.headIcon}" rel="wu" id="headerIcon">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="layui-btn" id="test1">
+                                        <i class="layui-icon">&#xe67c;</i>上传图片
+                                    </button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
-                        <button class="layui-btn layui-btn-normal" style="" onclick="submitUserInfo()">保存</button>
+                        <button class="layui-btn layui-btn-normal" style="" onclick="submitUserInfo()">保存基本信息</button>
+
                     </div>
 
                     <!--第二步：添加如下 HTML 代码-->
@@ -247,5 +263,28 @@
             }
         );
     }
+</script>
+
+<script>
+    layui.use('upload', function(){
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/user/uploadImage' //上传接口
+            ,done: function(res){
+                //上传完毕回调
+                if (res.code == 200) {
+                    $("#headerIcon").attr("src", res.data);
+                } else {
+                    layer.alert(res.msg);
+                }
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+    });
 </script>
 </html>

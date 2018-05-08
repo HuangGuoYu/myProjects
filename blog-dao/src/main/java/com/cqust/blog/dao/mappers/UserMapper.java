@@ -38,4 +38,8 @@ public interface UserMapper {
      * @return 数据
      */
     List<Map<String,Object>> queryUserLikeArticle(@Param("uid") Integer uid);
+
+    List<Map<String,Object>> findIncomeRank();
+
+    List<Map<String,Object>> findPersonalCate(@Param("id") Integer id);
 }

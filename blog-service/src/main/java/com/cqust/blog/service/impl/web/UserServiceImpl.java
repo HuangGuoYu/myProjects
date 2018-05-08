@@ -235,4 +235,28 @@ public class UserServiceImpl implements UserService {
         UserDetail userDetail = userDetailMapper.selectByPrimaryKey(id);
         return userDetail;
     }
+
+    @Override
+    public GeneralResult findIncomeRank() {
+        List<Map<String, Object>> res = userDao.findIncomeRank();
+        GeneralResult result = new GeneralResult();
+        return result.ok(res);
+    }
+
+    @Override
+    public GeneralResult findPersonalCate(User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        if (sessionUser == null) {
+            return result.error(201, "登录超时");
+        }
+        List<Map<String, Object>> res = userDao.findPersonalCate(sessionUser.getId());
+        return result.ok(res);
+    }
+
+    @Override
+    public void execSaveUrl(String headerIcon, User user) {
+        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(user.getId());
+        userDetail.setHeadIcon(headerIcon);
+        userDetailMapper.updateByPrimaryKeySelective(userDetail);
+    }
 }

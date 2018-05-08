@@ -57,6 +57,21 @@
     LEFT JOIN tbl_article b on a.article_id = b.id and b.is_delete = 0 and b.state = 1
     where a.user_id = #{uid}
   </select>
+  <select id="findIncomeRank" resultType="java.util.Map">
+      SELECT user_id, SUM(income) income,b.blog_name from tbl_user_static a
+      LEFT JOIN tbl_user b on a.user_id = b.id
+      where blog_name is not NULL
+      GROUP BY user_id
+      ORDER BY income DESC
+      LIMIT 0,10
+  </select>
+  <select id="findPersonalCate" resultType="java.util.Map">
+    SELECT b.name,SUM(a.cate_id) count from tbl_article a
+    LEFT JOIN tbl_article_category b on a.cate_id = b.id
+    where a.user_id = #{id} and b.name is not NULL
+    GROUP BY a.cate_id
+    ORDER BY count DESC
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}

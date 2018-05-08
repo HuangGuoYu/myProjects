@@ -33,6 +33,7 @@
     var tables;
 </script>
 <script>
+        var content = {};
        var colunms = [
         {"data":"id"},
         {"data":"title"},
@@ -68,7 +69,8 @@
             "data":"state",
             "render":function (data, type, row, meta) {
                 if (data == 0) {
-                    return '<a href="javascript:void(0);" class="layui-btn" onclick="seeTheContent(\''+ row.content +'\')">查看内容</a>' +
+                    content["_" + row.id] = row.content;
+                    return '<a href="javascript:void(0);" class="layui-btn" onclick="seeTheContent(\''+ row.id +'\')">查看内容</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-normal" onclick="approval('+ row.id + ',' + row.user_id+ ')">通过</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-warm" onclick="forbidFun('+row.id+')">禁用</a>';
                 } else {
@@ -81,13 +83,13 @@
     ];
     tables = initTable("table_id_example", "/article/list", "data", colunms);
 
-    function seeTheContent(content) {
+    function seeTheContent(id) {
         layer.open({
             type: 1,
             title:"博客内容",
             skin: 'layui-layer-rim', //加上边框
-            area: ['600px', '800px'], //宽高
-            content: content
+            area: ['600px', '500px'], //宽高
+            content: content["_" + id]
         });
     }
 
