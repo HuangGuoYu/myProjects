@@ -117,4 +117,35 @@ public interface UserService {
      * @return 处理结果
      */
     GeneralResult delLikeArticle(Integer id, User sessionUser);
+
+    /**
+     * 取消关注
+     * @param id 用户id
+     * @return 处理结果
+     */
+    GeneralResult execDelAttention(Integer id);
+
+    /**
+     * 修改面膜
+     * @param sessionUser
+     * @param pwd
+     * @return
+     */
+    GeneralResult editPwd(User sessionUser, String pwd);
+
+    /**
+     * 发送登录验证码
+     * @param id sessionid
+     * @return
+     */
+    GeneralResult sendLoginVC(String id, String count);
+
+    GeneralResult<?> loginByCode(String account, String pwd);
+
+    /**
+     * 查找用户收入数据
+     * @param sessionUser
+     * @return
+     */
+    GeneralResult findIncomeData(User sessionUser);
 }

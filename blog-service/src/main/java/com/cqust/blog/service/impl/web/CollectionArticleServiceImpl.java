@@ -51,6 +51,8 @@ public class CollectionArticleServiceImpl implements CollectionArticleService {
         articleUserRel.setUserId(sessionUser.getId());
         articleUserRelMapper.insert(articleUserRel);
         execStaticData(aid, article.getUserId());
+        //添加文章本身的数据
+        article.setLikeNum(article.getLikeNum() == null ? 1 : (article.getLikeNum() + 1));
         result.setMsg("收藏成功，到个人中心查看");
         return result;
     }

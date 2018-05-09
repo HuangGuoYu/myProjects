@@ -47,7 +47,7 @@
     where b.is_original = 1
     </select>
     <select id="queryUserAttention" resultType="java.util.Map">
-      SELECT to_user_id,blog_name,head_icon from tbl_user_rel a
+      SELECT a.id,to_user_id,blog_name,head_icon from tbl_user_rel a
       LEFT JOIN tbl_user b on a.to_user_id = b.id and b.state = 2
       LEFT JOIN tbl_user_detail c on a.to_user_id = c.user_id
       where a.user_id = #{uid}
@@ -71,6 +71,17 @@
     where a.user_id = #{id} and b.name is not NULL
     GROUP BY a.cate_id
     ORDER BY count DESC
+  </select>
+  <select id="findByAccount" resultType="com.cqust.blog.common.entity.User">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from tbl_user
+    where account = #{account}
+  </select>
+  <select id="findIncomeData" resultType="java.util.Map">
+    SELECT time,if(income is null,0,income) count from tbl_user_static
+    where user_id = 7
+    and DATE_SUB(CURDATE(),INTERVAL 6 DAY)  <![CDATA[<=]]> date(time)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user

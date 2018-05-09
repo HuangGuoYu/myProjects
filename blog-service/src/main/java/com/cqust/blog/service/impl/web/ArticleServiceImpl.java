@@ -269,6 +269,7 @@ public class ArticleServiceImpl implements ArticleService {
             redisTemplate.opsForValue().set(key, clientIpAddr,6, TimeUnit.HOURS);
             Article article = articleMapper.checkArticleByState(aid);
             if (article != null) {
+                //用户统计信息
                 UserStatic userStatic = userStaticMapper.findStaticByAidAndDate(aid, dateStr);
                 if (userStatic == null) {
                     userStatic = new UserStatic();
@@ -284,6 +285,9 @@ public class ArticleServiceImpl implements ArticleService {
                     }
                     userStaticMapper.updateByPrimaryKeySelective(userStatic);
                 }
+                //当前文章浏览量添加
+                article.setBrowseNum(article.getBrowseNum() == null ? 1 : (article.getBrowseNum() + 1));
+                articleMapper.updateByPrimaryKeySelective(article);
             }
         }
     }

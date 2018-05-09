@@ -93,9 +93,14 @@ public class StaticServiceImpl implements StaticService {
         return result.ok(resMap);
     }
 
+    /**
+     * 补齐时间空位
+     * @param map
+     * @return
+     */
     private Map<String, Object> timeStatic(Map<String, Integer> map) {
-        String[] xs = new String[7];
-        Integer[] xds = new Integer[7];
+        String[] xs = new String[7];//日期
+        Integer[] xds = new Integer[7];//数据
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MM-dd");
         Date cur = new Date();
@@ -116,7 +121,7 @@ public class StaticServiceImpl implements StaticService {
 
     @Override
     public GeneralResult expensesData() {
-        String sql = "SELECT time,SUM(income) count from tbl_user_static where \n" +
+        String sql = "SELECT time,if(SUM(income) is NULL,0,sum(income)) count from tbl_user_static where \n" +
                 "DATE_SUB(CURDATE(),INTERVAL 6 DAY) <= date(time)\n" +
                 "GROUP BY time\n" +
                 "ORDER BY time";

@@ -255,7 +255,7 @@ public class ArticleController extends BaseController {
             request.setAttribute("likeState", 0);
         } else {
             String key = "likeArticle:" + user.getId() + ":" + id;
-            String state = redisTemplate.opsForValue().get("likeArticle:7:2");
+            String state = redisTemplate.opsForValue().get(key);
             if (state == null) {
                 request.setAttribute("likeState", 0);
             } else {

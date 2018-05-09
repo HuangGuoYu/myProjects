@@ -6,6 +6,7 @@ import com.cqust.blog.common.dto.RegisterUserDTO;
 import com.cqust.blog.common.entity.Message;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.entity.UserDetail;
+import com.cqust.blog.common.entity.UserRel;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.*;
@@ -21,6 +22,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +42,8 @@ public class UserServiceImpl implements UserService {
     @Autowired private MessageMapper messageMapper;
 
     @Autowired private ArticleUserRelMapper articleUserRelMapper;
+
+    @Autowired private UserRelMapper userRelMapper;
 
 
     @Autowired
@@ -230,6 +236,64 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public GeneralResult findIncomeData(User sessionUser) {
+        List<Map<String, Object>> datas = userDao.findIncomeData(sessionUser.getId());
+        Map<String, Integer> map = DataUtils.convertListToMapDecmail(datas,"time", "count");
+        Map<String, Object> resMap = timeStatic(map);
+        GeneralResult result = new GeneralResult();
+        return result.ok(resMap);
+    }
+
+    /**
+     * 补齐时间空位
+     * @param map
+     * @return
+     */
+    private Map<String, Object> timeStatic(Map<String, Integer> map) {
+        String[] xs = new String[7];//日期
+        Integer[] xds = new Integer[7];//数据
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MM-dd");
+        Date cur = new Date();
+        for (int i = 6; i >= 0; i--) {
+            xs[i] = simpleDateFormat.format(cur.getTime() - i * (24 * 60 * 60 * 1000));
+            if (map.containsKey(xs[i])) {
+                xds[i] = map.get(xs[i]);
+            } else {
+                xds[i] = 0;
+            }
+            xs[i] = simpleDateFormat2.format(cur.getTime() - i * (24 * 60 * 60 * 1000));
+        }
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put("xs", xs);
+        resMap.put("xds", xds);
+        return resMap;
+    }
+
+    @Override
+    public GeneralResult<?> loginByCode(String account, String pwd) {
+        GeneralResult result = new GeneralResult();
+        if (DataUtils.strIsNullOrEmpty(account, pwd)) {
+            result.setCode(201);
+            result.setMsg("参数不可为空");
+            return result;
+        }
+        if (pwd.equals(redisTemplate.opsForValue().get("login:" + account))) {
+            User user = userDao.findByAccount(account);
+            if (user == null) {
+                result.setMsg("您当前未注册");
+                return result.error(404, "您当前未注册,请先注册");
+            }
+            result.setUrl("/user/userIndex");
+            result.setData(user);
+            result.setCode(200);
+        } else {
+            return result.error(401, "验证码错误");
+        }
+        return result;
+    }
+
+    @Override
     public UserDetail queryUserDetail(Integer id) {
         UserDetail userDetail = userDetailMapper.selectByPrimaryKey(id);
         return userDetail;
@@ -265,4 +329,63 @@ public class UserServiceImpl implements UserService {
         GeneralResult result = new GeneralResult();
         return result.ok("操作成功");
     }
+
+    @Override
+    public GeneralResult execDelAttention(Integer id) {
+        GeneralResult result = new GeneralResult();
+        if (id == null) {
+            return result.error(201, "参数错误");
+        }
+        UserRel userRel = userRelMapper.selectByPrimaryKey(id);
+        if (userRel == null) {
+            return result.error(404, "不存在当前记录");
+        }
+        userRelMapper.deleteByPrimaryKey(id);
+        return result.ok("取消成功");
+    }
+
+    @Override
+    public GeneralResult editPwd(User sessionUser, String pwd) {
+        GeneralResult result = new GeneralResult();
+        if (sessionUser == null) {
+            return result.error(600, "请登录");
+        }
+        if (DataUtils.strIsNullOrEmpty(pwd)) {
+            return result.error(201, "参数不能为空");
+        }
+        sessionUser.setPwd(pwd);
+        userDao.updateByPrimaryKeySelective(sessionUser);
+        return result.ok("修改成功");
+    }
+
+    @Override
+    public GeneralResult sendLoginVC(String id, String count) {
+        GeneralResult result = new GeneralResult();
+        String key = "login:" + count;
+        String val = redisTemplate.opsForValue().get(key);
+        if (val != null) {
+            return result.error(401, "验证码已发送注意查收");
+        }
+        if (DataUtils.strIsNullOrEmpty(count) || !count.matches(RegexConstant.EMAIL)) {
+            result.setCode(201);
+            result.setMsg("邮箱格式错误");
+            return result;
+        }
+        String code = DataUtils.genNnumber(6);
+        redisTemplate.opsForValue().set(key, code, 60 * 3, TimeUnit.SECONDS);
+        //构建邮件发送给消息
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(ConstantCode.MAIL_HOST);
+        message.setSubject("登录验证码");
+        message.setTo(count);
+        message.setText("验证码是:" + code + ";请在三分钟内使用，三分钟后验证码失效");
+        //异步执行右键发送
+        taskExecutor.execute(()->{
+            sender.send(message);
+        });
+        result.setMsg("发送成功");
+        return result;
+    }
+
+
 }

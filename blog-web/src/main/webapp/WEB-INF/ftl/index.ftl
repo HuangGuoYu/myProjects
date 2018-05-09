@@ -36,9 +36,8 @@
         <ul>
             <li><a href="/user/userCenter">个人中心</a></li>
             <li><i class="layui-icon <#if isExistsMsg == 1>red</#if>">&#xe756;</i><a href="/chat/page">&nbsp;我的消息</a></li>
-            <li>收益管理</li>
+            <li><a href="/income/index">收益管理</a></li>
             <li><a href="#">我的博客</a></li>
-            <li>账号管理</li>
             <li><a href="/article/writeArticle">写博客</a></li>
         </ul>
     </div>

@@ -44,7 +44,7 @@
                     <#--<input class="search-btn clearfloat"/><i class="layui-icon right search-icon">&#xe615;</i>-->
                 <#--</li>-->
                 <li>
-                    <a><i class="layui-icon write">&#xe642;</i>&nbsp;写博客</a>
+                    <a href="/article/writeArticle"><i class="layui-icon write">&#xe642;</i>&nbsp;写博客</a>
                 </li>
                 <#if isLogin == 0>
                     <li>

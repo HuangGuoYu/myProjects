@@ -30,7 +30,7 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="${uinfo.headIcon}" rel="wu" style="border-radius: 50%;display: inline-block;height: 71px; width: 71px;"></a>
+            <a href="/user/userIndex"><img src="${uinfo.headIcon}" rel="wu" style="border-radius: 50%;display: inline-block;height: 71px; width: 71px;"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
         <a class="exit right" style="cursor:pointer;" href="/user/logout">
@@ -49,6 +49,7 @@
                 <a href="/article/cateManager"  class="list-group-item none" target="_self">分类管理</a>
                 <a href="/article/articleManager" class="list-group-item none active" data-title="comment" target="_self">文章管理</a>
                 <a href="/user/userCenter" class="list-group-item none">个人中心</a>
+                <a href="/income/index" class="list-group-item none">收益管理</a>
             </div>
         </div>
 

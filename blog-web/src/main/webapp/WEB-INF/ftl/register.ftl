@@ -35,7 +35,7 @@
 </head>
 <body>
        <div class="registerTable">
-            <h1>注册</h1>
+            <h1 style="font-size: 30px;">注册</h1>
            <div class="layui-form-item" style="margin-top: 30px">
                <label class="layui-form-label">邮箱</label>
                <div class="layui-input-block">
@@ -71,6 +71,7 @@
                <div class="layui-input-block">
                    <button class="layui-btn" lay-submit lay-filter="formDemo" id="submit">立即提交</button>
                    <button type="reset" class="layui-btn layui-btn-primary" id="reset">重置</button>
+                   <a href="/user/loginPage" class="layui-btn">去登录</a>
                </div>
            </div>
        </div>

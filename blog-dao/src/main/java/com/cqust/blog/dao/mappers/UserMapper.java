@@ -42,4 +42,13 @@ public interface UserMapper {
     List<Map<String,Object>> findIncomeRank();
 
     List<Map<String,Object>> findPersonalCate(@Param("id") Integer id);
+
+    User findByAccount(@Param("account") String account);
+
+    /**
+     * 查找用户收入数据
+     * @param id 用户id
+     * @return
+     */
+    List<Map<String,Object>> findIncomeData(Integer id);
 }

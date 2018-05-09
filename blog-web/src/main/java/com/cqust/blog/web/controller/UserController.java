@@ -67,6 +67,17 @@ public class UserController extends BaseController{
         return result;
     }
 
+    @RequestMapping("/loginByCode")
+    @ResponseBody
+    public GeneralResult<?> loginByCode(String account, String pwd, String callBack) {
+        GeneralResult<?> result = userService.loginByCode(account, pwd);
+        if (result.getCode() == 200) {
+            ServletUtils.setUserInfo(request, (User) result.getData());
+        }
+        result.setUrl(callBack);
+        return result;
+    }
+
     /**
      * 退出
      * @return 数据集
@@ -209,10 +220,49 @@ public class UserController extends BaseController{
         return new GeneralResult().ok(ConstantCode.PREFFIX + imgUrl);
     }
 
+    /**
+     * 取消收藏
+     * @param id id
+     * @return 处理结果
+     */
     @RequestMapping("/delLike")
     @ResponseBody
     public GeneralResult delLikeArticle(Integer id) {
         User sessionUser = getSessionUser();
         return userService.delLikeArticle(id, sessionUser);
     }
+
+    /**
+     * 取消关注
+     * @param id 用户id
+     * @return
+     */
+    @RequestMapping("delAttention")
+    @ResponseBody
+    public GeneralResult delAttention(Integer id) {
+        return userService.execDelAttention(id);
+    }
+
+    /**
+     * 修改密码
+     * @param pwd 密码
+     * @return
+     */
+    @RequestMapping("/editPwd")
+    @ResponseBody
+    public GeneralResult editPwd(String pwd) {
+        return userService.editPwd(getSessionUser(), pwd);
+    }
+
+    /**
+     * 发送登录验证码
+     * @param account
+     * @return
+     */
+    @RequestMapping("/sendLoginVC")
+    @ResponseBody
+    public GeneralResult sendLoginVC(String account) {
+        return userService.sendLoginVC(request.getSession().getId(), account);
+    }
+
 }

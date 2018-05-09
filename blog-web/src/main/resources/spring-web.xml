@@ -88,6 +88,8 @@
                         <value>/user/login</value>
                         <value>/user/registerPage</value>
                         <value>/user/loginPage</value>
+                        <value>/user/loginByCode</value>
+                        <value>/user/sendLoginVC</value>
                         <value>/article/articleDetail</value>
                         <value>/resource/*</value>
                     </list>

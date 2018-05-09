@@ -33,7 +33,7 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="${uinfo.headIcon}" rel="wu"></a>
+            <a href="/user/userIndex"><img src="${uinfo.headIcon}" rel="wu"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
         <a class="exit right" style="cursor:pointer;" href="/user/logout">
@@ -52,6 +52,7 @@
                 <a href="/article/cateManager"  class="list-group-item none" target="_self">分类管理</a>
                 <a href="/article/articleManager" class="list-group-item none" data-title="comment" target="_self">文章管理</a>
                 <a href="/user/userCenter" class="list-group-item none active">个人中心</a>
+                <a href="/income/index" class="list-group-item none">收益管理</a>
             </div>
         </div>
 
@@ -116,6 +117,21 @@
                         </table>
                         <button class="layui-btn layui-btn-normal" style="" onclick="submitUserInfo()">保存基本信息</button>
 
+                        <hr />
+                        <h1>密码管理</h1>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">确认密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="ackPwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <button class="layui-btn" onclick="editPwd()">立即提交</button>
                     </div>
 
                     <!--第二步：添加如下 HTML 代码-->
@@ -178,6 +194,9 @@
                 initDataByTable("/user/queryUserLikeArticle", columns);
                 break;
             case 2: //我的关注
+                //清理和销毁datatables
+                tables.clear();
+                tables.destroy();
                 var $thead = $("thead");
                 $(".userInfo").hide();
                 $thead.empty();
@@ -194,7 +213,8 @@
                     },{
                         data:"to_user_id",
                         "render":function (data, type, row, meta) {
-                            return '<a href = "' + data +'">查看</a>';
+                            return '<a href =/chat/page?id=' + data +'>沟通</a> &nbsp;&nbsp;'
+                                    + '<a onclick= delAttention(' + row.id +')>取消关注</a>';
                         }
                     }
                 ];
@@ -298,5 +318,39 @@
             }
         });
     });
+    
+    
+    function delAttention(id) {
+        $.post("/user/delAttention", {id:id}, function (res) {
+            if (res.code == 200) {
+                layer.msg(res.data);
+                tables.ajax.reload();
+            } else {
+                layer.msg(res.msg);
+            }
+        })
+    }
+
+    function editPwd() {
+        var pwd = $("input[name=pwd]").val();
+        var ackPwd = $("input[name=ackPwd]").val();
+        if (pwd.length == 0) {
+            layer.alert("密码不能为空");
+            return;
+        }
+        if (pwd != ackPwd) {
+            layer.alert("两次密码不一致");
+            return;
+        }
+        $.post("/user/editPwd", {pwd:pwd}, function (res) {
+            if (res.code == 600) {
+                window.location.href = "/user/loginPage";
+            } else if (res.code == 200){
+                layer.msg(res.data);
+            } else {
+                layer.alert(res.msg);
+            }
+        })
+    }
 </script>
 </html>
