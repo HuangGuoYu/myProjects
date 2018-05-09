@@ -21,12 +21,12 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
+            <a href="#"><img src="${uinfo.headIcon}" rel="wu" style="border-radius: 50%;display: inline-block;height: 71px; width: 71px;"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
-        <div class="exit right">
+        <a class="exit right" style="cursor:pointer;" href="/user/logout">
             退出
-        </div>
+        </a>
     </div>
 </div>
 

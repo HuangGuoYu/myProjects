@@ -109,4 +109,12 @@ public interface UserService {
      * @param headerIcon
      */
     void execSaveUrl(String headerIcon, User user);
+
+    /**
+     * 删除关注的文章
+     * @param id id
+     * @param sessionUser 用户信息
+     * @return 处理结果
+     */
+    GeneralResult delLikeArticle(Integer id, User sessionUser);
 }

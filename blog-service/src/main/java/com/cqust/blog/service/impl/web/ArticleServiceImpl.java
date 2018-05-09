@@ -2,10 +2,7 @@ package com.cqust.blog.service.impl.web;
 
 import com.cqust.blog.common.dto.ArticleCategoryDTO;
 import com.cqust.blog.common.dto.PageEntityDTO;
-import com.cqust.blog.common.entity.Article;
-import com.cqust.blog.common.entity.ArticleCategory;
-import com.cqust.blog.common.entity.User;
-import com.cqust.blog.common.entity.UserStatic;
+import com.cqust.blog.common.entity.*;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
@@ -13,6 +10,7 @@ import com.cqust.blog.dao.mappers.ArticleMapper;
 import com.cqust.blog.dao.mappers.UserMapper;
 import com.cqust.blog.dao.mappers.UserStaticMapper;
 import com.cqust.blog.service_api.web.ArticleService;
+import com.cqust.blog.service_api.web.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -150,8 +148,12 @@ public class ArticleServiceImpl implements ArticleService {
             //初始化相关数据
             article.setPostTime(new Date());
             article.setState((byte) 0);
-            //执行保存
-            articleMapper.insertSelective(article);
+            //执行保存, 判断是否存在id， 存在则是更新 否则是保存
+            if (article.getId() == null) {
+                articleMapper.insertSelective(article);
+            } else {
+                articleMapper.updateByPrimaryKeySelective(article);
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             return result.error(500, "服务器内部错误");
@@ -299,12 +301,17 @@ public class ArticleServiceImpl implements ArticleService {
         }
         Map<String, Object> user = userMapper.selectByPrimaryKeyForArticleDetail(article.getUserId());
         Map<String, Object> datas = new HashMap<>();
-
+        User articleUser = new User();
+        articleUser.setId(article.getUserId());
         datas.put("article", article);
         datas.put("user", user);
+        UserDetail userDetailInfo = userService.findUserDetailInfo(articleUser);
+        datas.put("uinfo", userDetailInfo);
         result.setData(datas);
         return result;
     }
+
+    @Autowired private UserService userService;
 
     @Override
     public GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage) {
@@ -354,5 +361,10 @@ public class ArticleServiceImpl implements ArticleService {
         return datas;
     }
 
-
+    @Override
+    public GeneralResult delArticleFromDisk(User sessionUser, Integer id) {
+        articleMapper.deleteByPrimaryKey(id);
+        GeneralResult result = new GeneralResult();
+        return result.ok("删除成功");
+    }
 }

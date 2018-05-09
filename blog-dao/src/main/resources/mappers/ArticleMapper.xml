@@ -36,7 +36,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, title, post_time, cert_time, browse_num, comment_num, like_num, cate_id,
-    is_original, is_delete, state
+    is_original, is_delete, state, content
   </sql>
   <sql id="Blob_Column_List" >
     content

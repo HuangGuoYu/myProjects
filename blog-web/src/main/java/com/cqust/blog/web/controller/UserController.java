@@ -72,12 +72,11 @@ public class UserController extends BaseController{
      * @return 数据集
      */
     @RequestMapping("/logout")
-    @ResponseBody
-    public GeneralResult<?> logout() {
+    public String logout() {
         GeneralResult<User> result = new GeneralResult<>();
         User user = ServletUtils.clearUserInfo(request);
         result.setData(user);
-        return result;
+        return "redirect:/user/loginPage";
     }
 
 
@@ -208,5 +207,12 @@ public class UserController extends BaseController{
         String headerIcon = ConstantCode.PREFFIX + imgUrl;
         userService.execSaveUrl(headerIcon, getSessionUser());
         return new GeneralResult().ok(ConstantCode.PREFFIX + imgUrl);
+    }
+
+    @RequestMapping("/delLike")
+    @ResponseBody
+    public GeneralResult delLikeArticle(Integer id) {
+        User sessionUser = getSessionUser();
+        return userService.delLikeArticle(id, sessionUser);
     }
 }

@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <LINK rel=stylesheet type=text/css href="/resource/img_turn/css/css.css">
     <link rel="stylesheet" href="/resource/css/index.css">
-    <link rel="stylesheet" href="/resource/layui/css/layui.css">
+    <link rel="stylesheet" href="/resource/layui-1/css/layui.css">
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/articleDetail.css"/>
@@ -40,9 +40,9 @@
     <div class="header-bar clearfloat">
         <div class="right clearfloat">
             <ul class="clearfloat header-btns">
-                <li>
-                    <input class="search-btn clearfloat"/><i class="layui-icon right search-icon">&#xe615;</i>
-                </li>
+                <#--<li>-->
+                    <#--<input class="search-btn clearfloat"/><i class="layui-icon right search-icon">&#xe615;</i>-->
+                <#--</li>-->
                 <li>
                     <a><i class="layui-icon write">&#xe642;</i>&nbsp;写博客</a>
                 </li>
@@ -109,8 +109,8 @@
             <div class="info">
                 <div class="user_info">
                     <div class="info_bar">
-                        <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
-                        <span class="blog-name" style="">的博客</span>
+                        <a href="#"><img src="${(data.uinfo.headIcon)?if_exists}" rel="wu"></a>
+                        <span class="blog-name" style="">${data.user.blog_name}的博客</span>
                         <span class="btn-like layui-btn layui-btn-normal" onclick="attention('${data.user.id}')">关注</span>
                     </div>
                     <div class="info_num_box clearfloat">
@@ -121,10 +121,6 @@
                         <dl title="1">
                             <dt>粉丝</dt>
                             <dd id="fan">${data.user.attention_num}</dd>
-                        </dl>
-                        <dl title="23">
-                            <dt>评论</dt>
-                            <dd>${data.user.comment_num}</dd>
                         </dl>
                     </div>
                 </div>
@@ -150,6 +146,12 @@
                         <a class="trigger" href="javascript:void(0)">5</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="income-info" style="margin-top: 20px;">
+                <h3 style="border-left: 3px solid red; padding: 5px;margin-bottom: 15px;"><strong>收入排行</strong></h3>
+                <ul id="income_rank">
+                </ul>
             </div>
         </div>
         </div>
@@ -185,7 +187,7 @@
     function sendComment(id) {
         var content = $("#comment_content").val();
         $.post("/comment/add", {aid:id, content:content}, function (res) {
-            layer.alert(res.msg);
+            alert(res.msg)
             $("#comment_content").val("");
             if (res.code == 200) {
                 getCommentData();
@@ -217,7 +219,7 @@
            if (res.code == 200) {
                $(obj).addClass("fixed-icon-active");
            } else {
-               layer.msg(res.msg);
+               alert(res.msg)
            }
         });
     }
@@ -231,7 +233,7 @@
         }
         $.post("/collect/add",{aid:aid},function (res) {
             console.log(res);
-            layer.alert(res.msg);
+            alert(res.msg)
         })
     }
 
@@ -246,7 +248,7 @@
             window.location.href = "/user/loginPage";
         }
         $.post("/userRel/add", {toUser:uid}, function (res) {
-            layer.alert(res.msg)
+            alert(res.msg);
         })
     }
 
@@ -257,5 +259,23 @@
         window.location.href = "/chat/page?id=" + id;
     }
 
+    $.get("/user/incomeRank",function (res) {
+        var html = "";
+        if (res.code == 200) {
+            html = template("income_rank_temp", res)
+            $("#income_rank").empty();
+            $("#income_rank").html(html);
+        }
+    });
+
+</script>
+<script type="text/html" id="income_rank_temp">
+    {{each data as item i}}
+    <li style="padding: 15px;" class="clearfloat">
+        <span style="font-size: 20px;">第{{i + 1}}名</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <strong style="font-size: 20px;">{{item.blog_name}}</strong>
+        <span class="right" style="color: red;font-size: 20px;">{{item.income}}元</span>
+    </li>
+    {{/each}}
 </script>
 </html>

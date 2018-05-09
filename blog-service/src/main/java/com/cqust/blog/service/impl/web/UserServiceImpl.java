@@ -8,10 +8,7 @@ import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.entity.UserDetail;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
-import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
-import com.cqust.blog.dao.mappers.MessageMapper;
-import com.cqust.blog.dao.mappers.UserDetailMapper;
-import com.cqust.blog.dao.mappers.UserMapper;
+import com.cqust.blog.dao.mappers.*;
 import com.cqust.blog.service_api.web.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +36,8 @@ public class UserServiceImpl implements UserService {
     @Autowired private UserDetailMapper userDetailMapper;
 
     @Autowired private MessageMapper messageMapper;
+
+    @Autowired private ArticleUserRelMapper articleUserRelMapper;
 
 
     @Autowired
@@ -258,5 +257,12 @@ public class UserServiceImpl implements UserService {
         UserDetail userDetail = userDetailMapper.selectByPrimaryKey(user.getId());
         userDetail.setHeadIcon(headerIcon);
         userDetailMapper.updateByPrimaryKeySelective(userDetail);
+    }
+
+    @Override
+    public GeneralResult delLikeArticle(Integer id, User sessionUser) {
+        articleUserRelMapper.deleteByPrimaryKey(id);
+        GeneralResult result = new GeneralResult();
+        return result.ok("操作成功");
     }
 }

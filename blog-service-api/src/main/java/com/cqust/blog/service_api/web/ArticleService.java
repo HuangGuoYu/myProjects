@@ -128,4 +128,12 @@ public interface ArticleService {
      * @param aid 文章id
      */
     void execBrowseNum(User sessionUser, String clientIpAddr, Integer aid);
+
+    /**
+     * 删除文章从磁盘
+     * @param sessionUser
+     * @param id
+     * @return
+     */
+    GeneralResult delArticleFromDisk(User sessionUser, Integer id);
 }

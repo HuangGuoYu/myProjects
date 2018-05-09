@@ -94,9 +94,10 @@
 
 
 
-        <div class="right-content right" id="group-list" style="width: 780px;background: #fff;">
+        <div class="right-content right" style="width: 780px;background: #fff;">
+            <div id="group-list"></div>
+            <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId"></nav>
         </div>
-        <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId"></nav>
     </div>
 </body>
 <script src="/resource/js/template.js"></script>

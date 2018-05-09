@@ -5,9 +5,11 @@ import com.cqust.blog.common.dto.PageEntityDTO;
 import com.cqust.blog.common.entity.Article;
 import com.cqust.blog.common.entity.ArticleCategory;
 import com.cqust.blog.common.entity.User;
+import com.cqust.blog.common.entity.UserDetail;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.ServletUtils;
 import com.cqust.blog.service_api.web.ArticleService;
+import com.cqust.blog.service_api.web.UserService;
 import com.cqust.blog.web.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +30,7 @@ public class ArticleController extends BaseController {
 
     @Autowired private ArticleService articleService;
 
+    @Autowired private UserService userService;
 
     @Autowired
     @Qualifier("stringRedisTemplate")
@@ -102,19 +106,19 @@ public class ArticleController extends BaseController {
         return articleService.editArticle(article, sessionUser);
     }
 
-    /**
-     * 修改文章页面
-     * @param id id
-     * @return 视图名称
-     */
-    @RequestMapping("/editArticlePage")
-    @ResponseBody
-    public String editArticlePage(Integer id) {
-        User sessionUser = getSessionUser();
-        GeneralResult result = articleService.findArticlecDataById(id, sessionUser.getId());
-        request.setAttribute("data", result.getData());
-        return "editArticlePage";
-    }
+//    /**
+//     * 修改文章页面
+//     * @param id id
+//     * @return 视图名称
+//     */
+//    @RequestMapping("/editArticlePage")
+//    @ResponseBody
+//    public String editArticlePage(Integer id) {
+//        User sessionUser = getSessionUser();
+//        GeneralResult result = articleService.findArticlecDataById(id, sessionUser.getId());
+//        request.setAttribute("data", result.getData());
+//        return "editArticlePage";
+//    }
 
     /**
      * 文章状态删除
@@ -128,10 +132,29 @@ public class ArticleController extends BaseController {
         return articleService.delArticle(id, sessionUser.getId());
     }
 
+    @RequestMapping("/delFromDisk")
+    @ResponseBody
+    public GeneralResult delFromDisk(Integer id) {
+        articleService.delArticleFromDisk(getSessionUser(), id);
+        return articleService.delArticleFromDisk(getSessionUser(), id);
+    }
+
     @RequestMapping("/queryArticleByState")
     @ResponseBody
     public GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage) {
-        return articleService.queryArticleByState(state, curPage);
+        User sessionUser = getSessionUser();
+        Integer uid = sessionUser.getId();
+        List<Article> remove = new ArrayList<>();
+        GeneralResult<PageEntityDTO<Article>> res = articleService.queryArticleByState(state, curPage);
+        PageEntityDTO<Article> data = res.getData();
+        List<Article> datas = data.getDatas();
+        for (Article item : datas) {
+            if (!item.getUserId().equals(uid)) {
+                remove.add(item);
+            }
+        }
+        datas.removeAll(remove);
+        return res;
     }
 
 
@@ -165,6 +188,26 @@ public class ArticleController extends BaseController {
         List<ArticleCategory> cates = articleService.queryCateByUserId(sessionUser);
         request.setAttribute("cates", cates);
         request.setAttribute("data", ServletUtils.getUserInfo(request));
+        UserDetail parameter = userService.findUserDetailInfo(getSessionUser());
+        request.setAttribute("uinfo", parameter);
+        request.setAttribute("isEdit", 0);
+        return "writeArticle";
+    }
+
+    @RequestMapping("editArticlePage")
+    public String editArticle(Integer id) {
+        request.setAttribute("isEdit", 1);
+        List<ArticleCategory> cates = articleService.queryCateByUserId(getSessionUser());
+        request.setAttribute("cates", cates);
+        request.setAttribute("data", ServletUtils.getUserInfo(request));
+        UserDetail parameter = userService.findUserDetailInfo(getSessionUser());
+        request.setAttribute("uinfo", parameter);
+        GeneralResult articlecDataById = articleService.findArticlecDataById(id, getSessionUser().getId());
+        request.setAttribute("article", articlecDataById.getData());
+        //如果编辑的不是自己的页面
+        if (articlecDataById.getData() == null) {
+            return "_404";
+        }
         return "writeArticle";
     }
 
@@ -175,12 +218,17 @@ public class ArticleController extends BaseController {
         List<ArticleCategory> cates = articleService.queryCateByUserId(sessionUser);
         request.setAttribute("cates", cates);
         request.setAttribute("data", ServletUtils.getUserInfo(request));
+        UserDetail parameter = userService.findUserDetailInfo(getSessionUser());
+        request.setAttribute("uinfo", parameter);
         return "cateManager";
     }
 
     @RequestMapping("/articleManager")
     public String articleManager() {
         request.setAttribute("data", ServletUtils.getUserInfo(request));
+        //获得用户的详细信息
+        UserDetail parameter = userService.findUserDetailInfo(getSessionUser());
+        request.setAttribute("uinfo", parameter);
         return "articleManager";
     }
 

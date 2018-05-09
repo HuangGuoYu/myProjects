@@ -16,6 +16,13 @@
     <link rel="stylesheet" type="text/css" href="/resource/DataTables-1.10.15/media/css/jquery.dataTables.css">
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="/resource/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+    <style>
+        img{
+            border-radius: 50%;
+            display: inline-block;
+            height: 71px; width: 71px;
+         }
+    </style>
 </head>
 
 <body style="background-color: #f4f4f4">
@@ -23,12 +30,12 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
+            <a href="#"><img src="${uinfo.headIcon}" rel="wu" style="border-radius: 50%;display: inline-block;height: 71px; width: 71px;"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
-        <div class="exit right">
+        <a class="exit right" style="cursor:pointer;" href="/user/logout">
             退出
-        </div>
+        </a>
     </div>
 </div>
 
@@ -49,7 +56,7 @@
             <div class="main-crumbs">文章管理</div>
             <div class="main_tab_nav clearfloat">
                 <ul class="clearfloat">
-                    <li><a class="nav-link active" onclick="switchTab(this,1)">已发表文章</a></li>
+                    <li><a id="deploy" class="nav-link active" onclick="switchTab(this,1)">已发表文章</a></li>
                     <li><a class="nav-link" onclick="switchTab(this,0)">审核中</a></li>
                     <li><a class="nav-link" onclick="switchTab(this,2)">回收站</a></li>
                 </ul>
@@ -99,8 +106,9 @@
                 <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数({{item.commentNum}})</span>
             </div>
             <div class="item-foot-right right">
-                <span><a href="/article/articleManager">查看</a></span>
-                <span><a href="/article/delArticle?id={{item.id}}">删除</a></span>
+                <span><a href="/article/articleDetail?id={{item.id}}">查看</a></span>
+                <span><a href="/article/editArticlePage?id={{item.id}}">编辑</a></span>
+                <span><span style="cursor: pointer;" onclick="delArticle({{item.id}})">删除</span></span>
             </div>
         </div>
     </div>
@@ -119,7 +127,7 @@
                 <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;{{item.strTime}}</span>
             </div>
             <div class="item-foot-right right">
-                <span><a href="/article/articleManager">查看</a></span>
+                <#--<span><a href="/article/articleManager">查看</a></span>-->
             </div>
         </div>
     </div>
@@ -140,8 +148,8 @@
                 <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数({{item.commentNum}})</span>
             </div>
             <div class="item-foot-right right">
-                <span><a href="/article/articleManager">查看</a></span>
-                <span><a href="/article/delArticle?id={{item.id}}">恢复</a></span>
+                <span><span onclick="delFromDisk({{item.id}})">删除</span></span>
+                <span><span style="cursor: pointer;" onclick="renewArticle({{item.id}})">恢复</span></span>
             </div>
         </div>
     </div>
@@ -225,6 +233,43 @@
 //        });
 //        pageNavObj.afterClick(pageNavCallBack);
             switchTab(curTab, curState, clickPage);
+    }
+
+    function delArticle(id) {
+        $.post("/article/delArticle", {id:id}, function (res) {
+            if (res.code == 200) {
+                layer.msg(res.data);
+                switchTab($(".nav-link.active"), 1, 1);
+            } else {
+                layer.alert(res.msg);
+            }
+        })
+    }
+
+    function renewArticle(id) {
+        $.post("/article/renewArticle", {id:id}, function (res) {
+            if (res.code == 200) {
+                layer.msg(res.data);
+                switchTab($(".nav-link.active"), 1, 1);
+                $(".nav-link.active").removeClass("active");
+                $("#deploy").addClass("active");
+            } else {
+                layer.alert(res.msg);
+            }
+        });
+    }
+
+    function delFromDisk(id) {
+        $.post("/article/delFromDisk", {id:id}, function (res) {
+            if (res.code == 200) {
+                layer.msg(res.data);
+                switchTab($(".nav-link.active"), 1, 1);
+                $(".nav-link.active").removeClass("active");
+                $("#deploy").addClass("active");
+            } else {
+                layer.alert(res.msg);
+            }
+        });
     }
 </script>
 </html>

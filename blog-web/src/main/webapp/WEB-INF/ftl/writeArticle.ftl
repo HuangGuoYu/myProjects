@@ -15,12 +15,12 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
+            <a href="#"><img src="${uinfo.headIcon}" rel="wu" style="border-radius: 50%;display: inline-block;height: 71px; width: 71px;"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
-        <div class="exit right">
+        <a class="exit right" style="cursor:pointer;" href="/user/logout">
             退出
-        </div>
+        </a>
     </div>
 </div>
 
@@ -40,7 +40,7 @@
         <div class="menu_content right">
             <div class="title-box clearfix d-flex">
                 <div class="dro-box">
-                    <select id="selType">
+                    <select id="selType" >
                         <option value="2">请选择</option>
                         <option value="1">原创</option>
                         <option value="0">转载</option>
@@ -49,7 +49,7 @@
                 <input type="text" id="txtTitle" maxlength="100" placeholder="输入文章标题">
             </div>
             <div class="article_content" id="article_content" >
-                <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+
             </div>
 
             <div class="personal_cate">
@@ -64,7 +64,7 @@
 
             </div>
            <div class="submit">
-               <button class="layui-btn layui-btn-normal layui-btn-lg" id="submitBlog">发布博客</button>
+               <button class="layui-btn layui-btn-normal layui-btn-lg" id="submitBlog" onclick="saveArticle()">发布博客</button>
            </div>
         </div>
     </div>
@@ -85,10 +85,64 @@
     editor.create();
     $("div.w-e-text-container").height(600);
 
+    var isEdit = "${isEdit}";
+    if (isEdit == 1) {
+        <#if isEdit = 1 >
+            $("#selType").val("${article.isOriginal}");
+            <#--$("#article_content").html("${article.content}");-->
+            editor.txt.html('${article.content}');
+            $("#txtTitle").val("${article.title}");
+            $("#articleCate").val("${article.cateId}");
+            $("#submitBlog").text("提交更新");
+            $("#submitBlog").attr("onClick", "updateArticle()");
+        </#if>
+    }
 
+    function updateArticle() {
+        var data = {}
+        <#if isEdit = 1 >
+         data.id = '${article.id}'
+        </#if>
+        data.title = $("#txtTitle").val();
+        data.isOriginal = $("#selType").val();
+        data.content = editor.txt.html();
+        data.cateId = $(".articleCate").val();
+
+        if (data.title.length == 0) {
+            layer.alert("请输入文章标题");
+        }
+        if (data.isOriginal == 2) {
+            layer.alert("请选择文章类型");
+        }
+        if (data.content.length == 0) {
+            layer.alert("文章内容不可为空");
+        }
+        if (data.cateId == 0) {
+            layer.alert("请选择文章的类别");
+        }
+
+        $.ajax({
+            url: "/article/addArticle",
+            type: "post",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    console.log(res);
+                    layer.alert(res.data);
+                    $("#txtTitle").val("");
+                    $("#selType").val(2);
+                    editor.txt.html("");
+                    $(".articleCate").val(0);
+                } else {
+                    layer.alert(res.msg);
+                }
+            },
+            dataType: "json"
+        })
+    }
 
     /*发布博客-提交审核*/
-    $("#submitBlog").on("click", function () {
+    function saveArticle() {
         var data = {}
         data.title = $("#txtTitle").val();
         data.isOriginal = $("#selType").val();
@@ -109,10 +163,10 @@
         }
 
         $.ajax({
-            url:"/article/addArticle",
-            type:"post",
-            data:data,
-            success:function (res) {
+            url: "/article/addArticle",
+            type: "post",
+            data: data,
+            success: function (res) {
                 if (res.code == 200) {
                     console.log(res);
                     layer.alert(res.data);
@@ -124,8 +178,13 @@
                     layer.alert(res.msg);
                 }
             },
-            dataType:"json"
+            dataType: "json"
         })
-    })
+    }
 </script>
+
+<script>
+
+</script>
+
 </html>

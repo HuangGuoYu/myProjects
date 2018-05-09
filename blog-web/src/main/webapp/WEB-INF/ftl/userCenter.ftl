@@ -33,12 +33,12 @@
     <!-- 顶部 -->
     <div class="header-bar public-container clearfloat">
         <div class="info_bar left">
-            <a href="#"><img src="/resource/imgs/headImg.jpg" rel="wu"></a>
+            <a href="#"><img src="${uinfo.headIcon}" rel="wu"></a>
             <span class="blog-name" style="">${data.blogName}</span>
         </div>
-        <div class="exit right">
+        <a class="exit right" style="cursor:pointer;" href="/user/logout">
             退出
-        </div>
+        </a>
     </div>
 </div>
 
@@ -166,12 +166,12 @@
                     },{
                         data:"articleId",
                         "render":function (data, type, row, meta) {
-                            return '<a href = "' + data +'">查看</a>';
+                            return '<a href = /article/articleDetail?id=' + data +'>查看</a>';
                         }
                     },{
                         data:"id",
                         "render":function (data, type, row, meta) {
-                            return '<a href = "' + data +'">删除</a>';
+                            return '<span style="cursor: pointer;" onclick="delLikeArticle(' + data +')">删除</span>';
                         }
                     }
                 ];
@@ -182,6 +182,7 @@
                 $(".userInfo").hide();
                 $thead.empty();
                 $thead.html("<tr><th>编号</th><th>博主</th><th>查看</th></tr>");
+                tables = null;
                 var columns = [
                     {
                         data:"to_user_id",
@@ -262,6 +263,17 @@
                 }
             }
         );
+    }
+
+    function delLikeArticle(id) {
+        $.post("/user/delLike", {id:id}, function (res) {
+            if (res.code == 200) {
+                layer.msg(res.data);
+                tables.ajax.reload();
+            } else {
+                layer.alert(res.msg);
+            }
+        })
     }
 </script>
 
