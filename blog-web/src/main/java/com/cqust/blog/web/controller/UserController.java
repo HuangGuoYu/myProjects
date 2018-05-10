@@ -268,4 +268,12 @@ public class UserController extends BaseController{
         return userService.sendLoginVC(request.getSession().getId(), account);
     }
 
+    @RequestMapping("/blogIndex")
+    public String blogIndex() {
+        User user = getSessionUser();
+        //是否登录状态
+        request.setAttribute("isLogin", user == null ? 0 : 1);
+        request.setAttribute("ad", adService.adList(5).getData());
+        return "blogIndex";
+    }
 }

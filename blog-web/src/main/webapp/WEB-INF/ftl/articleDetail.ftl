@@ -26,7 +26,7 @@
             overflow: visible;
         }
     </style>
-    <title>Document</title>
+    <title>文章详情</title>
 </head>
 <body>
     <div class="left-fixed">

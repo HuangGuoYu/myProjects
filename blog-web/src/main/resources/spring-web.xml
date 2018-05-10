@@ -92,6 +92,8 @@
                         <value>/user/sendLoginVC</value>
                         <value>/article/articleDetail</value>
                         <value>/user/incomeRank</value>
+                        <value>/user/blogIndex</value>
+                        <value>/article/queryArticleForIndex</value>
                         <value>/resource/*</value>
                     </list>
                 </property>

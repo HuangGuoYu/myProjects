@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ArticleMapper {
@@ -37,4 +38,6 @@ public interface ArticleMapper {
     List<Article> queryListByStateForCount(@Param("astate") byte articleState,@Param("dstate") byte delState);
 
     Article checkArticleByState(@Param("aid") Integer aid);
+
+    List<Map<String,Object>> queryListForIndex(@Param("title") String title);
 }

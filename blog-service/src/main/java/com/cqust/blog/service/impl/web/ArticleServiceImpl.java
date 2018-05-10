@@ -128,8 +128,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public boolean isContainIllegalInfo(String ... name) {
+        //是否包含非法信息
+        Map<String, Object> illegalWords = userMapper.findIllegalWords();
+        String [] words = illegalWords.get("words").toString().split(",");
+        for (String word : words) {
+            for (String s : name) {
+                if (s.contains(word)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
     public GeneralResult<?> addArticle(Article article, User sessionUser) {
         GeneralResult result = new GeneralResult();
+        if (isContainIllegalInfo(article.getTitle(), article.getContent())) {
+            return result.error(401, "不可包含非法内容");
+        }
         //用户信息初始化
         if (article == null) {
             return result.error(201, "参数不可为空");
@@ -339,6 +357,10 @@ public class ArticleServiceImpl implements ArticleService {
                 articleState = 1;
                 delState = 1;
                 break;
+            case 3: //审核失败的需要充行编辑
+                articleState = 2;
+                delState = 0;
+                break;
         }
         //查询总数
         List<Article> counts = articleMapper.queryListByStateForCount(articleState, delState);
@@ -370,5 +392,12 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.deleteByPrimaryKey(id);
         GeneralResult result = new GeneralResult();
         return result.ok("删除成功");
+    }
+
+    @Override
+    public GeneralResult queryArticleForIndex(String title) {
+        GeneralResult result = new GeneralResult();
+        List<Map<String, Object>> datas = articleMapper.queryListForIndex(title);
+        return result.ok(datas);
     }
 }

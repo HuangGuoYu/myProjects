@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="banner">
-	<div class="inner"></div>
+	<#--<div class="inner"></div>-->
 </div>
 
 <div class="input-box">

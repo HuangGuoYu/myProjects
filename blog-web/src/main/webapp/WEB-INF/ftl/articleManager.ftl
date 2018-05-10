@@ -60,6 +60,7 @@
                     <li><a id="deploy" class="nav-link active" onclick="switchTab(this,1)">已发表文章</a></li>
                     <li><a class="nav-link" onclick="switchTab(this,0)">审核中</a></li>
                     <li><a class="nav-link" onclick="switchTab(this,2)">回收站</a></li>
+                    <li><a class="nav-link" onclick="switchTab(this,3)">审核失败</a></li>
                 </ul>
 
                 <div class="article_list">
@@ -156,7 +157,26 @@
     </div>
     {{/each}}
 </script>
-
+<script type="text/html" id="article-cert-error">
+    {{each datas as item}}
+    <div class="list-item">
+        <div class="item-header">
+            <h1>{{item.title}}</h1>
+        </div>
+        <div class="item-foot clearfloat">
+            <div class="item-foot-left left">
+                <span>{{item.isOriginal == 0 ? '转载': '原创'}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe637;</i>&nbsp;{{item.strTime}}</span>
+                <span><i class="layui-icon" style="color: red">&#xe63c;</i>&nbsp;阅读量({{item.browseNum}})</span>
+                <span><i class="layui-icon" style="color: red">&#xe63a;</i>&nbsp;评论数({{item.commentNum}})</span>
+            </div>
+            <div class="item-foot-right right">
+                <span><a href="/article/editArticlePage?id={{item.id}}">重新编辑</a></span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
 <script src="/resource/editor/wangEditor.min.js"></script>
 <script src="/resource/js/template.js"></script>
 <script type="text/javascript">
@@ -183,6 +203,9 @@
             case 2: //回收站，已删除
                 ajax4List(state, curPage)
                 break;
+            case 3: //审核失败的需要充行编辑
+                ajax4List(state, curPage)
+                break;
         }
     }
 
@@ -206,8 +229,10 @@
             templateName = "article-item-cert"
         } else if (curState == 1) {
             templateName = "article-item";
-        } else {
+        } else if (curState == 2){
             templateName = "article-item-back";
+        } else {
+            templateName = "article-cert-error"
         }
         for(item in res.datas) {
 //            console.log(new Date(res.datas[item].postTime).toLocaleString())

@@ -70,7 +70,18 @@
       FROM tbl_article
       WHERE id = #{aid} and is_delete = 0 and state = 1
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <select id="queryListForIndex" resultType="java.util.Map">
+    SELECT a.*,b.blog_name,c.head_icon,DATE_FORMAT(a.post_time,'%y-%m-%d') postTime  from tbl_article a
+    LEFT JOIN tbl_user b on a.user_id = b.id
+    LEFT JOIN tbl_user_detail c on a.user_id = c.user_id
+    where a.state = 1
+    <if test="title != null">
+      and a.title like CONCAT('%',#{title},'%')
+    </if>
+    ORDER BY browse_num desc
+    LIMIT 0,10
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_article
     where id = #{id,jdbcType=INTEGER}
   </delete>

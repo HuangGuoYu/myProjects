@@ -136,4 +136,9 @@ public interface ArticleService {
      * @return
      */
     GeneralResult delArticleFromDisk(User sessionUser, Integer id);
+
+    boolean isContainIllegalInfo(String ... name);
+
+    GeneralResult queryArticleForIndex(String title);
+
 }

@@ -158,6 +158,13 @@ public class ArticleController extends BaseController {
         return res;
     }
 
+    @RequestMapping("/queryArticleForIndex")
+    @ResponseBody
+    public GeneralResult queryArticleForIndex(String title) {
+        GeneralResult result = articleService.queryArticleForIndex(title);
+        return result;
+    }
+
 
     /**
      * 文章删除

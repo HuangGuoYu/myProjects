@@ -83,7 +83,10 @@
     where user_id = 7
     and DATE_SUB(CURDATE(),INTERVAL 6 DAY)  <![CDATA[<=]]> date(time)
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="findIllegalWords" resultType="java.util.Map">
+      SELECT GROUP_CONCAT(name) wrods from tbl_illegal_words
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </delete>

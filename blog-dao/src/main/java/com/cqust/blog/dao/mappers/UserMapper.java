@@ -51,4 +51,6 @@ public interface UserMapper {
      * @return
      */
     List<Map<String,Object>> findIncomeData(Integer id);
+
+    Map<String,Object> findIllegalWords();
 }

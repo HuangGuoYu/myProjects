@@ -2,6 +2,11 @@ body{
     background-color: #c1c1c1;
 }
 
+.real-content img {
+    height: 100%;
+    width: 100%;
+}
+
 .fixed-icon li {
     margin-top: 10px;
     border-radius: 50%;

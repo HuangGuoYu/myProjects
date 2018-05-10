@@ -2,6 +2,9 @@ package com.cqust.blog.common.common;
 
 import org.omg.CORBA.INTERNAL;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/3/23.
  */
@@ -22,10 +25,6 @@ public final class ConstantCode {
     public static final Integer BASE_ATTENTION_$ = 1;
     public static final Integer BASE_ORIGINAL = 10;
     public static final Integer BASE_ORIGINAL_$ = 1;
-
-
-
-
 
 
 }
