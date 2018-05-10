@@ -3,6 +3,7 @@ package com.cqust.blog.service_api.web;
 import com.cqust.blog.common.dto.RegisterUserDTO;
 import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.entity.UserDetail;
+import com.cqust.blog.common.entity.Withdraw;
 import com.cqust.blog.common.resp.GeneralResult;
 
 import java.util.Map;
@@ -148,4 +149,19 @@ public interface UserService {
      * @return
      */
     GeneralResult findIncomeData(User sessionUser);
+
+    /**
+     * 用户提现
+     * @param sessionUser
+     * @param withdraw
+     * @return
+     */
+    GeneralResult execWithdraw(User sessionUser, Withdraw withdraw);
+
+    /**
+     * 查找提现记录
+     * @param sessionUser
+     * @return
+     */
+    GeneralResult findWithdrawRecord(User sessionUser);
 }

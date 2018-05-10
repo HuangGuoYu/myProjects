@@ -8,6 +8,7 @@ import com.cqust.blog.common.entity.User;
 import com.cqust.blog.common.entity.UserDetail;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.ServletUtils;
+import com.cqust.blog.service_api.web.ADService;
 import com.cqust.blog.service_api.web.ArticleService;
 import com.cqust.blog.service_api.web.UserService;
 import com.cqust.blog.web.common.BaseController;
@@ -232,6 +233,7 @@ public class ArticleController extends BaseController {
         return "articleManager";
     }
 
+    @Autowired private ADService adService;
     /**
      * 同步返回到文章详情页
      * @param id 文章id
@@ -240,6 +242,7 @@ public class ArticleController extends BaseController {
     @RequestMapping("/articleDetail")
     public String articleDetail(Integer id) {
         GeneralResult result = articleService.queryArticleData(id);
+        request.setAttribute("ad", adService.adList(5).getData());
         if (result.getCode() != 200) {
             return "_404";
         }

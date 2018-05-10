@@ -7,6 +7,7 @@ import com.cqust.blog.common.entity.UserDetail;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.ServletUtils;
 import com.cqust.blog.dao.mappers.ArticleCategoryMapper;
+import com.cqust.blog.service_api.web.ADService;
 import com.cqust.blog.service_api.web.UserService;
 import com.cqust.blog.web.common.BaseController;
 import com.cqust.blog.common.dto.RegisterUserDTO;
@@ -33,6 +34,7 @@ public class UserController extends BaseController{
 
     @Autowired private UserService userService;
 
+    @Autowired private ADService adService;
 
     @RequestMapping("/register")
     @ResponseBody
@@ -124,6 +126,7 @@ public class UserController extends BaseController{
         UserDetail detail = userService.queryUserDetail(sessionUser.getId());
         request.setAttribute("userDetail", detail);
         request.setAttribute("data", ServletUtils.getUserInfo(request));
+        request.setAttribute("ad", adService.adList(5).getData());
         return "index";
     }
 

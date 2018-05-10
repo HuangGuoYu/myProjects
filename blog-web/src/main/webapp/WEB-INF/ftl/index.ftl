@@ -67,12 +67,10 @@
             </div>
 
             <div class="layui-carousel" id="test1">
-                <div carousel-item>
-                    <div><img src="${userDetail.headIcon}"></div>
-                    <div><img src="${userDetail.headIcon}"></div>
-                    <div><img src="${userDetail.headIcon}"></div>
-                    <div><img src="${userDetail.headIcon}"></div>
-                    <div><img src="${userDetail.headIcon}"></div>
+                <div carousel-item id="adList">
+                    <#list ad as item>
+                         <div><a href="${item.url}"><img src="${item.imageUrl}" style="width: 100%;height: 100%;"></a></div>
+                    </#list>
                 </div>
             </div>
 
@@ -133,6 +131,7 @@
     $(document).ready(function(){
         layui.use('carousel', function(){
             var carousel = layui.carousel;
+
             //建造实例
             carousel.render({
                 elem: '#test1'

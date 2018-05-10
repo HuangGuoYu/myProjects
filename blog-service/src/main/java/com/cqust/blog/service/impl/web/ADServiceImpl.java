@@ -19,7 +19,8 @@ public class ADServiceImpl implements ADService {
 
     @Override
     public GeneralResult<?> adList(Integer num) {
+        GeneralResult result = new GeneralResult();
         List<Advertisement> datas = advertisementMapper.selectByOrd(num);
-        return null;
+        return result.ok(datas);
     }
 }

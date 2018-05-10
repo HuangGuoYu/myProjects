@@ -5,6 +5,7 @@ import com.cqust.blog.common.entity.Withdraw;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.ServletUtils;
 import com.cqust.blog.service.impl.web.UserServiceImpl;
+import com.cqust.blog.service_api.web.UserService;
 import com.cqust.blog.web.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IncomeController extends BaseController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @RequestMapping("/index")
     public String incomePage() {
@@ -47,7 +48,16 @@ public class IncomeController extends BaseController {
     @RequestMapping("/withdraw")
     @ResponseBody
     public GeneralResult withdraw(Withdraw withdraw) {
+        return userService.execWithdraw(getSessionUser(), withdraw);
+    }
 
-        return null;
+    /**
+     * 提现记录
+     * @return
+     */
+    @RequestMapping("/withdrawRecord")
+    @ResponseBody
+    public GeneralResult withdrawRecord() {
+        return userService.findWithdrawRecord(getSessionUser());
     }
 }

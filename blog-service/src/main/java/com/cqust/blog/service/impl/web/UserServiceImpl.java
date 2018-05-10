@@ -3,10 +3,7 @@ package com.cqust.blog.service.impl.web;
 import com.cqust.blog.common.common.ConstantCode;
 import com.cqust.blog.common.common.RegexConstant;
 import com.cqust.blog.common.dto.RegisterUserDTO;
-import com.cqust.blog.common.entity.Message;
-import com.cqust.blog.common.entity.User;
-import com.cqust.blog.common.entity.UserDetail;
-import com.cqust.blog.common.entity.UserRel;
+import com.cqust.blog.common.entity.*;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.common.utils.DataUtils;
 import com.cqust.blog.dao.mappers.*;
@@ -19,8 +16,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +43,8 @@ public class UserServiceImpl implements UserService {
     @Autowired private ArticleUserRelMapper articleUserRelMapper;
 
     @Autowired private UserRelMapper userRelMapper;
+
+    @Autowired private WithdrawMapper withdrawMapper;
 
 
     @Autowired
@@ -387,5 +388,47 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Override
+    @Transactional
+    public GeneralResult execWithdraw(User sessionUser, Withdraw withdraw) {
+        GeneralResult result = new GeneralResult();
+        try {
+            GeneralResult<Boolean> check = DataUtils.checkFieldByAnnotaion(withdraw);
+            if (check.getData()) {
+                return check;
+            }
+            if (withdraw.getMoney() < 50) {
+                return result.error(201, "提现金额不能低于50");
+            }
+            //扣取用户余额
+            BigDecimal banlance = sessionUser.getBanlance();
+            if (banlance == null) {
+                banlance = BigDecimal.valueOf(0);
+            }
+            if ((banlance.intValue() - withdraw.getMoney()) < 0) {
+                return result.error(401, "当前余额不足");
+            }
+            BigDecimal withdrawMoney = BigDecimal.valueOf(0 - withdraw.getMoney());
+            banlance.add(withdrawMoney);
+            //执行保存
+            sessionUser.setBanlance(BigDecimal.valueOf(banlance.intValue() - withdraw.getMoney()));
+            userDao.updateByPrimaryKeySelective(sessionUser);
+            //添加提现记录
+            withdraw.setApplyTime(new Date());
+            withdraw.setUserId(sessionUser.getId());
+            withdraw.setState((byte) 1);
+            withdrawMapper.insert(withdraw);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return result.error(500, "执行错误");
+        }
+        return result.ok(200, "申请成功");
+    }
 
+    @Override
+    public GeneralResult findWithdrawRecord(User sessionUser) {
+        GeneralResult result = new GeneralResult();
+        List<Withdraw> datas = withdrawMapper.findWithdrawRecord(sessionUser.getId());
+        return result.ok(200, datas);
+    }
 }

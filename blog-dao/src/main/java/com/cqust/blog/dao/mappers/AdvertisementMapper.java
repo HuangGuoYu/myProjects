@@ -1,6 +1,7 @@
 package com.cqust.blog.dao.mappers;
 
 import com.cqust.blog.common.entity.Advertisement;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface AdvertisementMapper {
 
     int updateByPrimaryKey(Advertisement record);
 
-    List<Advertisement> selectByOrd(Integer num);
+    List<Advertisement> selectByOrd(@Param("num") Integer num);
 }

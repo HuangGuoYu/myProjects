@@ -68,13 +68,13 @@
         {
             "data":"state",
             "render":function (data, type, row, meta) {
+                content["_" + row.id] = row.content;
                 if (data == 0) {
-                    content["_" + row.id] = row.content;
                     return '<a href="javascript:void(0);" class="layui-btn" onclick="seeTheContent(\''+ row.id +'\')">查看内容</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-normal" onclick="approval('+ row.id + ',' + row.user_id+ ')">通过</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-warm" onclick="forbidFun('+row.id+')">禁用</a>';
                 } else {
-                    return '<a href="javascript:void(0);" class="layui-btn" onclick="seeTheContent(\''+ row.content +'\')">查看内容</a>' +
+                    return '<a href="javascript:void(0);" class="layui-btn" onclick="seeTheContent(\''+ row.id +'\')">查看内容</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-normal layui-btn-disabled">通过</a>' +
                             '<a href="javascript:void(0);" class="layui-btn layui-btn-warm" onclick="forbidFun('+row.id+')">禁用</a>';
                 }

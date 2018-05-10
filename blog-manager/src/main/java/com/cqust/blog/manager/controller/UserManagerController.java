@@ -120,4 +120,29 @@ public class UserManagerController extends BaseController {
     public  GeneralResult delMsg(Integer id) {
         return userManagerService.execDelMsg(id);
     }
+
+    /**
+     * 用户收入列表
+     * @return
+     */
+    @RequestMapping("/userIncomeList")
+    @ResponseBody
+    public GeneralResult userIncomeList() {
+        return userManagerService.findUserIncomeList();
+    }
+
+    /**
+     * 用户收入管理页面
+     * @return
+     */
+    @RequestMapping("/userIncomePage")
+    public String userIncomePage() {
+        return "userWithdrawManager";
+    }
+
+    @RequestMapping("/switchWithdrawState")
+    @ResponseBody
+    public GeneralResult switchWithdrawState(Integer id, Byte state) {
+        return userManagerService.switchWithdrawState(id, state);
+    }
 }

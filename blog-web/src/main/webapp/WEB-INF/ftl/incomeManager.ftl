@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/resource/layui/css/layui.css">
+    <link rel="stylesheet" href="/resource/layui-1/css/layui.css">
     <link rel="stylesheet" href="/resource/css/reset.css"/>
     <link rel="stylesheet" href="/resource/css/common.css"/>
     <link rel="stylesheet" href="/resource/css/writeAricle.css">
     <link rel="stylesheet" href="/resource/css/cateManager.css">
     <script src="/resource/js/jquery_1.9.0_jquery.js" type="text/javascript"></script>
-    <script src="/resource/layui/layui.js" type="text/javascript"></script>
+    <script src="/resource/layui-1/layui.js" type="text/javascript"></script>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="/resource/DataTables-1.10.15/media/css/jquery.dataTables.css">
@@ -77,7 +77,7 @@
 
             <h1 style="border-left: 3px solid red;">
                 <strong>&nbsp;&nbsp;&nbsp;当前余额：</strong>
-                <strong style="font-size: 30px; color: red;">300 &nbsp;元</strong>
+                <strong style="font-size: 30px; color: red;">${data.banlance} &nbsp;元</strong>
             </h1>
             <hr>
             <br />
@@ -112,6 +112,22 @@
                     <button class="layui-btn" onclick="withdraw()">立即提交</button>
                 </div>
             </div>
+            <br />
+            <h1 style="border-left: 3px solid red;">
+                <strong>&nbsp;&nbsp;&nbsp;提现记录</strong>
+            </h1>
+            <br/>
+            <table id="table_id_example" class="display" style="text-align: center;">
+                <thead>
+                <tr>
+                    <th>申请时间</th>
+                    <th>账户姓名</th>
+                    <th>支付宝账号</th>
+                    <th>金额（单位：元）</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+            </table>
         </div>
         </div>
     </div>
@@ -163,11 +179,72 @@
         console.log("ok");
         if (!reg.test(data['money'])) {
             layer.alert("提现金额不能为小数");
+            return;
+        }
+        if (data['money'] < 50) {
+            layer.alert("提现金额不能低于50");
+            return;
         }
         $.post("/income/withdraw", data, function (res) {
-
+            if (res.code == 200) {
+                layer.msg(res.data);
+                tables.ajax.reload();
+            } else {
+                layer.msg(res.msg);
+            }
         });
     }
-
+    var tables;
+    <!--第三步：初始化Datatables-->
+    $(document).ready( function () {
+        tables = $('#table_id_example').DataTable({
+            ajax:{
+                url:"/income/withdrawRecord",
+                dataSrc:"data"
+            },
+            columns:[
+                {data:"applyTime"},
+                {data:"alipayName"},
+//                {data:"ord"},
+                {data:"alipayAccount"},
+                {data:"money"},
+                {data:"state",
+                    "render":function (data, type, row, meta) {
+                        if (data == 1) {
+                            return "提现中";
+                        } else if (data == 2) {
+                            return "提现成功"
+                        } else {
+                            return "提现失败";
+                        }
+                    }
+                    }
+            ],
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        });
+    } );
 </script>
 </html>

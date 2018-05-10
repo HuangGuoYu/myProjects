@@ -53,4 +53,14 @@ public interface UserManagerService {
      * @return 处理结果
      */
     GeneralResult execDelMsg(Integer id);
+
+    GeneralResult findUserIncomeList();
+
+    /**
+     * 切换用户提现状态
+     * @param id
+     * @param state
+     * @return
+     */
+    GeneralResult switchWithdrawState(Integer id, Byte state);
 }

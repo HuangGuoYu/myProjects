@@ -25,13 +25,13 @@ public class Withdraw implements Serializable{
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "alipay_name")
+    @Column(name = "alipay_name", nullable = false)
     private String alipayName;
 
-    @Column(name = "alipay_account")
+    @Column(name = "alipay_account", nullable = false)
     private String alipayAccount;
 
-    @Column(name = "money")
+    @Column(name = "money", nullable = false)
     private Integer money;
 
     @Column(name = "state")

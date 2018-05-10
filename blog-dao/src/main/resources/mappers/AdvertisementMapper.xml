@@ -21,7 +21,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectByOrd" resultType="com.cqust.blog.common.entity.Advertisement">
-
+    SELECT <include refid="Base_Column_List"/> from tbl_ad where state = 1 limit 0,#{num}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tbl_ad

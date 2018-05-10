@@ -72,6 +72,7 @@
                         <dd><a href="javascript:open('/userManager/commentManager','评论管理')">评论管理</a></dd>
                         <dd><a href="javascript:open('/userManager/msgManager','聊天管理')">聊天管理</a></dd>
                         <dd><a href="javascript:open('/userManager/list','用户管理')">用户管理</a></dd>
+                        <dd><a href="javascript:open('/userManager/userIncomePage','用户提现管理')">用户提现管理</a></dd>
                     </dl>
                 </li>
                 <#if isAdmin = 1>

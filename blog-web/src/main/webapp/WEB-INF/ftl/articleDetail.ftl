@@ -131,11 +131,9 @@
                 <a id=next class="nextBtn qq" href="javascript:void(0)"></a>
                 <div id=js class="js">
                     <div class="box01">
-                        <img onClick="location.href='http://www.jq22.com/'"  src="/resource/img_turn/images/01.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'"  style="DISPLAY: none" src="/resource/img_turn/images/02.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none"  src="/resource/img_turn/images/03.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none"  src="/resource/img_turn/images/04.jpg">
-                        <img onClick="location.href='http://www.jq22.com/'" style="DISPLAY: none" src="/resource/img_turn/images/05.jpg">
+                        <#list ad as item>
+                            <img onClick="location.href='${item.url}'"  style="DISPLAY: none" src="${item.imageUrl}">
+                        </#list>
                     </div>
                     <div class="bg"></div>
                     <div id=jsNav class=jsNav>

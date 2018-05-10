@@ -2,6 +2,7 @@ package com.cqust.blog.manager.controller.service.impl;
 
 import com.cqust.blog.common.common.ConstantCode;
 import com.cqust.blog.common.entity.User;
+import com.cqust.blog.common.entity.Withdraw;
 import com.cqust.blog.common.resp.GeneralResult;
 import com.cqust.blog.manager.controller.dao.BaseDao;
 import com.cqust.blog.manager.controller.service.UserManagerService;
@@ -139,6 +140,27 @@ public class UserManagerServiceImpl implements UserManagerService {
         String sql = "delete from tbl_message where id = :id";
         params.put("id", id);
         baseDao.execUpdate(sql, params);
+        return result.ok("操作成功");
+    }
+
+    @Override
+    public GeneralResult findUserIncomeList() {
+        GeneralResult result = new GeneralResult();
+        String sql = "SELECT a.*,b.blog_name from tbl_withdraw a LEFT JOIN tbl_user b\n" +
+                "on a.user_id = b.id ";
+        List<Map<String, Object>> datas = baseDao.findBySql(sql, null);
+        return result.ok(datas);
+    }
+
+    @Override
+    public GeneralResult switchWithdrawState(Integer id, Byte state) {
+        GeneralResult result = new GeneralResult();
+        Withdraw dbEntity = baseDao.findEntityById(id, Withdraw.class);
+        if (dbEntity == null) {
+            return result.error(404, "不存在当前的记录");
+        }
+        dbEntity.setState(state);
+        baseDao.execEntityUpdate(dbEntity);
         return result.ok("操作成功");
     }
 }

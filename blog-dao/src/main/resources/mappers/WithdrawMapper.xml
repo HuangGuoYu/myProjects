@@ -21,7 +21,12 @@
     from tbl_withdraw
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="findWithdrawRecord" resultType="com.cqust.blog.common.entity.Withdraw">
+      SELECT
+       <include refid="Base_Column_List"/>
+       from tbl_withdraw where user_id = 7
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_withdraw
     where id = #{id,jdbcType=INTEGER}
   </delete>
