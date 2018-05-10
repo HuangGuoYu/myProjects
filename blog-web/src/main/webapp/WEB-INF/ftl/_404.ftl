@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body style="background: url('/resource/imgs/404.jpg') no-repeat">
+<body>
+    <img src="/resource/imgs/404.jpg" style="width: 100%;height: 100%;">
 </body>
 </html>

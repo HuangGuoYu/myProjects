@@ -51,7 +51,7 @@
                 <div class="user_info">
                     <div class="info_bar">
                         <a href="#"><img src="${userDetail.headIcon}" rel="wu"></a>
-                        <span class="blog-name" style="">${data.blogName}的博客</span>
+                        <span class="blog-name" style="">${data.blogName}</span>
                     </div>
                     <div class="info_num_box clearfloat">
                         <dl title="26">

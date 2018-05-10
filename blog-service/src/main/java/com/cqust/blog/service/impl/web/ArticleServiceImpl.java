@@ -300,7 +300,7 @@ public class ArticleServiceImpl implements ArticleService {
             return result;
         }
         Article article = articleMapper.selectByPrimaryKey(id);
-        if (article == null || article.getState() == 0 || article.getIsDelete() ==1) {
+        if (article == null || article.getState() != 1 || article.getIsDelete() ==1) {
             return result.error(404, "未找到相关文章");
         }
         Map<String, Object> user = userMapper.selectByPrimaryKeyForArticleDetail(article.getUserId());

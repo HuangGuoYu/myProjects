@@ -100,10 +100,10 @@ public class UserServiceImpl implements UserService {
             userDao.insertSelective(userEntity);
             //添加用户详情基本信息
             User checkUser = userDao.checkAcountIsExists(userEntity.getAccount());
-            UserDetail userDetail = new UserDetail();
-            userDetail.setUserId(checkUser.getId());
-            userDetail.setHeadIcon("/resource/imgs/headimg.jpg");
-            userDetailMapper.insert(userDetail);
+                UserDetail userDetail = new UserDetail();
+                userDetail.setUserId(checkUser.getId());
+                userDetail.setHeadIcon(ConstantCode.IMG_DEFAULT);
+                userDetailMapper.insert(userDetail);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

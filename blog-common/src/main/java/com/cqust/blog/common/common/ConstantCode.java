@@ -14,6 +14,7 @@ public final class ConstantCode {
     public static final String MAIL_HOST = "huangguoyu1106@163.com";
     public static final String IMG_PATH = "D://imgs/nginx";
     public static final String PREFFIX = "http://localhost/nginx/";
+    public static final String IMG_DEFAULT = "http://localhost/nginx/img.png";
 
     public static final Integer BASE_BROWSE = 1000;
     public static final Integer BASE_BROWSE_$ = 3;

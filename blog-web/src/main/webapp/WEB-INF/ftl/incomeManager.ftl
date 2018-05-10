@@ -77,7 +77,7 @@
 
             <h1 style="border-left: 3px solid red;">
                 <strong>&nbsp;&nbsp;&nbsp;当前余额：</strong>
-                <strong style="font-size: 30px; color: red;">${data.banlance} &nbsp;元</strong>
+                <strong style="font-size: 30px; color: red;">${data.banlance!} &nbsp;元</strong>
             </h1>
             <hr>
             <br />

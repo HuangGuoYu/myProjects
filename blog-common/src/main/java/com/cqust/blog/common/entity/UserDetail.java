@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "tbl_user_detail")
 public class UserDetail {
     @Id
-    @Column(name = "id", length = 11, nullable = true)
+    @Column(name = "user_id", length = 11, nullable = true)
     private Integer userId;
 
     @Column(name = "expert_field", length = 30)

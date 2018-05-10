@@ -48,14 +48,14 @@
                 </li>
                 <#if isLogin == 0>
                     <li>
-                        <a>登录</a>
+                        <a href="/user/loginPage">登录</a>
                     </li>
                     <li>
-                        <a>注册</a>
+                        <a href="/user/registerPage">注册</a>
                     </li>
                 <#else>
                     <li>
-                        <a>退出</a>
+                        <a href="/user/logout">退出</a>
                     </li>
                 </#if>
             </ul>
@@ -84,7 +84,7 @@
             <hr>
             <#if isLogin == 0>
             <div class="guest_link">
-                <span class="txt">目前您尚未登录，请 <a href="">登录</a> 或 <a href="">注册</a> 后进行评论
+                <span class="txt">目前您尚未登录，请 <a href="/user/loginPage?callBack=/article/articleDetail?id=${data.article.id}">登录</a> 或 <a href="/user/registerPage">注册</a> 后进行评论
                 </span>
             </div>
             <#else>

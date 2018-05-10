@@ -91,6 +91,7 @@
                         <value>/user/loginByCode</value>
                         <value>/user/sendLoginVC</value>
                         <value>/article/articleDetail</value>
+                        <value>/user/incomeRank</value>
                         <value>/resource/*</value>
                     </list>
                 </property>
