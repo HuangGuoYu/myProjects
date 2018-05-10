@@ -23,18 +23,18 @@ public class UserStaticHibernate {
     private String time;
 
     @Column(name = "post_num")
-    private Integer postNum;
+    private Integer postNum = 0;
 
     @Column(name = "original_num")
-    private Integer originalNum;
+    private Integer originalNum = 0;
 
     @Column(name = "like_num")
-    private Integer likeNum;
+    private Integer likeNum = 0;
 
     @Column(name = "browse_num")
-    private Integer browseNum;
+    private Integer browseNum = 0;
 
     @Column(name = "income")
-    private Long income;
+    private Long income = 0L;
 
 }
