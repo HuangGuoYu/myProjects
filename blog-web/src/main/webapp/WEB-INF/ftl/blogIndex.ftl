@@ -70,7 +70,7 @@
         <span class="layui-btn" style="margin-left: 15px;" onclick="search()">站内搜索</span>
     </div>
     <div class="clearfloat" style="margin-top: 30px;">
-        <div class="left articleList" style="width: 70%;background-color: white;min-height: 600px;">
+        <div class="left articleList" style="width: 74%;background-color: white;min-height: 600px;">
             123
         </div>
         <div class="right" style="width: 25%;background-color: white;min-height: 200px;">

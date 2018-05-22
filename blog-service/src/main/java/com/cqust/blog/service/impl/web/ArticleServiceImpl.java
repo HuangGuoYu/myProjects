@@ -131,11 +131,14 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean isContainIllegalInfo(String ... name) {
         //是否包含非法信息
         Map<String, Object> illegalWords = userMapper.findIllegalWords();
-        String [] words = illegalWords.get("words").toString().split(",");
-        for (String word : words) {
-            for (String s : name) {
-                if (s.contains(word)) {
-                    return true;
+        Object wordsObj = illegalWords.get("words");
+        if (wordsObj != null) {
+            String[] words = wordsObj.toString().split(",");
+            for (String word : words) {
+                for (String s : name) {
+                    if (s.contains(word)) {
+                        return true;
+                    }
                 }
             }
         }
