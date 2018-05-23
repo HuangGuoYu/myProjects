@@ -21,7 +21,7 @@
         <property name="poolConfig" ref="poolConfig" />
         <property name="port" value="6379" />
         <property name="hostName" value="139.199.175.197" />
-        <!--<property name="password" value="${redis.pass}" />-->
+        <property name="password" value="hgy123456" />
         <property name="timeout" value="18000" />
     </bean>
     <!-- redis操作模板，面向对象的模板 -->
