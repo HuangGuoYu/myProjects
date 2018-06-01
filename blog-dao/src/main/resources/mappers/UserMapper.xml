@@ -80,7 +80,7 @@
   </select>
   <select id="findIncomeData" resultType="java.util.Map">
     SELECT time,if(income is null,0,income) count from tbl_user_static
-    where user_id = 7
+    where user_id = #{id}
     and DATE_SUB(CURDATE(),INTERVAL 6 DAY)  <![CDATA[<=]]> date(time)
   </select>
     <select id="findIllegalWords" resultType="java.util.Map">

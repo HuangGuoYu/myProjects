@@ -85,12 +85,12 @@ public class ChatController extends BaseController {
         groupAndFriends.add(g1);
         data.put("friend", groupAndFriends);
 
-        //发送当前用户未读消息
-        GeneralResult resdata = userService.findIsExistsUnReadMessage(getSessionUser());
-        List<Message> messages = (List<Message>) resdata.getData();
-        for (Message message : messages) {
-            messageHandler.sendMessageToUser(sessionUser.getId(), new TextMessage(new Gson().toJson(convertMessageToDto(message))));
-        }
+//        //发送当前用户未读消息
+//        GeneralResult resdata = userService.findIsExistsUnReadMessage(getSessionUser());
+//        List<Message> messages = (List<Message>) resdata.getData();
+//        for (Message message : messages) {
+//            messageHandler.sendMessageToUser(sessionUser.getId(), new TextMessage(new Gson().toJson(convertMessageToDto(message))));
+//        }
         return result;
     }
 
@@ -117,6 +117,30 @@ public class ChatController extends BaseController {
         return result.ok(0);
     }
 
+    public GeneralResult sendMessageBySys(Message message) {
+        GeneralResult result = new GeneralResult();
+        User sessionUser = getSessionUser();
+        message.setIsLook((byte) 1);
+        //保存聊天记录
+        chatService.saveMessage(sessionUser, message);
+        MessageDTO messageDTO = convertMessageToDtoForIsNotLook(sessionUser, message);
+        String messageEntity = new Gson().toJson(messageDTO);
+        TextMessage textMessage = new TextMessage(messageEntity);
+        messageHandler.sendMessageToUser(sessionUser.getId(), textMessage);
+        return result.ok(0);
+    }
+
+    @RequestMapping("sendMessageForIsNotLook")
+    @ResponseBody
+    public GeneralResult sendMessageForIsNotLook() {
+        User sessionUser = getSessionUser();
+        List<Message> messages = (List<Message>) userService.findIsExistsUnReadMessage(sessionUser).getData();
+        for (Message message : messages) {
+            sendMessageBySys(message);
+        }
+        GeneralResult result = new GeneralResult();
+        return result.ok(200);
+    }
     /**
      * 转换实体消息到传输消息格式
      * @param sessionUser 当前用户
@@ -131,6 +155,19 @@ public class ChatController extends BaseController {
         messageDTO.setTimestamp(System.currentTimeMillis());
         messageDTO.setMine(false);
         messageDTO.setUsername(sessionUser.getBlogName());
+        messageDTO.setType("friend");
+        return messageDTO;
+    }
+
+    private MessageDTO convertMessageToDtoForIsNotLook(User sessionUser, Message message) {
+        User fromUser = userService.findUserById(message.getFromUser());
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent(message.getContent());
+        messageDTO.setFromid(message.getFromUser());
+        messageDTO.setId(message.getFromUser());
+        messageDTO.setTimestamp(System.currentTimeMillis());
+        messageDTO.setMine(false);
+        messageDTO.setUsername(fromUser.getBlogName());
         messageDTO.setType("friend");
         return messageDTO;
     }

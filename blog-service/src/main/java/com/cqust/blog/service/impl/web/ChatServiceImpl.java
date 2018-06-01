@@ -30,7 +30,11 @@ public class ChatServiceImpl implements ChatService {
     public GeneralResult saveMessage(User sessionUser, Message message) {
         message.setSendTime(new Date());
         message.setType((byte) 1);
-        messageMapper.insert(message);
+        if (message.getId() != null) {
+            messageMapper.updateByPrimaryKeySelective(message);
+        } else {
+            messageMapper.insert(message);
+        }
         return new GeneralResult().ok(200);
     }
 

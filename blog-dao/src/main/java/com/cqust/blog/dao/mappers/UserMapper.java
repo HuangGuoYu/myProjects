@@ -50,7 +50,7 @@ public interface UserMapper {
      * @param id 用户id
      * @return
      */
-    List<Map<String,Object>> findIncomeData(Integer id);
+    List<Map<String,Object>> findIncomeData(@Param("id") Integer id);
 
     Map<String,Object> findIllegalWords();
 }

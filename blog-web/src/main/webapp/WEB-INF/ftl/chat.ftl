@@ -35,15 +35,25 @@
         //连接成功时触发
         socket.onopen = function(){
             socket.send('XXX连接成功');
+            $.get("/chat/sendMessageForIsNotLook",function (res) {
+
+            });
         };
 
         //发送消息
         layim.on('sendMessage', function(res){
             var mine = res.mine;
             var to = res.to;
-            $.post("/chat/sendMessage", {content:mine.content, fromUser:mine.id, toUser:to.id}, function (res) {
+            $.post("/article/checkContent", {content:mine.content}, function (res) {
+                if (res.code == 200) {
+                    $.post("/chat/sendMessage", {content:mine.content, fromUser:mine.id, toUser:to.id}, function (res) {
 
-            });
+                    });
+                } else {
+                    layer.alert(res.data + ";此消息发送失败");
+                }
+            })
+
         });
 
 

@@ -297,4 +297,14 @@ public class ArticleController extends BaseController {
     public GeneralResult likeArticle(Integer aid) {
         return articleService.likeArticle(aid, getSessionUser());
     }
+
+    @RequestMapping("/checkContent")
+    @ResponseBody
+    public GeneralResult checkContent(String content) {
+        GeneralResult result = new GeneralResult();
+        if (articleService.isContainIllegalInfo(content)) {
+            return result.ok(201, "不可包含非法内容");
+        }
+        return result.ok(200);
+    }
 }
