@@ -28,4 +28,10 @@ public interface StaticFileService {
     GeneralResult execUpdateState(Integer id);
 
     GeneralResult execadApproval(Integer id);
+
+    GeneralResult addWords(String content);
+
+    GeneralResult findAllWords();
+
+    GeneralResult delWords(Integer id);
 }

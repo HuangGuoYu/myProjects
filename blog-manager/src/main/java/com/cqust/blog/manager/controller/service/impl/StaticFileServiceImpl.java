@@ -8,7 +8,9 @@ import com.cqust.blog.manager.controller.service.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/5/2.
@@ -54,6 +56,57 @@ public class StaticFileServiceImpl implements StaticFileService {
         dbEntity.setState((byte) 0);
         baseDao.execEntityUpdate(dbEntity);
         return result.ok("操作成功");
+    }
+
+    @Override
+    public GeneralResult delWords(Integer id) {
+        GeneralResult result = new GeneralResult();
+        String sql = "delete from tbl_illegal_words where id=:id";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        try {
+            baseDao.execUpdate(sql, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result.ok(201, "操作失败");
+        }
+        return result.ok(200, "操作成功");
+    }
+
+    @Override
+    public GeneralResult findAllWords() {
+        GeneralResult result = new GeneralResult();
+        String sql = "select * from tbl_illegal_words";
+        List<Map<String, Object>> bySql = baseDao.findBySql(sql, null);
+        result.setData(bySql);
+        result.setCode(200);
+        return result;
+    }
+
+    @Override
+    public GeneralResult addWords(String content) {
+        GeneralResult result = new GeneralResult();
+        if (DataUtils.strIsNullOrEmpty(content)) {
+            return result.ok(201, "参数错误");
+        }
+        Map<String, Object> params = new HashMap<>();
+        String checksql = "select * from tbl_illegal_words where name = :name";
+        params.put("name", content);
+        List<Map<String, Object>> bySql = baseDao.findBySql(checksql, params);
+        if(bySql.size() != 0) {
+            return result.ok(201, "当前词汇已存在");
+        }
+        params.clear();
+        String sql = "insert into tbl_illegal_words(name) select :content";
+        params.put("content", content);
+        try {
+            baseDao.execUpdate(sql, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result.ok(500, "操作失败");
+        }
+
+        return result.ok(200, "添加成功");
     }
 
     @Override

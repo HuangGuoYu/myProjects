@@ -92,10 +92,11 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">广告管理</a>
+                    <a href="javascript:;">系统内容管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:open('/file/imgUpload', '广告管理');" onclick="">添加广告</a></dd>
                         <dd><a href="javascript:open('/file/adManager', '广告管理');" onclick="">广告管理</a></dd>
+                        <dd><a href="javascript:open('/file/words', '广告管理');" onclick="">词汇管理</a></dd>
                     </dl>
                 </li>
             </ul>

@@ -69,6 +69,10 @@ public class StaticFileController extends BaseController {
         return "adManager";
     }
 
+    @RequestMapping("/words")
+    public String words() {
+        return "illegalWords";
+    }
     /**
      * 广告列表
      * @return
@@ -89,5 +93,23 @@ public class StaticFileController extends BaseController {
     @ResponseBody
     public GeneralResult adApproval(Integer id) {
         return staticFileService.execadApproval(id);
+    }
+
+    @RequestMapping("addWords")
+    @ResponseBody
+    public GeneralResult addWords(String content) {
+        return staticFileService.addWords(content);
+    }
+
+    @RequestMapping("wordsList")
+    @ResponseBody
+    public GeneralResult wordsList() {
+        return staticFileService.findAllWords();
+    }
+
+    @RequestMapping("delWords")
+    @ResponseBody
+    public GeneralResult delWords(Integer id) {
+        return staticFileService.delWords(id);
     }
 }

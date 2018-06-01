@@ -25,7 +25,7 @@ public class ComputeUserIncomeServiceImpl implements ComputeUserIncomeService {
     @Autowired private BaseDao baseDao;
 
     @Scheduled(cron = "0 0 2 * * ?") //每晚凌晨2点执行
-//    @Scheduled(cron = "0/10 * *  * * ? ") //十秒1次
+//    @Scheduled(cron = "0/30 * *  * * ? ") //十秒1次
     @Override
     public void compute() {
         Integer income = 0;
@@ -82,7 +82,7 @@ public class ComputeUserIncomeServiceImpl implements ComputeUserIncomeService {
         System.out.println("************************");
     }
 
-    @Scheduled(cron = "0 0 2 * * ? ")
+//    @Scheduled(cron = "0 0 2 * * ? ")
     @Override
     public void test() {
         System.out.println("好的，执行成功");
