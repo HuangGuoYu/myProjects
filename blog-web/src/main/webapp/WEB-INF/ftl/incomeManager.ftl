@@ -189,6 +189,7 @@
             if (res.code == 200) {
                 layer.msg(res.data);
                 tables.ajax.reload();
+                window.location.href = "/income/index";
             } else {
                 layer.msg(res.msg);
             }

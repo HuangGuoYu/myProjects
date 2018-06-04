@@ -26,7 +26,7 @@
             overflow: visible;
         }
     </style>
-    <title>文章详情</title>
+    <title>首页</title>
 </head>
 <body>
 <div class="header-bar clearfloat ">

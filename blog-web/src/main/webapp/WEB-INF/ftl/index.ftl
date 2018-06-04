@@ -34,6 +34,7 @@
     <!-- 菜单 -->
     <div class="index-menu-nav public-container clearfloat">
         <ul>
+            <li><a href="/user/blogIndex">系统首页</a></li>
             <li><a href="/user/userCenter">个人中心</a></li>
             <li><i class="layui-icon <#if isExistsMsg == 1>red</#if>">&#xe756;</i><a href="/chat/page">&nbsp;我的消息</a></li>
             <li><a href="/income/index">收益管理</a></li>
@@ -162,7 +163,7 @@
             var pageNavObj = null;//用于储存分页对象
             console.log(res)
             pageNavObj = new PageNavCreate("PageNavId",{
-                pageCount:res.pageCount,
+                pageCount:res.pageCount,//res.pageCount
                 currentPage:res.curPage,
                 perPageNum:res.perCount,
             });

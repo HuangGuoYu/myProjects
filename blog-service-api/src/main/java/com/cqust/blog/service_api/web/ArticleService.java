@@ -104,7 +104,7 @@ public interface ArticleService {
      * @param curPage 当前页 默认每页10
      * @return 数据集
      */
-    GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage);
+    GeneralResult<PageEntityDTO<Article>> queryArticleByState(User user, Integer state, Integer curPage);
 
     /**
      * 查询文章信息

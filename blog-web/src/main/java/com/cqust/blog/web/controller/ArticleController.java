@@ -146,7 +146,7 @@ public class ArticleController extends BaseController {
         User sessionUser = getSessionUser();
         Integer uid = sessionUser.getId();
         List<Article> remove = new ArrayList<>();
-        GeneralResult<PageEntityDTO<Article>> res = articleService.queryArticleByState(state, curPage);
+        GeneralResult<PageEntityDTO<Article>> res = articleService.queryArticleByState(sessionUser, state, curPage);
         PageEntityDTO<Article> data = res.getData();
         List<Article> datas = data.getDatas();
         for (Article item : datas) {

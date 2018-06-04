@@ -57,7 +57,7 @@
     <select id="queryListByState" resultType="com.cqust.blog.common.entity.Article">
       SELECT <include refid="Base_Column_List"/>
       FROM tbl_article
-      where state = #{astate} and is_delete = #{dstate}
+      where state = #{astate} and is_delete = #{dstate} and user_id = #{userid}
       limit #{start},10
     </select>
   <select id="queryListByStateForCount" resultType="com.cqust.blog.common.entity.Article">

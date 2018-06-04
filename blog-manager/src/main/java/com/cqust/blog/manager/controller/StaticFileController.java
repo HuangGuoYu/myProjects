@@ -29,6 +29,12 @@ public class StaticFileController extends BaseController {
         String originalFilename = file.getOriginalFilename();
         String[] split = originalFilename.split("\\.");
         String suffix = split[split.length - 1];
+        if (!suffix.matches("(png|jpeg|jpg)")) {
+            return "_4FileError";
+        }
+        if (!url.matches("^(http://|https://)([\\w\\.]+)$")) {
+            return "_4FileError";
+        }
         String imgUrl = System.currentTimeMillis() + "." + suffix;
         if (!file.isEmpty()) {
             try {

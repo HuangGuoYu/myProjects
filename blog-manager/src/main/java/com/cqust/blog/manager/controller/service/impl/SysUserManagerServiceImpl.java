@@ -42,6 +42,9 @@ public class SysUserManagerServiceImpl implements SysUserManagerService {
         if (user == null) {
             return result.error(404, "不存在当前用户");
         }
+        if (pwd.length() < 6 ) {
+            return result.error(201, "密码长度不能小于6位");
+        }
         user.setPwd(pwd);
         baseDao.execEntityUpdate(user);
         return result.ok(200, "修改成功");

@@ -203,6 +203,28 @@ public class UserServiceImpl implements UserService {
             if (result.getData()) {
                 return result;
             }
+            //参数格式校验
+            if (!detail.getQq().matches("[0-9]{6,12}")) {
+                return res.error(201, "qq格式错误");
+            }
+            if (!detail.getPhone().matches(RegexConstant.PHONE)) {
+                return res.error(201, "手机号格式错误");
+            }
+            if (detail.getExpertField().length() < 2 || !detail.getExpertField().matches("\\w+")
+                    || detail.getExpertField().matches("\\d+")){
+                return res.error(201, "专业领域不符合要求");
+            }
+            String expertTech = detail.getExpertTech();
+            if (expertTech.length() < 2 || !expertTech.matches("\\w+")
+                    || expertTech.matches("\\d+")){
+                return res.error(201, "专业技术不符合要求");
+            }
+
+            String education = detail.getEducation();
+            if (education.length() < 2 || !education.matches("[\\u4e00-\\u9fa5]+")
+                    || education.matches("\\d+")){
+                return res.error(201, "学历不符合要求");
+            }
             //判断是否存在记录
             UserDetail dbDetail = userDetailMapper.selectByPrimaryKey(detail.getUserId());
             if (dbDetail == null) {
@@ -353,6 +375,9 @@ public class UserServiceImpl implements UserService {
         }
         if (DataUtils.strIsNullOrEmpty(pwd)) {
             return result.error(201, "参数不能为空");
+        }
+        if (pwd.length() < 6) {
+            return result.error(201, "密码长度不能小于6位");
         }
         sessionUser.setPwd(pwd);
         userDao.updateByPrimaryKeySelective(sessionUser);

@@ -33,8 +33,8 @@
 
     $.get("/static/expensesData",function (res) {
        if (res.code == 200) {
-           line_option.xAxis.data = res.data.xs;
-           line_option.series[0].data = res.data.xds;
+           line_option.xAxis.data = res.data.xs.reverse();
+           line_option.series[0].data = res.data.xds.reverse();
            line_chat.setOption(line_option);
        }
     });

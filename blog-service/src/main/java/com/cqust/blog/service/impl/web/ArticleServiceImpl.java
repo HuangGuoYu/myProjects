@@ -339,7 +339,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired private UserService userService;
 
     @Override
-    public GeneralResult<PageEntityDTO<Article>> queryArticleByState(Integer state, Integer curPage) {
+    public GeneralResult<PageEntityDTO<Article>> queryArticleByState(User user, Integer state, Integer curPage) {
         GeneralResult result = new GeneralResult();
         byte articleState = 0, delState = 0;
         if (state == null || curPage == null) {
@@ -367,11 +367,14 @@ public class ArticleServiceImpl implements ArticleService {
         }
         //查询总数
         List<Article> counts = articleMapper.queryListByStateForCount(articleState, delState);
+        long count = counts.stream()
+                .filter((x) -> x.getUserId().equals(user.getId()))
+                .count();
         //查询实体数据
-        List<Article> datas = articleMapper.queryListByState(articleState, delState, (curPage - 1) * 10);
+        List<Article> datas = articleMapper.queryListByState(user.getId(), articleState, delState, (curPage - 1) * 10);
         PageEntityDTO<Article> pageEntityDTO = new PageEntityDTO<>(datas);
         pageEntityDTO.setCurPage(curPage);
-        pageEntityDTO.setPageCount(Math.ceil(counts.size() * 1.0 / 10));
+        pageEntityDTO.setPageCount(Math.ceil(count * 1.0 / 10));
         result.setData(pageEntityDTO);
         return result;
     }

@@ -122,13 +122,13 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">新密码</label>
                             <div class="layui-input-block">
-                                <input type="text" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                <input type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">确认密码</label>
                             <div class="layui-input-block">
-                                <input type="text" name="ackPwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                                <input type="password" name="ackPwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <button class="layui-btn" onclick="editPwd()">立即提交</button>
@@ -213,7 +213,7 @@
                     },{
                         data:"to_user_id",
                         "render":function (data, type, row, meta) {
-                            return '<a href =/chat/page?id=' + data +'>沟通</a> &nbsp;&nbsp;'
+                            return '<a href =/chat/page?id=' + data +' target="_blank">沟通</a> &nbsp;&nbsp;'
                                     + '<a onclick= delAttention(' + row.id +')>取消关注</a>';
                         }
                     }

@@ -27,7 +27,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
-                <input type="text" name="content" required  lay-verify="required" placeholder="请输入不超过十字的描述" autocomplete="off" class="layui-input">
+                <input id="image" type="text" name="content" required  lay-verify="required" placeholder="请输入不超过十字的描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -36,7 +36,6 @@
         </div>
     </div>
 </form>
-
-
 </body>
+
 </html>

@@ -71,8 +71,8 @@
     $.get("/static/articlePostStatic",function (res) {
         if (res.code == 200) {
             post_option.title.text = "文章发布总数";
-            post_option.xAxis.data = res.data.xs;
-            post_option.series[0].data = res.data.xds;
+            post_option.xAxis.data = res.data.xs.reverse();
+            post_option.series[0].data = res.data.xds.reverse();
             post_article.setOption(post_option);
         }
     });
@@ -80,8 +80,8 @@
     $.get("/static/articleCertStatic",function (res) {
         if (res.code == 200) {
             cert_option.title.text = "文章审核通过数"
-            cert_option.xAxis.data = res.data.xs;
-            cert_option.series[0].data = res.data.xds;
+            cert_option.xAxis.data = res.data.xs.reverse();
+            cert_option.series[0].data = res.data.xds.reverse();
             cert_article.setOption(cert_option);
         }
     });
@@ -89,8 +89,8 @@
     $.get("/static/articleDeafStatic",function (res) {
         if (res.code == 200) {
             error_option.title.text = "文章审核失败总数"
-            error_option.xAxis.data = res.data.xs;
-            error_option.series[0].data = res.data.xds;
+            error_option.xAxis.data = res.data.xs.reverse();
+            error_option.series[0].data = res.data.xds.reverse();
             error_article.setOption(error_option);
         }
     });

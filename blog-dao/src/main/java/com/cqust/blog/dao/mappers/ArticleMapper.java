@@ -33,7 +33,7 @@ public interface ArticleMapper {
 
     int delArticleToDelStateAndCateTo0(@Param("uid") Integer uid,@Param("cid") Integer cid);
 
-    List<Article> queryListByState(@Param("astate") byte articleState,@Param("dstate") byte delState,@Param("start") Integer start);
+    List<Article> queryListByState(@Param("userid") Integer userId, @Param("astate") byte articleState,@Param("dstate") byte delState,@Param("start") Integer start);
 
     List<Article> queryListByStateForCount(@Param("astate") byte articleState,@Param("dstate") byte delState);
 

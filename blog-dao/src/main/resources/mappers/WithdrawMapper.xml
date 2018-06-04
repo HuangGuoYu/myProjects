@@ -24,7 +24,7 @@
     <select id="findWithdrawRecord" resultType="com.cqust.blog.common.entity.Withdraw">
       SELECT
        <include refid="Base_Column_List"/>
-       from tbl_withdraw where user_id = 7
+       from tbl_withdraw where user_id = #{uid}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_withdraw

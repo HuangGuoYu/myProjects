@@ -24,8 +24,8 @@ public class ComputeUserIncomeServiceImpl implements ComputeUserIncomeService {
 
     @Autowired private BaseDao baseDao;
 
-//    @Scheduled(cron = "0 0 2 * * ?") //每晚凌晨2点执行
-    @Scheduled(cron = "0/50 * *  * * ? ") //十秒1次
+    @Scheduled(cron = "0 0 2 * * ?") //每晚凌晨2点执行
+//    @Scheduled(cron = "0/50 * *  * * ? ") //十秒1次
     @Override
     public void compute() {
         Integer income = 0;

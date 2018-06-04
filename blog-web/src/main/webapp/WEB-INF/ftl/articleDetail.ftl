@@ -252,9 +252,11 @@
 
     function chat(id) {
         if (isLogin == 0) {
-            window.location.href = "/user/loginPage";
+//            window.location.href = "/user/loginPage";
+            window.open("/user/loginPage");
         }
-        window.location.href = "/chat/page?id=" + id;
+//        window.location.href = "/chat/page?id=" + id;
+            window.open("/chat/page?id=" + id);
     }
 
     $.get("/user/incomeRank",function (res) {
